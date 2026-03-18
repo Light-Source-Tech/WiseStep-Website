@@ -1,0 +1,1924 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wise Step — Простір розвитку, знань і досвіду</title>
+<link rel="icon" type="image/svg+xml" href="favicon 1.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;800&family=Nunito:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init({ publicKey: 'WJ4v6kl2_aawMNgt4' });</script>
+<style>
+  :root {
+    --teal: #1ABCB0;
+    --teal-dark: #0D9E93;
+    --teal-light: #5DD8D0;
+    --navy: #1B2D45;
+    --navy-light: #263D5A;
+    --cream: #F8FAFA;
+    --white: #FFFFFF;
+    --gray: #8097AB;
+    --gray-light: #E8F0F4;
+    --accent: #FF6B6B;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--navy); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 48px;
+    background: rgba(248,250,250,0.96);
+    border-bottom: 1px solid rgba(26,188,176,0.15);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 4px 32px rgba(26,188,176,0.12); }
+  .nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+  .nav-logo img { width: 48px; height: 48px; object-fit: contain; }
+  .nav-logo-text { font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: 17px; color: var(--navy); line-height: 1.1; }
+  .nav-logo-text span { color: var(--teal); }
+  .nav-logo-sub { font-size: 9px; color: var(--gray); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; margin-top: 2px; }
+  .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+  .nav-links a { font-weight: 600; font-size: 14px; color: var(--navy); text-decoration: none; transition: color 0.2s; position: relative; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--teal); transition: width 0.3s; }
+  .nav-links a:hover { color: var(--teal); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta { background: var(--teal) !important; color: var(--white) !important; padding: 10px 22px; border-radius: 100px; font-weight: 700 !important; transition: background 0.2s, transform 0.2s !important; }
+  .nav-cta::after { display: none !important; }
+  .nav-cta:hover { background: var(--teal-dark) !important; transform: translateY(-1px); }
+
+  /* HERO */
+  #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 100px 48px 60px; position: relative; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; z-index: 0; background: linear-gradient(135deg, var(--cream) 0%, #D8F5F3 50%, var(--cream) 100%); }
+  .hero-bg-dots { position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(26,188,176,0.15) 1px, transparent 1px); background-size: 40px 40px; opacity: 0.6; }
+  .hero-bg-circle { position: absolute; border-radius: 50%; opacity: 0.15; }
+  .hero-bg-circle.c1 { width: 600px; height: 600px; background: var(--teal); top: -200px; right: -100px; animation: float 8s ease-in-out infinite; }
+  .hero-bg-circle.c2 { width: 300px; height: 300px; background: var(--navy); bottom: -100px; left: 10%; animation: float 10s ease-in-out infinite reverse; }
+  @keyframes float { 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-30px) rotate(5deg)} }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(26,188,176,0.12); border: 1px solid rgba(26,188,176,0.3); color: var(--teal-dark); padding: 6px 16px; border-radius: 100px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 24px; animation: fadeUp 0.8s ease both; }
+  .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--teal); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
+  .hero-title { font-family: 'Unbounded', sans-serif; font-size: clamp(34px,4.2vw,56px); font-weight: 800; line-height: 1.1; color: var(--navy); margin-bottom: 12px; animation: fadeUp 0.8s 0.1s ease both; }
+  .hero-title .accent { color: var(--teal); }
+  .hero-tagline { font-family: 'Nunito', sans-serif; font-weight: 300; font-size: clamp(14px,1.5vw,17px); color: var(--gray); font-style: italic; line-height: 1.5; margin-bottom: 28px; max-width: 500px; animation: fadeUp 0.8s 0.2s ease both; }
+  .hero-desc { font-size: 15px; line-height: 1.7; color: var(--navy-light); max-width: 480px; margin-bottom: 36px; animation: fadeUp 0.8s 0.3s ease both; }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; animation: fadeUp 0.8s 0.4s ease both; }
+  .btn-primary { background: var(--teal); color: var(--white); padding: 14px 30px; border-radius: 100px; font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: 13px; text-decoration: none; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 8px 24px rgba(26,188,176,0.35); }
+  .btn-primary:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(26,188,176,0.45); }
+  .btn-secondary { background: transparent; color: var(--navy); padding: 14px 30px; border-radius: 100px; font-family: 'Unbounded', sans-serif; font-weight: 600; font-size: 13px; text-decoration: none; border: 2px solid var(--navy-light); transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-secondary:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-2px); }
+  .hero-visual { position: relative; z-index: 1; display: flex; justify-content: center; align-items: center; }
+  .hero-card-stack { position: relative; width: 420px; height: 460px; }
+  .hero-card { position: absolute; background: var(--white); border-radius: 24px; box-shadow: 0 20px 60px rgba(27,45,69,0.12); overflow: hidden; transition: transform 0.3s; }
+  .hero-card.c1 { width: 320px; height: 220px; top: 0; right: 0; transform: rotate(3deg); animation: fadeUp 0.8s 0.5s ease both; }
+  .hero-card.c1:hover { transform: rotate(1deg) translateY(-4px); }
+  .hero-card.c2 { width: 280px; height: 180px; bottom: 40px; left: 0; transform: rotate(-4deg); animation: fadeUp 0.8s 0.6s ease both; }
+  .hero-card.c2:hover { transform: rotate(-2deg) translateY(-4px); }
+  .hero-card.c3 { width: 200px; height: 140px; top: 160px; left: 80px; transform: rotate(1deg); animation: fadeUp 0.8s 0.7s ease both; z-index: 2; }
+  .card-header { background: linear-gradient(135deg, var(--teal), var(--teal-dark)); padding: 14px 18px 10px; display: flex; align-items: center; gap: 10px; }
+  .card-header-icon { width: 30px; height: 30px; background: rgba(255,255,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+  .card-header-text { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 11px; color: var(--white); letter-spacing: 0.04em; }
+  .card-body { padding: 12px 18px; }
+  .card-body p { font-size: 12px; color: var(--gray); line-height: 1.5; }
+  .card-stat { font-family: 'Unbounded', sans-serif; font-size: 26px; font-weight: 800; color: var(--teal); margin: 4px 0 2px; }
+  .card-stat-label { font-size: 11px; color: var(--gray); font-weight: 600; }
+  .card-navy { background: var(--navy) !important; }
+  .card-navy .card-body p { color: rgba(255,255,255,0.6); }
+  .card-navy .card-stat { color: var(--teal-light); }
+  .card-navy .card-stat-label { color: rgba(255,255,255,0.5); }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+  /* STATS */
+  .stats-strip { background: var(--navy); padding: 40px 48px; display: grid; grid-template-columns: repeat(4,1fr); }
+  .stat-item { text-align: center; padding: 20px; border-right: 1px solid rgba(255,255,255,0.08); }
+  .stat-item:last-child { border-right: none; }
+  .stat-number { font-family: 'Unbounded', sans-serif; font-size: 38px; font-weight: 800; color: var(--teal); line-height: 1; }
+  .stat-label { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 6px; font-weight: 600; }
+
+  /* SECTIONS */
+  section { padding: 96px 48px; }
+  .section-label { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal); margin-bottom: 16px; }
+  .section-label::before { content: ''; display: block; width: 24px; height: 2px; background: var(--teal); }
+  .section-title { font-family: 'Unbounded', sans-serif; font-size: clamp(24px,2.8vw,38px); font-weight: 800; color: var(--navy); line-height: 1.15; margin-bottom: 20px; }
+  .section-desc { font-size: 16px; line-height: 1.75; color: var(--gray); max-width: 560px; }
+
+  /* ABOUT */
+  #about { background: var(--white); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .about-visual { position: relative; }
+  .about-img-wrap { width: 100%; aspect-ratio: 4/3; background: linear-gradient(135deg,var(--teal),var(--teal-dark)); border-radius: 32px; overflow: hidden; position: relative; }
+  .about-img-pattern { position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg,rgba(255,255,255,0.05) 0px,rgba(255,255,255,0.05) 1px,transparent 1px,transparent 20px); }
+  .about-img-content { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px; gap: 20px; }
+  .about-quote { font-family: 'Nunito', sans-serif; font-style: italic; font-size: 20px; font-weight: 300; color: var(--white); line-height: 1.5; }
+  .about-quote strong { font-weight: 800; font-style: normal; }
+  .about-tag { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: var(--white); padding: 8px 20px; border-radius: 100px; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; }
+  .about-float-badge { position: absolute; bottom: -20px; right: -20px; background: var(--navy); border-radius: 20px; padding: 18px 22px; box-shadow: 0 16px 48px rgba(27,45,69,0.2); }
+  .about-float-badge .num { font-family: 'Unbounded', sans-serif; font-size: 28px; font-weight: 800; color: var(--teal); line-height: 1; }
+  .about-float-badge .lbl { font-size: 11px; color: rgba(255,255,255,0.5); font-weight: 600; margin-top: 4px; }
+  .about-text { display: flex; flex-direction: column; gap: 24px; }
+  .mission-vision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .mv-card { background: var(--cream); border-radius: 16px; padding: 20px; border-left: 3px solid var(--teal); }
+  .mv-card h4 { font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--teal); margin-bottom: 10px; }
+  .mv-card p { font-size: 13px; line-height: 1.65; color: var(--navy-light); }
+
+  /* PROJECTS */
+  #projects { background: var(--cream); }
+  .projects-header { margin-bottom: 48px; }
+  .projects-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+  .project-card { background: var(--white); border-radius: 24px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
+  .project-card:hover { transform: translateY(-5px); box-shadow: 0 20px 56px rgba(27,45,69,0.12); }
+  .project-card.featured { grid-column: span 2; }
+  .project-card-img { height: 180px; position: relative; overflow: hidden; flex-shrink: 0; }
+  .project-card.featured .project-card-img { height: 220px; }
+  .project-card-gradient { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 56px; }
+  .g-teal { background: linear-gradient(135deg,#1ABCB0,#0D9E93); }
+  .g-navy { background: linear-gradient(135deg,#1B2D45,#263D5A); }
+  .g-warm { background: linear-gradient(135deg,#F59B6B,#E8735A); }
+  .g-blue { background: linear-gradient(135deg,#4A9EE8,#2B7BC9); }
+  .g-purple { background: linear-gradient(135deg,#8B6BE8,#6A4DD9); }
+  .g-green { background: linear-gradient(135deg,#5BC98B,#3AAD70); }
+  .g-orange { background: linear-gradient(135deg,#F4A261,#E8735A); }
+  .g-yellow { background: linear-gradient(135deg,#F4D35E,#E8A83A); }
+  .project-card-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+  .project-card-label { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
+  .project-card-title { font-family: 'Unbounded', sans-serif; font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px; line-height: 1.25; }
+  .project-card-desc { font-size: 13px; color: var(--gray); line-height: 1.6; flex: 1; }
+
+  /* PROGRESS BAR */
+  .progress-wrap { margin-top: 14px; }
+  .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .progress-label { font-size: 11px; font-weight: 700; color: var(--navy); }
+  .progress-amounts { font-size: 11px; color: var(--gray); font-weight: 600; }
+  .progress-amounts span { color: var(--teal); font-weight: 800; }
+  .progress-bar-bg { background: var(--gray-light); border-radius: 100px; height: 8px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--teal), var(--teal-light)); transition: width 1.2s ease; width: 0; }
+  .progress-bar-fill.animate { /* triggered by JS */ }
+  .progress-donors { font-size: 11px; color: var(--gray); margin-top: 4px; }
+  .progress-donors b { color: var(--navy); }
+
+  /* PROJECT ACTIONS */
+  .project-actions { display: flex; gap: 8px; margin-top: 16px; }
+  .btn-donate { flex: 1; background: var(--teal); color: var(--white); border: none; border-radius: 100px; padding: 10px 16px; font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 12px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .btn-donate:hover { background: var(--teal-dark); transform: translateY(-1px); }
+  .btn-details { background: transparent; color: var(--navy); border: 2px solid var(--gray-light); border-radius: 100px; padding: 10px 16px; font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 12px; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+  .btn-details:hover { border-color: var(--teal); color: var(--teal); }
+  .project-card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+  .tag { background: var(--gray-light); color: var(--navy-light); padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 700; }
+
+  /* POPUP OVERLAY */
+  .popup-overlay { position: fixed; inset: 0; z-index: 1000; background: rgba(27,45,69,0.7);  display: none; align-items: center; justify-content: center; padding: 24px; }
+  .popup-overlay.open { display: flex; }
+  .popup { background: var(--white); border-radius: 28px; max-width: 760px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; animation: popupIn 0.3s ease; }
+  @keyframes popupIn { from{opacity:0;transform:scale(0.94) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
+  .popup-hero { height: 260px; position: relative; border-radius: 28px 28px 0 0; overflow: hidden; }
+  .popup-hero-gradient { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 80px; }
+  .popup-hero-overlay { position: absolute; inset: 0; background: linear-gradient(0deg,rgba(0,0,0,0.45) 0%,transparent 60%); }
+  .popup-hero-badge { position: absolute; top: 20px; left: 24px; background: rgba(255,255,255,0.2);  color: var(--white); padding: 6px 14px; border-radius: 100px; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.3); }
+  .popup-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; background: rgba(255,255,255,0.2);  border: 1px solid rgba(255,255,255,0.3); color: var(--white); font-size: 18px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; z-index: 2; }
+  .popup-close:hover { background: rgba(255,255,255,0.35); }
+  .popup-hero-title { position: absolute; bottom: 20px; left: 24px; right: 60px; font-family: 'Unbounded', sans-serif; font-size: 22px; font-weight: 800; color: var(--white); line-height: 1.2; z-index: 1; }
+  .popup-body { padding: 28px 32px 32px; }
+  .popup-desc { font-size: 15px; line-height: 1.75; color: var(--navy-light); margin-bottom: 20px; }
+  .popup-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .popup-detail { background: var(--cream); border-radius: 14px; padding: 14px 16px; }
+  .popup-detail-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--teal); margin-bottom: 4px; }
+  .popup-detail-value { font-size: 14px; font-weight: 700; color: var(--navy); }
+  .popup-progress-section { background: var(--cream); border-radius: 20px; padding: 20px; margin-bottom: 24px; }
+  .popup-progress-section h4 { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 14px; }
+  .popup-progress-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+  .popup-progress-big { font-family: 'Unbounded', sans-serif; font-size: 26px; font-weight: 800; color: var(--teal); }
+  .popup-progress-goal { font-size: 13px; color: var(--gray); font-weight: 600; margin-top: 4px; }
+  .popup-progress-pct { font-family: 'Unbounded', sans-serif; font-size: 18px; font-weight: 800; color: var(--navy); }
+  .popup-progress-bar-bg { background: var(--gray-light); border-radius: 100px; height: 12px; overflow: hidden; margin-top: 10px; }
+  .popup-progress-bar-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg,var(--teal),var(--teal-light)); transition: width 1.2s ease; width: 0; }
+  .popup-progress-meta { display: flex; gap: 20px; margin-top: 12px; }
+  .popup-progress-meta-item { font-size: 12px; color: var(--gray); }
+  .popup-progress-meta-item b { color: var(--navy); }
+  .popup-donate-section h4 { font-family: 'Unbounded', sans-serif; font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 14px; }
+  .donate-amounts { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .donate-amount-btn { background: var(--cream); color: var(--navy); border: 2px solid var(--gray-light); border-radius: 100px; padding: 8px 18px; font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 13px; cursor: pointer; transition: all 0.2s; }
+  .donate-amount-btn:hover, .donate-amount-btn.active { background: rgba(26,188,176,0.1); border-color: var(--teal); color: var(--teal); }
+  .donate-custom { display: flex; gap: 10px; margin-bottom: 16px; }
+  .donate-custom input { flex: 1; background: var(--cream); border: 2px solid var(--gray-light); border-radius: 12px; padding: 10px 14px; font-family: 'Nunito', sans-serif; font-size: 15px; color: var(--navy); outline: none; transition: border-color 0.2s; }
+  .donate-custom input:focus { border-color: var(--teal); background: var(--white); }
+  .btn-donate-main { width: 100%; background: var(--teal); color: var(--white); border: none; border-radius: 100px; padding: 15px; font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .btn-donate-main:hover { background: var(--teal-dark); transform: translateY(-2px); }
+  .donate-note { font-size: 12px; color: var(--gray); text-align: center; margin-top: 10px; }
+  .popup-gallery { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 20px; }
+  .popup-gallery-item { aspect-ratio: 1; background: var(--gray-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 32px; overflow: hidden; }
+  .popup-gallery-item.large { grid-column: span 2; aspect-ratio: 2/1; }
+
+  /* SUPPORT */
+  #support { background: var(--navy); position: relative; overflow: hidden; }
+  #support::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 50%,rgba(26,188,176,0.12) 0%,transparent 60%); }
+  .support-inner { position: relative; z-index: 1; }
+  .support-header { margin-bottom: 48px; }
+  .support-header .section-title { color: var(--white); }
+  .support-header .section-desc { color: rgba(255,255,255,0.55); }
+  .support-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
+  .support-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 32px; transition: all 0.3s; position: relative; overflow: hidden; }
+  .support-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg,var(--teal),var(--teal-light)); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+  .support-card:hover { background: rgba(255,255,255,0.08); border-color: rgba(26,188,176,0.3); }
+  .support-card:hover::before { transform: scaleX(1); }
+  .support-icon { width: 52px; height: 52px; background: rgba(26,188,176,0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 18px; }
+  .support-card h3 { font-family: 'Unbounded', sans-serif; font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+  .support-card p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.65; }
+
+  /* WHY */
+  #why { background: var(--white); }
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+  .why-list { display: flex; flex-direction: column; gap: 20px; margin-top: 28px; }
+  .why-item { display: flex; gap: 18px; align-items: flex-start; padding: 20px; border-radius: 18px; border: 1px solid var(--gray-light); transition: all 0.3s; }
+  .why-item:hover { border-color: rgba(26,188,176,0.3); box-shadow: 0 6px 28px rgba(26,188,176,0.08); }
+  .why-item-icon { width: 44px; height: 44px; flex-shrink: 0; background: linear-gradient(135deg,var(--teal),var(--teal-dark)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .why-item h4 { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
+  .why-item p { font-size: 13px; color: var(--gray); line-height: 1.6; }
+  .why-cta-panel { background: linear-gradient(145deg,var(--teal),var(--teal-dark)); border-radius: 28px; padding: 44px; text-align: center; position: relative; overflow: hidden; }
+  .why-cta-panel::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg,rgba(255,255,255,0.03) 0px,rgba(255,255,255,0.03) 1px,transparent 1px,transparent 24px); }
+  .why-cta-panel > * { position: relative; z-index: 1; }
+  .why-cta-panel h3 { font-family: 'Unbounded', sans-serif; font-size: 24px; font-weight: 800; color: var(--white); line-height: 1.2; margin-bottom: 14px; }
+  .why-cta-panel p { color: rgba(255,255,255,0.75); line-height: 1.7; margin-bottom: 28px; font-size: 15px; }
+  .btn-white { display: inline-flex; align-items: center; gap: 8px; background: var(--white); color: var(--teal); padding: 13px 28px; border-radius: 100px; font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 13px; text-decoration: none; transition: all 0.3s; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.2); }
+  .partner-types { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); display: flex; flex-direction: column; gap: 8px; }
+  .partner-type { background: rgba(255,255,255,0.1); border-radius: 10px; padding: 10px 14px; font-size: 13px; color: rgba(255,255,255,0.8); font-weight: 600; text-align: left; }
+
+  /* CONTACT */
+  #contact { background: var(--cream); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+  .contact-info { display: flex; flex-direction: column; gap: 18px; margin-top: 28px; }
+  .contact-item { display: flex; gap: 14px; align-items: flex-start; }
+  .contact-icon { width: 42px; height: 42px; flex-shrink: 0; background: rgba(26,188,176,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 19px; }
+  .contact-item h5 { font-family: 'Unbounded', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--teal); font-weight: 800; margin-bottom: 3px; }
+  .contact-item p, .contact-item a { font-size: 15px; color: var(--navy-light); text-decoration: none; font-weight: 600; }
+  .contact-item a:hover { color: var(--teal); }
+  .contact-form-wrap { background: var(--white); border-radius: 26px; padding: 36px; box-shadow: 0 8px 40px rgba(27,45,69,0.06); }
+  .contact-form-wrap h3 { font-family: 'Unbounded', sans-serif; font-size: 19px; font-weight: 700; color: var(--navy); margin-bottom: 22px; }
+  .form-group { margin-bottom: 14px; }
+  .form-group label { display: block; font-size: 11px; font-weight: 800; color: var(--navy); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 7px; }
+  .form-group input, .form-group textarea { width: 100%; background: var(--cream); border: 2px solid transparent; border-radius: 12px; padding: 11px 14px; font-family: 'Nunito', sans-serif; font-size: 15px; color: var(--navy); outline: none; transition: border-color 0.2s; }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--teal); background: var(--white); }
+  .form-group textarea { height: 90px; resize: none; }
+  .form-submit { width: 100%; background: var(--teal); color: var(--white); border: none; border-radius: 100px; padding: 13px; font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 13px; cursor: pointer; transition: all 0.3s; margin-top: 6px; }
+  .form-submit:hover { background: var(--teal-dark); transform: translateY(-2px); }
+  .form-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+  .form-status { margin-top: 12px; padding: 12px 16px; border-radius: 12px; font-size: 14px; font-weight: 600; text-align: center; display: none; }
+  .form-status.success { display: block; background: rgba(26,188,176,0.1); color: var(--teal-dark); border: 1px solid rgba(26,188,176,0.3); }
+  .form-status.error   { display: block; background: rgba(255,107,107,0.08); color: #C0392B; border: 1px solid rgba(255,107,107,0.25); }
+
+  /* FOOTER */
+  footer { background: var(--navy); padding: 56px 48px 28px; }
+  .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 56px; margin-bottom: 40px; }
+  .footer-logo-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .footer-logo-wrap img { width: 44px; height: 44px; object-fit: contain; }
+  .footer-logo-name { font-family: 'Unbounded', sans-serif; font-size: 20px; font-weight: 800; color: var(--white); }
+  .footer-logo-name span { color: var(--teal); }
+  .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.7; max-width: 280px; }
+  .footer-social { display: flex; gap: 10px; margin-top: 18px; }
+  .social-link { width: 38px; height: 38px; background: rgba(255,255,255,0.06); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 17px; text-decoration: none; transition: background 0.2s; }
+  .social-link:hover { background: rgba(26,188,176,0.2); }
+  .footer-col h4 { font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal); margin-bottom: 14px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .footer-col ul li a { font-size: 14px; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+  .footer-col ul li a:hover { color: var(--white); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 22px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.28); }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* LANG SWITCHER */
+  .lang-switcher { display: flex; gap: 4px; align-items: center; margin-right: 8px; }
+  .lang-btn { background: none; border: 1.5px solid var(--gray-light); border-radius: 6px; padding: 4px 9px; font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 700; color: var(--gray); cursor: pointer; transition: all 0.2s; letter-spacing: 0.04em; }
+  .lang-btn:hover { border-color: var(--teal); color: var(--teal); }
+  .lang-btn.active { background: var(--teal); border-color: var(--teal); color: var(--white); }
+
+  /* HAMBURGER */
+  .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; z-index: 102; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--navy); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; transform-origin: center; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* MOBILE MENU OVERLAY */
+  .mobile-menu-overlay { display: none; position: fixed; inset: 0; background: rgba(27,45,69,0.45); z-index: 99; }
+  .mobile-menu-overlay.open { display: block; }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    nav { padding: 12px 20px; }
+    .hamburger { display: flex; }
+    .nav-links {
+      display: flex; flex-direction: column; gap: 0;
+      position: fixed; top: 0; right: -280px; width: 280px; height: 100vh;
+      background: var(--white); z-index: 101; padding: 80px 0 32px;
+      box-shadow: -8px 0 40px rgba(27,45,69,0.15);
+      transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+      list-style: none;
+    }
+    .nav-links.open { right: 0; }
+    .nav-links li { border-bottom: 1px solid var(--gray-light); }
+    .nav-links a { display: block; padding: 16px 28px; font-size: 15px; font-weight: 700; color: var(--navy); }
+    .nav-links a::after { display: none; }
+    .nav-links a:hover { color: var(--teal); background: rgba(26,188,176,0.05); }
+    .nav-links .nav-cta { margin: 20px 24px 0; border-radius: 100px; text-align: center; background: var(--teal) !important; color: var(--white) !important; padding: 13px 24px !important; display: block; }
+    .nav-links li:last-child { border-bottom: none; }
+    #hero { grid-template-columns: 1fr; padding: 88px 20px 52px; }
+    .hero-visual { display: none; }
+    .stats-strip { grid-template-columns: repeat(2,1fr); padding: 28px 20px; }
+    section { padding: 60px 20px; }
+    #about, .why-grid, .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card.featured { grid-column: span 1; }
+    .support-grid, .popup-details-grid { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+    .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
+    .mission-vision-grid { grid-template-columns: 1fr; }
+    .popup { border-radius: 20px; }
+    .popup-body { padding: 20px; }
+    .popup-gallery { grid-template-columns: repeat(2,1fr); }
+    .popup-gallery-item.large { grid-column: span 2; }
+  }
+
+  /* ── PARTNERS ── */
+  .partners-section { background: var(--white); padding: 80px 0 72px; overflow: hidden; }
+  .partners-header { text-align: center; padding: 0 48px; margin-bottom: 48px; }
+  .partners-header .section-label { justify-content: center; }
+  .partners-header .section-title { font-size: clamp(22px, 2.5vw, 32px); }
+
+  .marquee-wrapper {
+    position: relative;
+    overflow: hidden;
+    /* fade edges */
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    width: max-content;
+    animation: marquee-scroll 32s linear infinite;
+  }
+  .marquee-track.paused { animation-play-state: paused; }
+  @keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .partner-logo {
+    display: flex; align-items: center; justify-content: center;
+    width: 180px; height: 88px;
+    flex-shrink: 0;
+    padding: 16px 20px;
+    cursor: default;
+    position: relative;
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .partner-logo svg { width: 100%; height: 100%; transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), filter 0.35s; }
+
+  /* default — greyscale */
+  .p-shape        { fill: none; stroke: #CBD5E0; stroke-width: 1.5; }
+  .p-shape-inner  { fill: #EDF2F7; stroke: none; }
+  .p-accent       { fill: #CBD5E0; }
+  .p-accent-rect  { fill: #CBD5E0; }
+  .p-cross        { stroke: #CBD5E0; }
+  .p-cross-main   { stroke: #CBD5E0; fill: none; }
+  .p-circle-outline { fill: none; stroke: #CBD5E0; stroke-width: 1.5; }
+  .p-arc          { fill: none; stroke: #CBD5E0; stroke-width: 2; }
+  .p-text         { fill: #A0AEC0; }
+  .p-subtext      { fill: #BFC9D6; }
+  .p-accent-text  { fill: #CBD5E0; }
+  .p-accent-text-sm { fill: #CBD5E0; }
+
+  /* hover — full color */
+  .partner-logo:hover { transform: scale(1.18); z-index: 10; }
+  .partner-logo:hover svg { filter: drop-shadow(0 8px 20px rgba(26,188,176,0.2)); }
+  .partner-logo:hover .p-shape        { stroke: var(--teal); }
+  .partner-logo:hover .p-shape-inner  { fill: rgba(26,188,176,0.08); }
+  .partner-logo:hover .p-accent       { fill: var(--teal); }
+  .partner-logo:hover .p-accent-rect  { fill: var(--teal); }
+  .partner-logo:hover .p-cross        { stroke: var(--white); }
+  .partner-logo:hover .p-cross-main   { stroke: var(--navy); }
+  .partner-logo:hover .p-circle-outline { stroke: var(--teal); }
+  .partner-logo:hover .p-arc          { stroke: var(--teal); }
+  .partner-logo:hover .p-text         { fill: var(--navy); }
+  .partner-logo:hover .p-subtext      { fill: var(--gray); }
+  .partner-logo:hover .p-accent-text  { fill: var(--teal); }
+  .partner-logo:hover .p-accent-text-sm { fill: var(--teal); }
+
+  /* tooltip on hover */
+  .partner-logo::after {
+    content: attr(data-name);
+    position: absolute; bottom: -28px; left: 50%; transform: translateX(-50%);
+    background: var(--navy); color: var(--white);
+    font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 700;
+    padding: 4px 10px; border-radius: 6px; white-space: nowrap;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.2s 0.1s;
+  }
+  .partner-logo:hover::after { opacity: 1; }
+
+  /* ── GALLERY ── */
+  #gallery { background: var(--navy); padding: 96px 48px; overflow: hidden; position: relative; }
+  #gallery::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse at 20% 50%, rgba(26,188,176,0.08) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 50%, rgba(26,188,176,0.05) 0%, transparent 50%);
+  }
+  .gallery-header { margin-bottom: 40px; position: relative; }
+  .gallery-header .section-title { color: var(--white); }
+  .gallery-header .section-desc  { color: rgba(255,255,255,0.55); }
+
+  /* Filter tabs */
+  .gallery-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px; position: relative; }
+  .gf-btn {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.55); padding: 7px 18px; border-radius: 100px;
+    font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 13px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .gf-btn:hover  { border-color: rgba(26,188,176,0.4); color: var(--teal-light); }
+  .gf-btn.active { background: var(--teal); border-color: var(--teal); color: var(--white); }
+
+  /* Masonry grid */
+  .gallery-grid { columns: 4; column-gap: 14px; position: relative; }
+  .gallery-item {
+    break-inside: avoid; margin-bottom: 14px;
+    border-radius: 16px; overflow: hidden;
+    position: relative; cursor: pointer;
+    transition: transform 0.35s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.35s;
+  }
+  .gallery-item.hidden { display: none; }
+  .gallery-item:hover  { transform: scale(1.03); box-shadow: 0 20px 56px rgba(0,0,0,0.5); z-index: 5; }
+  @keyframes gItemIn { from{opacity:0;transform:scale(0.9)} to{opacity:1;transform:scale(1)} }
+
+  /* placeholder tile */
+  .gi-bg {
+    width: 100%; display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .gi-bg span { font-size: 48px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.25)); pointer-events: none; }
+  /* size variants */
+  .gallery-item.tall  .gi-bg { padding-bottom: 140%; }
+  .gallery-item.wide  .gi-bg { padding-bottom: 52%; }
+  .gallery-item:not(.tall):not(.wide) .gi-bg { padding-bottom: 80%; }
+  .gi-bg span { position: absolute; }
+
+  /* overlay on hover */
+  .gi-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(0deg, rgba(10,18,28,0.85) 0%, transparent 55%);
+    opacity: 0; transition: opacity 0.3s;
+    display: flex; align-items: flex-end; padding: 16px;
+  }
+  .gallery-item:hover .gi-overlay { opacity: 1; }
+  .gi-info { display: flex; flex-direction: column; gap: 4px; }
+  .gi-title { font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700; color: var(--white); line-height: 1.3; }
+  .gi-tag {
+    display: inline-block; background: var(--teal); color: var(--white);
+    font-size: 10px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 4px; align-self: flex-start;
+  }
+  /* zoom icon */
+  .gi-zoom {
+    position: absolute; top: 10px; right: 10px;
+    width: 30px; height: 30px;
+    background: rgba(255,255,255,0.15); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s; font-size: 14px; color: var(--white);
+  }
+  .gallery-item:hover .gi-zoom { opacity: 1; }
+
+  /* show-more button */
+  .gallery-more-wrap { text-align: center; margin-top: 32px; }
+  .gallery-more-btn {
+    background: transparent; border: 2px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.7);
+    padding: 12px 36px; border-radius: 100px;
+    font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 13px;
+    cursor: pointer; transition: all 0.3s;
+  }
+  .gallery-more-btn:hover { border-color: var(--teal); color: var(--teal); }
+  .gallery-more-btn.all-shown { display: none; }
+
+  @media (max-width: 900px)  { #gallery { padding: 64px 20px; } .gallery-grid { columns: 2; } }
+  @media (max-width: 500px)  { .gallery-grid { columns: 1; } }
+
+  /* ── LIGHTBOX ── */
+  .lightbox-overlay {
+    display: none; position: fixed; inset: 0; z-index: 2000;
+    background: rgba(8,14,22,0.97);
+    align-items: center; justify-content: center; padding: 24px;
+    animation: lbFadeIn 0.25s ease;
+  }
+  .lightbox-overlay.open { display: flex; }
+  @keyframes lbFadeIn { from{opacity:0} to{opacity:1} }
+  .lb-inner {
+    position: relative; max-width: 860px; width: 100%;
+    animation: lbIn 0.3s cubic-bezier(0.34,1.2,0.64,1);
+  }
+  @keyframes lbIn { from{opacity:0;transform:scale(0.93)} to{opacity:1;transform:scale(1)} }
+  .lb-img {
+    border-radius: 18px; overflow: hidden;
+    min-height: 320px; max-height: 78vh;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .lb-img span { font-size: 108px; filter: drop-shadow(0 12px 32px rgba(0,0,0,0.4)); }
+  .lb-caption {
+    margin-top: 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  }
+  .lb-title { color: var(--white); font-size: 15px; font-weight: 700; flex: 1; }
+  .lb-desc  { color: rgba(255,255,255,0.45); font-size: 13px; display: none; }
+  .lb-counter { color: rgba(255,255,255,0.35); font-size: 12px; font-weight: 700; white-space: nowrap; }
+  .lb-close {
+    position: absolute; top: -44px; right: 0;
+    background: rgba(255,255,255,0.1); border: none; color: var(--white);
+    width: 34px; height: 34px; border-radius: 8px; font-size: 18px;
+    cursor: pointer; transition: background 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .lb-close:hover { background: rgba(26,188,176,0.4); }
+  .lb-nav {
+    position: absolute; top: 50%; transform: translateY(-60%);
+    background: rgba(255,255,255,0.1); border: none; color: var(--white);
+    width: 46px; height: 46px; border-radius: 50%; font-size: 22px;
+    cursor: pointer; transition: background 0.2s;
+    display: flex; align-items: center; justify-content: center;
+    line-height: 1;
+  }
+  .lb-nav:hover { background: rgba(26,188,176,0.4); }
+  .lb-prev { left: -60px; } .lb-next { right: -60px; }
+  @media (max-width: 900px) { .lb-prev { left: -2px; } .lb-next { right: -2px; } }
+
+  /* DONATE SUCCESS */
+  .donate-success { display: none; text-align: center; padding: 20px 0; }
+  .donate-success.show { display: block; }
+  .donate-success-icon { font-size: 48px; margin-bottom: 12px; }
+  .donate-success h4 { font-family: 'Unbounded', sans-serif; font-size: 18px; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+  .donate-success p { font-size: 14px; color: var(--gray); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <img src="data:image/svg+xml,%3Csvg%20width%3D%2244%22%20height%3D%2244%22%20viewBox%3D%22108%20130%20175%20115%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%3Cpath%20d%3D%22M159.777%20190L159.777%20212L134.13%20236L109.49%20236L159.777%20190Z%22%20fill%3D%22%23152837%22/%3E%0A%3Cpath%20d%3D%22M159.777%20190L184.92%20214V236L159.777%20212V190Z%22%20fill%3D%22%23152837%22/%3E%0A%3Cpath%20d%3D%22M182.908%20172.5L199%20158V236H184.92L182.908%20234V172.5Z%22%20fill%3D%22%23152837%22/%3E%0A%3Cpath%20d%3D%22M159.449%20176L160%20190L125.962%20220.849L125.962%20206L159.449%20176Z%22%20fill%3D%22%23DBDBDB%22%20opacity%3D%220.6%22/%3E%0A%3Cpath%20d%3D%22M159.449%20176L173.449%20189L173.5%20203.5L159.449%20190V176Z%22%20fill%3D%22%23DBDBDB%22/%3E%0A%3Cpath%20d%3D%22M173.45%20171L182.45%20173V212L175%20205L173.5%20203.5L173.45%20171Z%22%20fill%3D%22%23DBDBDB%22/%3E%0A%3Cpath%20d%3D%22M190.95%20154.5L217%20131L222.5%20136L203%20154.5L182.45%20173L173.45%20171L190.95%20154.5Z%22%20fill%3D%22%23DBDBDB%22/%3E%0A%3Crect%20x%3D%22199%22%20y%3D%22158%22%20width%3D%2210%22%20height%3D%2278%22%20fill%3D%22%23DBDBDB%22/%3E%0A%3Cpath%20d%3D%22M222.465%20136L233%20146L220.07%20158H199L222.465%20136Z%22%20fill%3D%22%23DBDBDB%22%20opacity%3D%220.6%22/%3E%0A%3Crect%20x%3D%22209%22%20y%3D%22219%22%20width%3D%2258%22%20height%3D%2217%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Crect%20x%3D%22209%22%20y%3D%22157%22%20width%3D%2258%22%20height%3D%2216%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Cpath%20d%3D%22M225%20173L225%20179.957L267%20201.619L267%20219L252%20219L252%20210.766L209%20188.901L209%20173L225%20173Z%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Crect%20x%3D%22251%22%20y%3D%22112%22%20width%3D%2216%22%20height%3D%2245%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Cpath%20d%3D%22M257.367%20105.688L267%20105.5L267%20113L263.288%20120.035L233%20146L233%20126L257.367%20105.688Z%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Crect%20x%3D%22257%22%20y%3D%2274%22%20width%3D%2210%22%20height%3D%2232.7963%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Crect%20x%3D%22279%22%20y%3D%2286%22%20width%3D%229.93827%22%20height%3D%2234%22%20transform%3D%22rotate%2890%20279%2086%29%22%20fill%3D%22%2301B5B4%22/%3E%0A%3C/svg%3E" alt="Wise Step Logo">
+    <div>
+      <div class="nav-logo-text">Wise<span>Step</span></div>
+      <div class="nav-logo-sub">Chr. Center for Development</div>
+    </div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about" onclick="closeMenu()" data-i18n="nav.about">Про нас</a></li>
+    <li><a href="#projects" onclick="closeMenu()" data-i18n="nav.projects">Проєкти</a></li>
+    <li><a href="#gallery" onclick="closeMenu()" data-i18n="nav.gallery">Галерея</a></li>
+    <li><a href="#support" onclick="closeMenu()" data-i18n="nav.support">Підтримка</a></li>
+    <li><a href="#why" onclick="closeMenu()" data-i18n="nav.why">Партнерство</a></li>
+    <li><a href="#contact" class="nav-cta" onclick="closeMenu()" data-i18n="nav.cta">Долучитись</a></li>
+  </ul>
+  <div class="lang-switcher">
+    <button class="lang-btn active" id="btn-uk" onclick="setLang('uk')">УКР</button>
+    <button class="lang-btn" id="btn-en" onclick="setLang('en')">ENG</button>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu-overlay" id="mobileOverlay" onclick="closeMenu()"></div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg">
+    <div class="hero-bg-dots"></div>
+    <div class="hero-bg-circle c1"></div>
+    <div class="hero-bg-circle c2"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge" data-i18n="hero.badge">Свалява · Карпати · Україна</div>
+    <h1 class="hero-title">Wise<span class="accent">Step</span><br><span data-i18n="hero.title">— Простір<br>розвитку</span></h1>
+    <p class="hero-tagline" data-i18n="hero.tagline">«Платформа розвитку, знань і досвіду для реалізації твоїх мудрих рішень»</p>
+    <p class="hero-desc" data-i18n="hero.desc">Християнський центр розвитку і спорту. Ми створюємо можливості для розвитку творчості, спорту, освіти та духовності — незалежно від обставин.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary" data-i18n="hero.btn1">Наші проєкти <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#why" class="btn-secondary" data-i18n="hero.btn2">Стати партнером</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card-stack">
+      <div class="hero-card c1">
+        <div class="card-header"><div class="card-header-icon">🏒</div><div class="card-header-text">ФЛОРБОЛ · КУБОК КАРПАТ</div></div>
+        <div class="card-body"><div class="card-stat">200+</div><div class="card-stat-label">учасників у змаганнях</div><p style="margin-top:6px">Регіональні змагання, тренування, командний дух</p></div>
+      </div>
+      <div class="hero-card c2 card-navy">
+        <div class="card-header" style="background:rgba(255,255,255,0.08)"><div class="card-header-icon">⛺</div><div class="card-header-text" style="color:rgba(255,255,255,0.7)">ТАБОРИ · ДОЗВІЛЛЯ</div></div>
+        <div class="card-body"><div class="card-stat">12+</div><div class="card-stat-label">різних програм і клубів</div></div>
+      </div>
+      <div class="hero-card c3">
+        <div class="card-body" style="padding:18px"><div style="font-size:26px;margin-bottom:3px">✝️</div><div style="font-family:'Unbounded',sans-serif;font-size:11px;font-weight:700;color:var(--teal)">ДУХОВНИЙ РОЗВИТОК</div><div style="font-size:11px;color:var(--gray);margin-top:3px">Вивчення Біблії</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stat-item reveal"><div class="stat-number" data-target="200" data-suffix="+">0</div><div class="stat-label" data-i18n="stats.s1">Дітей і молоді</div></div>
+  <div class="stat-item reveal" style="transition-delay:.1s"><div class="stat-number" data-target="12" data-suffix="+">0</div><div class="stat-label" data-i18n="stats.s2">Активних програм</div></div>
+  <div class="stat-item reveal" style="transition-delay:.2s"><div class="stat-number" data-target="2">0</div><div class="stat-label" data-i18n="stats.s3">Міста присутності</div></div>
+  <div class="stat-item reveal" style="transition-delay:.3s"><div class="stat-number">∞</div><div class="stat-label" data-i18n="stats.s4">Можливостей для зростання</div></div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-visual reveal">
+    <div class="about-img-wrap">
+      <div class="about-img-pattern"></div>
+      <div class="about-img-content">
+        <img src="data:image/svg+xml,%3Csvg%20width%3D%2244%22%20height%3D%2244%22%20viewBox%3D%22108%20130%20175%20115%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%3Cpath%20d%3D%22M159.777%20190L159.777%20212L134.13%20236L109.49%20236L159.777%20190Z%22%20fill%3D%22%23152837%22/%3E%0A%3Cpath%20d%3D%22M159.777%20190L184.92%20214V236L159.777%20212V190Z%22%20fill%3D%22%23152837%22/%3E%0A%3Cpath%20d%3D%22M182.908%20172.5L199%20158V236H184.92L182.908%20234V172.5Z%22%20fill%3D%22%23152837%22/%3E%0A%3Cpath%20d%3D%22M159.449%20176L160%20190L125.962%20220.849L125.962%20206L159.449%20176Z%22%20fill%3D%22%23DBDBDB%22%20opacity%3D%220.6%22/%3E%0A%3Cpath%20d%3D%22M159.449%20176L173.449%20189L173.5%20203.5L159.449%20190V176Z%22%20fill%3D%22%23DBDBDB%22/%3E%0A%3Cpath%20d%3D%22M173.45%20171L182.45%20173V212L175%20205L173.5%20203.5L173.45%20171Z%22%20fill%3D%22%23DBDBDB%22/%3E%0A%3Cpath%20d%3D%22M190.95%20154.5L217%20131L222.5%20136L203%20154.5L182.45%20173L173.45%20171L190.95%20154.5Z%22%20fill%3D%22%23DBDBDB%22/%3E%0A%3Crect%20x%3D%22199%22%20y%3D%22158%22%20width%3D%2210%22%20height%3D%2278%22%20fill%3D%22%23DBDBDB%22/%3E%0A%3Cpath%20d%3D%22M222.465%20136L233%20146L220.07%20158H199L222.465%20136Z%22%20fill%3D%22%23DBDBDB%22%20opacity%3D%220.6%22/%3E%0A%3Crect%20x%3D%22209%22%20y%3D%22219%22%20width%3D%2258%22%20height%3D%2217%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Crect%20x%3D%22209%22%20y%3D%22157%22%20width%3D%2258%22%20height%3D%2216%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Cpath%20d%3D%22M225%20173L225%20179.957L267%20201.619L267%20219L252%20219L252%20210.766L209%20188.901L209%20173L225%20173Z%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Crect%20x%3D%22251%22%20y%3D%22112%22%20width%3D%2216%22%20height%3D%2245%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Cpath%20d%3D%22M257.367%20105.688L267%20105.5L267%20113L263.288%20120.035L233%20146L233%20126L257.367%20105.688Z%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Crect%20x%3D%22257%22%20y%3D%2274%22%20width%3D%2210%22%20height%3D%2232.7963%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Crect%20x%3D%22279%22%20y%3D%2286%22%20width%3D%229.93827%22%20height%3D%2234%22%20transform%3D%22rotate%2890%20279%2086%29%22%20fill%3D%22%2301B5B4%22/%3E%0A%3C/svg%3E" alt="Wise Step" style="width:120px;height:120px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.9">
+        <p class="about-quote" data-i18n="about.quote">«Кожна дитина заслуговує на<br><strong>шанс зростати</strong>»</p>
+        <div class="about-tag">@wisestepcenter</div>
+      </div>
+    </div>
+    <div class="about-float-badge"><div class="num" data-i18n="about.city">Свалява</div><div class="lbl" data-i18n="about.region">Закарпаття, Україна</div></div>
+  </div>
+  <div class="about-text">
+    <div>
+      <div class="section-label" data-i18n="about.label">Про організацію</div>
+      <h2 class="section-title">Wise Step — Christian Center for Development and Sports</h2>
+      <p class="section-desc" data-i18n="about.desc">Простір, де кожна дитина та молодь має шанс розвиватися, знаходити друзів, підтримку та натхнення — незалежно від обставин.</p>
+    </div>
+    <div class="mission-vision-grid reveal">
+      <div class="mv-card"><h4 data-i18n="about.missionTitle">🎯 Мета</h4><p data-i18n="about.missionText">Сприяти формуванню мудрих, духовно зрілих і соціально відповідальних поколінь через знання про Бога, Біблію та розвиток талантів.</p></div>
+      <div class="mv-card"><h4 data-i18n="about.visionTitle">🔭 Візія</h4><p data-i18n="about.visionText">Створити простір розвитку і підтримки, де кожна дитина зростає духовно, розвиває таланти і свідомо робить мудрі кроки у житті.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="projects-header reveal">
+    <div class="section-label" data-i18n="projects.label">Що ми робимо</div>
+    <h2 class="section-title" data-i18n="projects.title">Наші проєкти<br>та програми</h2>
+    <p class="section-desc" data-i18n="projects.desc">Різноманітні напрямки для духовного, творчого, спортивного та освітнього розвитку.</p>
+  </div>
+  <div class="projects-grid" id="projectsGrid">
+
+    <!-- Card 1: Флорбол (ongoing) -->
+    <div class="project-card featured reveal">
+      <div class="project-card-img g-teal"><div class="project-card-gradient">🏒</div></div>
+      <div class="project-card-body">
+        <div class="project-card-label" data-i18n="p.florball.label">Спорт · Постійний проєкт</div>
+        <div class="project-card-title" data-i18n="p.florball.title">Флорбол — Кубок Карпат</div>
+        <p class="project-card-desc" data-i18n="p.florball.desc">Регіональні змагання у Сваляві та с. Поляна. Тренування, командний дух, розвиток фізичних якостей. Кубок Карпат збирає команди з усього регіону.</p>
+        <div class="project-card-tags"><span class="tag" data-i18n="tag.florball">Флорбол</span><span class="tag">Свалява</span><span class="tag">с. Поляна</span><span class="tag" data-i18n="tag.competition">Змагання</span></div>
+        <div class="project-actions">
+          <button class="btn-donate" onclick="openDonate('florball')" data-i18n="btn.support">💛 Підтримати</button>
+          <button class="btn-details" onclick="openPopup('florball')" data-i18n="btn.details">Детальніше</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: Кубок Карпат 2026 (fundraiser) -->
+    <div class="project-card reveal" style="transition-delay:.1s">
+      <div class="project-card-img g-blue"><div class="project-card-gradient">🏆</div></div>
+      <div class="project-card-body">
+        <div class="project-card-label" data-i18n="p.cup2026.label">Змагання · Збір коштів</div>
+        <div class="project-card-title" data-i18n="p.cup2026.title">Кубок Карпат 2026</div>
+        <p class="project-card-desc" data-i18n="p.cup2026.desc">Організація регіонального турніру з флорболу восени 2026. Потрібно покрити витрати на оренду залу, інвентар та нагороди.</p>
+        <div class="progress-wrap">
+          <div class="progress-header">
+            <span class="progress-label" data-i18n="progress.label">Прогрес збору</span>
+            <span class="progress-amounts"><span>18 400</span> / 30 000 <span data-i18n="currency">грн</span></span>
+          </div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" data-percent="61"></div></div>
+          <div class="progress-donors"><b>34</b> <span data-i18n="progress.donors">донатори</span> · <b>61%</b> <span data-i18n="progress.collected">зібрано</span></div>
+        </div>
+        <div class="project-actions">
+          <button class="btn-donate" onclick="openDonate('cup2025')" data-i18n="btn.donate">💛 Задонатити</button>
+          <button class="btn-details" onclick="openPopup('cup2025')" data-i18n="btn.details">Детальніше</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Творчі майстерні -->
+    <div class="project-card reveal" style="transition-delay:.15s">
+      <div class="project-card-img g-warm"><div class="project-card-gradient">🎨</div></div>
+      <div class="project-card-body">
+        <div class="project-card-label" data-i18n="p.crafts.label">Творчість · Постійний</div>
+        <div class="project-card-title" data-i18n="p.crafts.title">Творчі майстерні та рукоділля</div>
+        <p class="project-card-desc" data-i18n="p.crafts.desc">Майстерні для дітей і молоді — від рукоділля до виготовлення гіпсових виробів і декору.</p>
+        <div class="project-card-tags"><span class="tag" data-i18n="tag.crafts">Рукоділля</span><span class="tag" data-i18n="tag.creativity">Творчість</span></div>
+        <div class="project-actions">
+          <button class="btn-donate" onclick="openDonate('crafts')" data-i18n="btn.support">💛 Підтримати</button>
+          <button class="btn-details" onclick="openPopup('crafts')" data-i18n="btn.details">Детальніше</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4: Окопні свічки (fundraiser) -->
+    <div class="project-card reveal" style="transition-delay:.2s">
+      <div class="project-card-img g-navy"><div class="project-card-gradient">🕯️</div></div>
+      <div class="project-card-body">
+        <div class="project-card-label" data-i18n="p.candles.label">Соціальний · Збір коштів</div>
+        <div class="project-card-title" data-i18n="p.candles.title">Окопні свічки для військових</div>
+        <p class="project-card-desc" data-i18n="p.candles.desc">Збираємо на матеріали для виготовлення 500 окопних свічок для захисників України. Молодь виготовляє вручну.</p>
+        <div class="progress-wrap">
+          <div class="progress-header">
+            <span class="progress-label" data-i18n="progress.label">Прогрес збору</span>
+            <span class="progress-amounts"><span>7 200</span> / 8 000 <span data-i18n="currency">грн</span></span>
+          </div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" data-percent="90"></div></div>
+          <div class="progress-donors"><b>52</b> <span data-i18n="progress.donors">донатори</span> · <b>90%</b> <span data-i18n="progress.collected">зібрано</span></div>
+        </div>
+        <div class="project-actions">
+          <button class="btn-donate" onclick="openDonate('candles')" data-i18n="btn.donate">💛 Задонатити</button>
+          <button class="btn-details" onclick="openPopup('candles')" data-i18n="btn.details">Детальніше</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5: РЕБ центр -->
+    <div class="project-card reveal" style="transition-delay:.25s">
+      <div class="project-card-img g-blue"><div class="project-card-gradient">🤝</div></div>
+      <div class="project-card-body">
+        <div class="project-card-label" data-i18n="p.reb.label">Реабілітація · Постійний</div>
+        <div class="project-card-title" data-i18n="p.reb.title">Робота з дітьми реб-центру</div>
+        <p class="project-card-desc" data-i18n="p.reb.desc">Психологічна підтримка та дозвілля для дітей і молоді з центрів реабілітації. Щотижневі зустрічі та заняття.</p>
+        <div class="project-card-tags"><span class="tag" data-i18n="tag.support">Підтримка</span><span class="tag" data-i18n="tag.rehab">Реабілітація</span></div>
+        <div class="project-actions">
+          <button class="btn-donate" onclick="openDonate('reb')" data-i18n="btn.support">💛 Підтримати</button>
+          <button class="btn-details" onclick="openPopup('reb')" data-i18n="btn.details">Детальніше</button>
+        </div>
+      </div>
+    </div>
+
+      <!-- Card 6,5: Денні табори (fundraiser) -->
+    <div class="project-card reveal" style="transition-delay:.33s">
+      <div class="project-card-img g-yellow"><div class="project-card-gradient">🚴</div></div>
+      <div class="project-card-body">
+        <div class="project-card-label" data-i18n="p.camp.label">Денні табори · Збір коштів</div>
+        <div class="project-card-title" data-i18n="p.camp.title">Денні літні табори Wise Step 2026</div>
+        <p class="project-card-desc" data-i18n="p.camp.desc">Збираємо на проведення 4-ох денніх таборів, які тривають 4 дні для 20 дітей в кожному з них.</p>
+        <div class="progress-wrap">
+          <div class="progress-header">
+            <span class="progress-label" data-i18n="progress.label">Прогрес збору</span>
+            <span class="progress-amounts"><span>10 500</span> / 55 000 <span data-i18n="currency">грн</span></span>
+          </div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" data-percent="19"></div></div>
+          <div class="progress-donors"><b>2</b> <span data-i18n="progress.donors">донатори</span> · <b>19%</b> <span data-i18n="progress.collected">зібрано</span></div>
+        </div>
+        <div class="project-actions">
+          <button class="btn-donate" onclick="openDonate('camps')" data-i18n="btn.donate">💛 Задонатити</button>
+          <button class="btn-details" onclick="openPopup('camps')" data-i18n="btn.details">Детальніше</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 6: Табір (fundraiser) -->
+    <div class="project-card reveal" style="transition-delay:.3s">
+      <div class="project-card-img g-orange"><div class="project-card-gradient">⛺</div></div>
+      <div class="project-card-body">
+        <div class="project-card-label" data-i18n="p.camp.label">Табір · Збір коштів</div>
+        <div class="project-card-title" data-i18n="p.camp.title">Літній табір "Summer Wise Camp 2026"</div>
+        <p class="project-card-desc" data-i18n="p.camp.desc">Збираємо на проведення 5-денного літнього табору для 30 дітей. Допоможемо дітям із вразливих сімей брати участь безкоштовно.</p>
+        <div class="progress-wrap">
+          <div class="progress-header">
+            <span class="progress-label" data-i18n="progress.label">Прогрес збору</span>
+            <span class="progress-amounts"><span>23 500</span> / 120 000 <span data-i18n="currency">грн</span></span>
+          </div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" data-percent="20"></div></div>
+          <div class="progress-donors"><b>3</b> <span data-i18n="progress.donors">донатори</span> · <b>20%</b> <span data-i18n="progress.collected">зібрано</span></div>
+        </div>
+        <div class="project-actions">
+          <button class="btn-donate" onclick="openDonate('camp')" data-i18n="btn.donate">💛 Задонатити</button>
+          <button class="btn-details" onclick="openPopup('camp')" data-i18n="btn.details">Детальніше</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 7: Настолки + дозвілля -->
+    <div class="project-card reveal" style="transition-delay:.35s">
+      <div class="project-card-img g-purple"><div class="project-card-gradient">🎲</div></div>
+      <div class="project-card-body">
+        <div class="project-card-label" data-i18n="p.games.label">Дозвілля · Постійний</div>
+        <div class="project-card-title" data-i18n="p.games.title">Настільний клуб та масове дозвілля</div>
+        <p class="project-card-desc" data-i18n="p.games.desc">Настолки, масові заходи, фестивалі та виїзди — цікаво і корисно провести час разом.</p>
+        <div class="project-card-tags"><span class="tag" data-i18n="tag.boardgames">Настолки</span><span class="tag" data-i18n="tag.events">Масові заходи</span></div>
+        <div class="project-actions">
+          <button class="btn-donate" onclick="openDonate('games')" data-i18n="btn.support">💛 Підтримати</button>
+          <button class="btn-details" onclick="openPopup('games')" data-i18n="btn.details">Детальніше</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 8: Біблія (featured) -->
+    <div class="project-card featured reveal" style="transition-delay:.4s">
+      <div class="project-card-img g-green" style="height:160px"><div class="project-card-gradient">📖</div></div>
+      <div class="project-card-body">
+        <div class="project-card-label" data-i18n="p.bible.label">Духовний розвиток · Постійний</div>
+        <div class="project-card-title" data-i18n="p.bible.title">Групи вивчення Біблії та тренінги</div>
+        <p class="project-card-desc" data-i18n="p.bible.desc">Навчальні тренінги, освітні зустрічі та групи вивчення Біблії — формуємо духовно зрілих людей, які свідомо обирають мудрий шлях у житті.</p>
+        <div class="project-card-tags"><span class="tag" data-i18n="tag.bible">Біблія</span><span class="tag" data-i18n="tag.learning">Навчання</span><span class="tag" data-i18n="tag.trainings">Тренінги</span><span class="tag" data-i18n="tag.education">Освіта</span></div>
+        <div class="project-actions">
+          <button class="btn-donate" onclick="openDonate('bible')" data-i18n="btn.support">💛 Підтримати</button>
+          <button class="btn-details" onclick="openPopup('bible')" data-i18n="btn.details">Детальніше</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section id="partners" class="partners-section">
+  <div class="partners-header reveal">
+    <div class="section-label" data-i18n="partners.label">Наші партнери</div>
+    <h2 class="section-title" data-i18n="partners.title">Разом робимо більше</h2>
+  </div>
+  <div class="marquee-wrapper">
+    <div class="marquee-track" id="marqueeTrack">
+
+      <!-- Partner logos — duplicated for seamless loop -->
+      <div class="partner-logo" data-name="Закарпатська ОДА">
+        <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="10" width="40" height="40" rx="4" class="p-shape"/>
+          <rect x="16" y="16" width="28" height="28" rx="2" class="p-shape-inner"/>
+          <path d="M22 30 L30 22 L38 30 L34 30 L34 38 L26 38 L26 30Z" class="p-accent"/>
+          <text x="58" y="28" font-family="Arial" font-weight="700" font-size="11" class="p-text">ЗАКАРП.</text>
+          <text x="58" y="43" font-family="Arial" font-weight="400" font-size="9" class="p-subtext">ОДА</text>
+        </svg>
+      </div>
+
+      <div class="partner-logo" data-name="Свалявська міська рада">
+        <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="20" class="p-shape"/>
+          <circle cx="30" cy="30" r="13" class="p-shape-inner"/>
+          <path d="M30 17 L33 24 L40 24 L35 29 L37 36 L30 32 L23 36 L25 29 L20 24 L27 24Z" class="p-accent"/>
+          <text x="56" y="27" font-family="Arial" font-weight="700" font-size="10" class="p-text">СВАЛЯВА</text>
+          <text x="56" y="40" font-family="Arial" font-weight="400" font-size="8.5" class="p-subtext">Міська рада</text>
+        </svg>
+      </div>
+
+      <div class="partner-logo" data-name="UNICEF Ukraine">
+        <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="15" width="32" height="32" rx="16" class="p-shape"/>
+          <text x="12" y="35" font-family="Arial" font-weight="900" font-size="13" class="p-accent-text">UN</text>
+          <text x="46" y="26" font-family="Arial" font-weight="800" font-size="13" class="p-text">UNICEF</text>
+          <text x="46" y="41" font-family="Arial" font-weight="400" font-size="8.5" class="p-subtext">Ukraine</text>
+        </svg>
+      </div>
+
+      <div class="partner-logo" data-name="Caritas Ukraine">
+        <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30 12 C18 12 10 20 10 30 C10 40 18 48 30 48 C42 48 50 40 50 30 C50 20 42 12 30 12Z" class="p-shape"/>
+          <path d="M30 20 L30 40 M20 30 L40 30" stroke-width="3.5" stroke-linecap="round" class="p-cross"/>
+          <text x="56" y="27" font-family="Arial" font-weight="800" font-size="12" class="p-text">Caritas</text>
+          <text x="56" y="42" font-family="Arial" font-weight="400" font-size="9" class="p-subtext">Ukraine</text>
+        </svg>
+      </div>
+
+      <div class="partner-logo" data-name="ACT Alliance">
+        <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="30,10 50,48 10,48" class="p-shape"/>
+          <polygon points="30,18 44,44 16,44" class="p-shape-inner"/>
+          <text x="56" y="28" font-family="Arial" font-weight="900" font-size="14" class="p-text">ACT</text>
+          <text x="56" y="43" font-family="Arial" font-weight="400" font-size="8.5" class="p-subtext">Alliance</text>
+        </svg>
+      </div>
+
+      <div class="partner-logo" data-name="Ukraina 2050">
+        <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="18" width="38" height="26" rx="5" class="p-shape"/>
+          <rect x="16" y="23" width="26" height="16" rx="2" class="p-accent-rect"/>
+          <text x="54" y="27" font-family="Arial" font-weight="800" font-size="11" class="p-text">UKRAINE</text>
+          <text x="54" y="42" font-family="Arial" font-weight="700" font-size="11" class="p-accent-text-sm">2050</text>
+        </svg>
+      </div>
+
+      <div class="partner-logo" data-name="USAID">
+        <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 30 Q10 10 30 10 Q50 10 50 30 Q50 50 30 50 Q10 50 10 30Z" class="p-shape"/>
+          <path d="M20 30 Q20 18 30 18 Q40 18 40 30" class="p-arc"/>
+          <text x="56" y="29" font-family="Arial" font-weight="900" font-size="14" class="p-text">USAID</text>
+          <text x="56" y="43" font-family="Arial" font-weight="400" font-size="7.5" class="p-subtext">від народу США</text>
+        </svg>
+      </div>
+
+      <div class="partner-logo" data-name="Diakonia">
+        <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="22" width="16" height="18" rx="2" class="p-shape"/>
+          <rect x="30" y="14" width="16" height="34" rx="2" class="p-shape"/>
+          <text x="52" y="28" font-family="Arial" font-weight="800" font-size="11" class="p-text">Diakonia</text>
+          <text x="52" y="43" font-family="Arial" font-weight="400" font-size="8.5" class="p-subtext">Sweden</text>
+        </svg>
+      </div>
+
+      <div class="partner-logo" data-name="Місто Свалява">
+        <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30 10 L20 22 L10 22 L10 48 L50 48 L50 22 L40 22Z" class="p-shape"/>
+          <rect x="22" y="32" width="16" height="16" rx="1" class="p-shape-inner"/>
+          <rect x="26" y="36" width="8" height="6" rx="1" class="p-accent"/>
+          <text x="56" y="28" font-family="Arial" font-weight="700" font-size="10" class="p-text">МІСТО</text>
+          <text x="56" y="42" font-family="Arial" font-weight="800" font-size="11" class="p-text">СВАЛЯВА</text>
+        </svg>
+      </div>
+
+      <div class="partner-logo" data-name="Evangelical Church">
+        <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30 10 L30 48 M18 22 L42 22" stroke-width="4" stroke-linecap="round" class="p-cross-main"/>
+          <circle cx="30" cy="30" r="18" class="p-circle-outline"/>
+          <text x="54" y="26" font-family="Arial" font-weight="700" font-size="9" class="p-text">ЄВАНГЕЛЬСЬКА</text>
+          <text x="54" y="39" font-family="Arial" font-weight="700" font-size="9" class="p-text">ЦЕРКВА</text>
+        </svg>
+      </div>
+
+    </div><!-- end .marquee-track — JS will duplicate it -->
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gallery-header reveal">
+    <div class="section-label" data-i18n="gallery.label">Наше життя</div>
+    <h2 class="section-title" data-i18n="gallery.title">Моменти, які надихають</h2>
+    <p class="section-desc" data-i18n="gallery.desc">Спорт, творчість, табори, дружба — ось що таке Wise Step у реальному житті.</p>
+  </div>
+
+  <div class="gallery-filters" id="galleryFilters">
+    <button class="gf-btn active" data-filter="all"    data-i18n="gallery.f.all">Усі</button>
+    <button class="gf-btn"        data-filter="sport"  data-i18n="gallery.f.sport">Спорт</button>
+    <button class="gf-btn"        data-filter="camp"   data-i18n="gallery.f.camp">Табір</button>
+    <button class="gf-btn"        data-filter="crafts" data-i18n="gallery.f.crafts">Творчість</button>
+    <button class="gf-btn"        data-filter="events" data-i18n="gallery.f.events">Заходи</button>
+  </div>
+
+  <div class="gallery-grid" id="galleryGrid">
+
+    <div class="gallery-item tall"   data-cat="sport"  data-title="Флорбол — тренування"   data-desc="Регулярні тренування флорбольного клубу у Сваляві">
+      <div class="gi-bg" style="background:linear-gradient(145deg,#1ABCB0,#0D9E93)"><span>🏒</span></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Спорт</div><div class="gi-title">Флорбол — тренування</div></div></div>
+      <div class="gi-zoom">⤢</div>
+    </div>
+
+    <div class="gallery-item"        data-cat="camp"   data-title="Літній табір у Карпатах" data-desc="5 днів пригод, дружби і духовного зростання серед гір">
+      <div class="gi-bg" style="background:linear-gradient(145deg,#F4D35E,#E8A83A)"><span>⛺</span></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Табір</div><div class="gi-title">Літній табір</div></div></div>
+      <div class="gi-zoom">⤢</div>
+    </div>
+
+    <div class="gallery-item"        data-cat="crafts" data-title="Майстер-клас з рукоділля" data-desc="Творчі майстерні для дітей різного віку">
+      <div class="gi-bg" style="background:linear-gradient(145deg,#F59B6B,#E8735A)"><span>🎨</span></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Творчість</div><div class="gi-title">Майстер-клас</div></div></div>
+      <div class="gi-zoom">⤢</div>
+    </div>
+
+    <div class="gallery-item wide"   data-cat="events" data-title="Кубок Карпат 2024"       data-desc="Регіональні змагання з флорболу — понад 200 учасників">
+      <div class="gi-bg" style="background:linear-gradient(145deg,#4A9EE8,#1B2D45)"><span>🏆</span></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Захід</div><div class="gi-title">Кубок Карпат 2024</div></div></div>
+      <div class="gi-zoom">⤢</div>
+    </div>
+
+    <div class="gallery-item tall"   data-cat="events" data-title="Група вивчення Біблії"   data-desc="Щотижневі зустрічі для духовного зростання молоді">
+      <div class="gi-bg" style="background:linear-gradient(145deg,#5BC98B,#1B2D45)"><span>📖</span></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Духовність</div><div class="gi-title">Вивчення Біблії</div></div></div>
+      <div class="gi-zoom">⤢</div>
+    </div>
+
+    <div class="gallery-item"        data-cat="sport"  data-title="Змагання з флорболу"     data-desc="Командна гра виховує характер і розвиває лідерські якості">
+      <div class="gi-bg" style="background:linear-gradient(145deg,#1ABCB0,#263D5A)"><span>⚽</span></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Спорт</div><div class="gi-title">Змагання</div></div></div>
+      <div class="gi-zoom">⤢</div>
+    </div>
+
+    <div class="gallery-item"        data-cat="crafts" data-title="Окопні свічки"            data-desc="Молодь виготовляє свічки для захисників України">
+      <div class="gi-bg" style="background:linear-gradient(145deg,#8B6BE8,#1B2D45)"><span>🕯️</span></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Волонтерство</div><div class="gi-title">Окопні свічки</div></div></div>
+      <div class="gi-zoom">⤢</div>
+    </div>
+
+    <div class="gallery-item wide"   data-cat="camp"   data-title="Зимовий табір"            data-desc="Активний відпочинок та нові знайомства взимку в Карпатах">
+      <div class="gi-bg" style="background:linear-gradient(145deg,#4A9EE8,#1ABCB0)"><span>❄️</span></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Табір</div><div class="gi-title">Зимовий табір</div></div></div>
+      <div class="gi-zoom">⤢</div>
+    </div>
+
+    <div class="gallery-item"        data-cat="events" data-title="Настільний клуб"          data-desc="Ігрові вечори — місце для нових друзів і веселого відпочинку">
+      <div class="gi-bg" style="background:linear-gradient(145deg,#F59B6B,#8B6BE8)"><span>🎲</span></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Дозвілля</div><div class="gi-title">Настільний клуб</div></div></div>
+      <div class="gi-zoom">⤢</div>
+    </div>
+
+    <div class="gallery-item"        data-cat="sport"  data-title="Команда Wise Step"        data-desc="Регулярні тренування формують дисципліну і командний дух">
+      <div class="gi-bg" style="background:linear-gradient(145deg,#0D9E93,#263D5A)"><span>🤝</span></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Спорт</div><div class="gi-title">Команда</div></div></div>
+      <div class="gi-zoom">⤢</div>
+    </div>
+
+    <div class="gallery-item tall"   data-cat="camp"   data-title="Ранок у таборі"           data-desc="Кожен день табору починається з енергійної зарядки">
+      <div class="gi-bg" style="background:linear-gradient(145deg,#F4D35E,#5BC98B)"><span>🌄</span></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Табір</div><div class="gi-title">Ранок у таборі</div></div></div>
+      <div class="gi-zoom">⤢</div>
+    </div>
+
+    <div class="gallery-item"        data-cat="crafts" data-title="Розпис пряників"          data-desc="Творча майстерня з розпису — для дітей від 6 років">
+      <div class="gi-bg" style="background:linear-gradient(145deg,#F59B6B,#F4D35E)"><span>🍪</span></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Творчість</div><div class="gi-title">Розпис пряників</div></div></div>
+      <div class="gi-zoom">⤢</div>
+    </div>
+
+    <!-- initially hidden (show more) -->
+    <div class="gallery-item extra hidden" data-cat="events" data-title="Масовий захід"       data-desc="Фестиваль для всієї громади Сваляви">
+      <div class="gi-bg" style="background:linear-gradient(145deg,#4A9EE8,#5BC98B)"><span>🎉</span></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Захід</div><div class="gi-title">Масовий захід</div></div></div>
+      <div class="gi-zoom">⤢</div>
+    </div>
+
+    <div class="gallery-item extra hidden tall" data-cat="sport" data-title="Кубок Карпат — нагородження" data-desc="Нагородження переможців регіонального турніру">
+      <div class="gi-bg" style="background:linear-gradient(145deg,#F4D35E,#1ABCB0)"><span>🥇</span></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Спорт</div><div class="gi-title">Нагородження</div></div></div>
+      <div class="gi-zoom">⤢</div>
+    </div>
+
+    <div class="gallery-item extra hidden" data-cat="crafts" data-title="Декупаж" data-desc="Майстер-клас з декупажу для підлітків">
+      <div class="gi-bg" style="background:linear-gradient(145deg,#8B6BE8,#F59B6B)"><span>🖼️</span></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Творчість</div><div class="gi-title">Декупаж</div></div></div>
+      <div class="gi-zoom">⤢</div>
+    </div>
+
+    <div class="gallery-item extra hidden wide" data-cat="camp" data-title="Табір — вогнище" data-desc="Вечір біля вогнища — пісні, розмови, дружба">
+      <div class="gi-bg" style="background:linear-gradient(145deg,#E8735A,#1B2D45)"><span>🔥</span></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Табір</div><div class="gi-title">Вечір біля вогнища</div></div></div>
+      <div class="gi-zoom">⤢</div>
+    </div>
+
+  </div>
+
+  <div class="gallery-more-wrap">
+    <button class="gallery-more-btn" id="galleryMoreBtn" data-i18n="gallery.more">Показати більше</button>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox-overlay" id="lightbox">
+  <div class="lb-inner">
+    <button class="lb-close" id="lbClose">✕</button>
+    <div class="lb-img" id="lbImg"></div>
+    <div class="lb-caption">
+      <div class="lb-title" id="lbTitle"></div>
+      <div class="lb-counter" id="lbCounter"></div>
+    </div>
+    <button class="lb-nav lb-prev" id="lbPrev">‹</button>
+    <button class="lb-nav lb-next" id="lbNext">›</button>
+  </div>
+</div>
+
+<!-- SUPPORT -->
+<section id="support">
+  <div class="support-inner">
+    <div class="support-header reveal">
+      <div class="section-label" data-i18n="support.label">Наша аудиторія</div>
+      <h2 class="section-title" data-i18n="support.title">Кого ми підтримуємо</h2>
+      <p class="section-desc" data-i18n="support.desc">Wise Step відкритий для всіх — особливо для тих, хто потребує підтримки найбільше.</p>
+    </div>
+    <div class="support-grid">
+      <div class="support-card reveal"><div class="support-icon">🏠</div><h3 data-i18n="support.c1.title">Діти та молодь із сімей переселенців</h3><p data-i18n="support.c1.text">Підтримуємо тих, хто був вимушений залишити свій дім через війну, допомагаємо знайти нових друзів та стабільність.</p></div>
+      <div class="support-card reveal" style="transition-delay:.1s"><div class="support-icon">💛</div><h3 data-i18n="support.c2.title">Діти та молодь-сироти</h3><p data-i18n="support.c2.text">Створюємо атмосферу родинності, любові та підтримки для тих, хто зростає без батьків.</p></div>
+      <div class="support-card reveal" style="transition-delay:.15s"><div class="support-icon">🎖️</div><h3 data-i18n="support.c3.title">Діти та молодь Героїв</h3><p data-i18n="support.c3.text">Особлива турбота про дітей захисників України — тих, чиї батьки стоять на варті країни.</p></div>
+      <div class="support-card reveal" style="transition-delay:.2s"><div class="support-icon">🌱</div><h3 data-i18n="support.c4.title">Діти із складних обставин</h3><p data-i18n="support.c4.text">Відкриті двері для тих, хто переживає складні часи — підтримка, увага і можливості без обмежень.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="why-grid">
+    <div>
+      <div class="section-label" data-i18n="why.label">Партнерство</div>
+      <h2 class="section-title" data-i18n="why.title">Чому ваш<br>внесок важливий</h2>
+      <p class="section-desc" data-i18n="why.desc">Кожна підтримка — реальна інвестиція у майбутнє дітей і молоді.</p>
+      <div class="why-list">
+        <div class="why-item reveal"><div class="why-item-icon">⚽</div><div><h4 data-i18n="why.i1.title">Спортивні та творчі програми</h4><p data-i18n="why.i1.text">Розширення клубів флорболу, творчих майстерень та спортивних секцій.</p></div></div>
+        <div class="why-item reveal" style="transition-delay:.1s"><div class="why-item-icon">📚</div><div><h4 data-i18n="why.i2.title">Навчальні тренінги та табори</h4><p data-i18n="why.i2.text">Освітні табори, тренінги і зустрічі, що формують характер і компетентності.</p></div></div>
+        <div class="why-item reveal" style="transition-delay:.2s"><div class="why-item-icon">💙</div><div><h4 data-i18n="why.i3.title">Психологічна підтримка</h4><p data-i18n="why.i3.text">Допомога найуразливішим категоріям дітей і молоді у складних обставинах.</p></div></div>
+        <div class="why-item reveal" style="transition-delay:.3s"><div class="why-item-icon">🎉</div><div><h4 data-i18n="why.i4.title">Соціальні та культурні проєкти</h4><p data-i18n="why.i4.text">Фестивалі, масові заходи і соціальні ініціативи для всієї громади.</p></div></div>
+      </div>
+    </div>
+    <div class="why-cta-panel reveal">
+      <div style="font-size:56px;margin-bottom:18px">🚀</div>
+      <h3 data-i18n="why.cta.title">Станьте<br>партнером<br>Wise Step</h3>
+      <p data-i18n="why.cta.text">Інвестуйте у майбутнє дітей і молоді. Разом будуємо сильне духовно здорове покоління.</p>
+      <a href="#contact" class="btn-white" data-i18n="why.cta.btn">Написати нам <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="partner-types">
+        <div style="font-size:11px;color:rgba(255,255,255,0.5);font-weight:800;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:4px" data-i18n="why.partner.label">Шляхи партнерства</div>
+        <div class="partner-type" data-i18n="why.partner.p1">💰 Фінансова підтримка</div>
+        <div class="partner-type" data-i18n="why.partner.p2">🤲 Волонтерство</div>
+        <div class="partner-type" data-i18n="why.partner.p3">🏢 Корпоративне партнерство</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div>
+      <div class="section-label" data-i18n="contact.label">Зв'язок</div>
+      <h2 class="section-title" data-i18n="contact.title">Долучайтесь<br>до Wise Step</h2>
+      <p class="section-desc" data-i18n="contact.desc">Готові відповісти на всі ваші запитання та розповісти більше.</p>
+      <div class="contact-info">
+        <div class="contact-item reveal"><div class="contact-icon">📍</div><div><h5 data-i18n="contact.loc.label">Локація</h5><p data-i18n="contact.loc.value">м. Свалява, Закарпаття, Україна</p></div></div>
+        <div class="contact-item reveal" style="transition-delay:.1s"><div class="contact-icon">📱</div><div><h5>Instagram</h5><a href="https://instagram.com/wisestepcenter" target="_blank">@wisestepcenter</a></div></div>
+        <div class="contact-item reveal" style="transition-delay:.15s"><div class="contact-icon">✉️</div><div><h5 data-i18n="contact.write.label">Напишіть нам</h5><p data-i18n="contact.write.value">Через форму або соціальні мережі</p></div></div>
+      </div>
+      <div style="margin-top:32px;padding:20px;background:linear-gradient(135deg,rgba(26,188,176,0.08),rgba(26,188,176,0.04));border-radius:18px;border:1px solid rgba(26,188,176,0.2)" class="reveal">
+        <div style="font-family:'Unbounded',sans-serif;font-size:12px;font-weight:800;color:var(--teal);margin-bottom:8px">💬 <span data-i18n="contact.slogan.label">Слоган</span></div>
+        <p style="font-style:italic;font-size:15px;color:var(--navy);line-height:1.6" data-i18n="contact.slogan.text">"Wise Step — Простір розвитку, знань і досвіду для реалізації твоїх мудрих рішень"</p>
+      </div>
+    </div>
+    <div class="contact-form-wrap reveal">
+      <h3 data-i18n="form.title">Написати нам</h3>
+      <form onsubmit="handleSubmit(event)" id="contactForm">
+        <div class="form-group"><label data-i18n="form.name">Ваше ім'я</label><input type="text" id="inp-name" name="from_name" placeholder="Іван Петренко" required></div>
+        <div class="form-group"><label data-i18n="form.email">Email</label><input type="email" id="inp-email" name="reply_to" placeholder="ivan@example.com" required></div>
+        <div class="form-group"><label data-i18n="form.subject">Тема звернення</label><input type="text" id="inp-subject" name="subject" placeholder="Партнерство / Волонтерство / Питання"></div>
+        <div class="form-group"><label data-i18n="form.message">Повідомлення</label><textarea id="inp-message" name="message" placeholder="Розкажіть про себе та як ви хочете долучитись..."></textarea></div>
+        <button type="submit" class="form-submit" id="submitBtn" data-i18n="form.submit">Надіслати повідомлення ✈️</button>
+      </form>
+      <div class="form-status" id="formStatus"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo-wrap">
+        <img src="data:image/svg+xml,%3Csvg%20width%3D%2244%22%20height%3D%2244%22%20viewBox%3D%22108%20130%20175%20115%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%3Cpath%20d%3D%22M159.777%20190L159.777%20212L134.13%20236L109.49%20236L159.777%20190Z%22%20fill%3D%22%23152837%22/%3E%0A%3Cpath%20d%3D%22M159.777%20190L184.92%20214V236L159.777%20212V190Z%22%20fill%3D%22%23152837%22/%3E%0A%3Cpath%20d%3D%22M182.908%20172.5L199%20158V236H184.92L182.908%20234V172.5Z%22%20fill%3D%22%23152837%22/%3E%0A%3Cpath%20d%3D%22M159.449%20176L160%20190L125.962%20220.849L125.962%20206L159.449%20176Z%22%20fill%3D%22%23DBDBDB%22%20opacity%3D%220.6%22/%3E%0A%3Cpath%20d%3D%22M159.449%20176L173.449%20189L173.5%20203.5L159.449%20190V176Z%22%20fill%3D%22%23DBDBDB%22/%3E%0A%3Cpath%20d%3D%22M173.45%20171L182.45%20173V212L175%20205L173.5%20203.5L173.45%20171Z%22%20fill%3D%22%23DBDBDB%22/%3E%0A%3Cpath%20d%3D%22M190.95%20154.5L217%20131L222.5%20136L203%20154.5L182.45%20173L173.45%20171L190.95%20154.5Z%22%20fill%3D%22%23DBDBDB%22/%3E%0A%3Crect%20x%3D%22199%22%20y%3D%22158%22%20width%3D%2210%22%20height%3D%2278%22%20fill%3D%22%23DBDBDB%22/%3E%0A%3Cpath%20d%3D%22M222.465%20136L233%20146L220.07%20158H199L222.465%20136Z%22%20fill%3D%22%23DBDBDB%22%20opacity%3D%220.6%22/%3E%0A%3Crect%20x%3D%22209%22%20y%3D%22219%22%20width%3D%2258%22%20height%3D%2217%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Crect%20x%3D%22209%22%20y%3D%22157%22%20width%3D%2258%22%20height%3D%2216%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Cpath%20d%3D%22M225%20173L225%20179.957L267%20201.619L267%20219L252%20219L252%20210.766L209%20188.901L209%20173L225%20173Z%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Crect%20x%3D%22251%22%20y%3D%22112%22%20width%3D%2216%22%20height%3D%2245%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Cpath%20d%3D%22M257.367%20105.688L267%20105.5L267%20113L263.288%20120.035L233%20146L233%20126L257.367%20105.688Z%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Crect%20x%3D%22257%22%20y%3D%2274%22%20width%3D%2210%22%20height%3D%2232.7963%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Crect%20x%3D%22279%22%20y%3D%2286%22%20width%3D%229.93827%22%20height%3D%2234%22%20transform%3D%22rotate%2890%20279%2086%29%22%20fill%3D%22%2301B5B4%22/%3E%0A%3C/svg%3E" alt="Wise Step">
+        <div class="footer-logo-name">Wise<span>Step</span></div>
+      </div>
+      <p class="footer-tagline" data-i18n="footer.tagline">Християнський центр розвитку і спорту. Простір розвитку, знань і досвіду для реалізації мудрих рішень.</p>
+      <div class="footer-social">
+        <a href="https://instagram.com/wisestepcenter" class="social-link" target="_blank">📸</a>
+        <a href="#" class="social-link">📘</a>
+        <a href="#" class="social-link">✉️</a>
+      </div>
+    </div>
+    <div class="footer-col"><h4 data-i18n="footer.nav">Навігація</h4><ul><li><a href="#about" data-i18n="nav.about">Про нас</a></li><li><a href="#projects" data-i18n="nav.projects">Проєкти</a></li><li><a href="#support" data-i18n="nav.support">Підтримуємо</a></li><li><a href="#why" data-i18n="nav.why">Партнерство</a></li><li><a href="#contact" data-i18n="footer.contact">Контакти</a></li></ul></div>
+    <div class="footer-col"><h4 data-i18n="footer.directions">Напрямки</h4><ul><li><a href="#projects" data-i18n="tag.florball">Флорбол</a></li><li><a href="#projects" data-i18n="p.crafts.title">Творчі майстерні</a></li><li><a href="#projects" data-i18n="footer.camps">Табори</a></li><li><a href="#projects" data-i18n="footer.bible">Вивчення Біблії</a></li><li><a href="#projects" data-i18n="footer.games">Настільний клуб</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p data-i18n="footer.copy">© 2026 LightSource — Christian Tech Team. All rights reserved.</p><p>@lightsource</p></div>
+</footer>
+
+<!-- Popups rendered dynamically -->
+<div id="popupMount"></div>
+
+<script>
+// ── Gallery ──
+(function() {
+  const filterBtns = document.querySelectorAll('.gf-btn');
+  const allItems   = () => document.querySelectorAll('.gallery-item');
+
+  // ── Filter ──
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      allItems().forEach(item => {
+        if (item.classList.contains('extra')) return; // managed by show-more
+        const match = f === 'all' || item.dataset.cat === f;
+        item.classList.toggle('hidden', !match);
+        if (match) { item.style.animation='none'; requestAnimationFrame(()=>{ item.style.animation='gItemIn 0.35s ease both'; }); }
+      });
+    });
+  });
+
+  // ── Show more ──
+  const moreBtn = document.getElementById('galleryMoreBtn');
+  if (moreBtn) {
+    moreBtn.addEventListener('click', () => {
+      document.querySelectorAll('.gallery-item.extra').forEach(el => {
+        el.classList.remove('hidden');
+        el.style.animation = 'gItemIn 0.4s ease both';
+      });
+      moreBtn.classList.add('all-shown');
+    });
+  }
+
+  // ── Lightbox ──
+  const lb      = document.getElementById('lightbox');
+  const lbImg   = document.getElementById('lbImg');
+  const lbTitle = document.getElementById('lbTitle');
+  const lbCnt   = document.getElementById('lbCounter');
+  const lbClose = document.getElementById('lbClose');
+  const lbPrev  = document.getElementById('lbPrev');
+  const lbNext  = document.getElementById('lbNext');
+  let visible = [], cur = 0;
+
+  function getVisible() {
+    return Array.from(allItems()).filter(el => !el.classList.contains('hidden'));
+  }
+
+  function renderLb() {
+    const item = visible[cur];
+    if (!item) return;
+    const bg = item.querySelector('.gi-bg');
+    const em = item.querySelector('.gi-bg span');
+    lbImg.style.background = bg ? bg.style.background : '#1B2D45';
+    lbImg.style.minHeight  = '320px';
+    lbImg.innerHTML = em
+      ? `<span style="font-size:110px;filter:drop-shadow(0 12px 32px rgba(0,0,0,0.35))">${em.textContent}</span>`
+      : '';
+    lbTitle.textContent   = item.dataset.title || '';
+    lbCnt.textContent     = `${cur + 1} / ${visible.length}`;
+    lbPrev.style.opacity  = cur === 0 ? '0.25' : '1';
+    lbNext.style.opacity  = cur === visible.length - 1 ? '0.25' : '1';
+  }
+
+  function openLb(item) {
+    visible = getVisible();
+    cur = visible.indexOf(item);
+    renderLb();
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLb() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Attach clicks — use delegation for dynamically shown items
+  document.getElementById('galleryGrid').addEventListener('click', e => {
+    const item = e.target.closest('.gallery-item');
+    if (item && !item.classList.contains('hidden')) openLb(item);
+  });
+
+  lbClose.addEventListener('click', closeLb);
+  lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+
+  lbPrev.addEventListener('click', e => { e.stopPropagation(); if (cur > 0) { cur--; renderLb(); } });
+  lbNext.addEventListener('click', e => { e.stopPropagation(); if (cur < visible.length - 1) { cur++; renderLb(); } });
+
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')     closeLb();
+    if (e.key === 'ArrowLeft'  && cur > 0)                  { cur--; renderLb(); }
+    if (e.key === 'ArrowRight' && cur < visible.length - 1) { cur++; renderLb(); }
+  });
+
+  // Touch swipe
+  let tx = 0;
+  lb.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive:true});
+  lb.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) < 40) return;
+    if (dx < 0 && cur < visible.length-1) { cur++; renderLb(); }
+    if (dx > 0 && cur > 0)                { cur--; renderLb(); }
+  });
+})();
+
+
+// ── Partners marquee ──
+(function() {
+  const track = document.getElementById('marqueeTrack');
+  if (!track) return;
+  // Duplicate all children for seamless loop
+  const clone = track.innerHTML;
+  track.insertAdjacentHTML('beforeend', clone);
+
+  // Pause on any logo hover
+  track.addEventListener('mouseover', e => {
+    if (e.target.closest('.partner-logo')) track.classList.add('paused');
+  });
+  track.addEventListener('mouseout', e => {
+    if (!e.relatedTarget || !e.relatedTarget.closest('.partner-logo')) {
+      track.classList.remove('paused');
+    }
+  });
+})();
+
+// ── i18n ──
+const TRANSLATIONS = {
+  uk: {
+    'nav.about':'Про нас','nav.projects':'Проєкти','nav.gallery':'Галерея','nav.support':'Підтримка','nav.why':'Партнерство','nav.cta':'Долучитись',
+    'hero.badge':'Свалява · Карпати · Україна','hero.title':'— Простір<br>розвитку',
+    'hero.tagline':'«Платформа розвитку, знань і досвіду для реалізації твоїх мудрих рішень»',
+    'hero.desc':'Християнський центр розвитку і спорту. Ми створюємо можливості для розвитку творчості, спорту, освіти та духовності — незалежно від обставин.',
+    'hero.btn1':'Наші проєкти <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    'hero.btn2':'Стати партнером',
+    'stats.s1':'Дітей і молоді','stats.s2':'Активних програм','stats.s3':'Міста присутності','stats.s4':'Можливостей для зростання',
+    'about.quote':'«Кожна дитина заслуговує на<br><strong>шанс зростати</strong>»','about.city':'Свалява','about.region':'Закарпаття, Україна',
+    'about.label':'Про організацію','about.desc':'Простір, де кожна дитина та молодь має шанс розвиватися, знаходити друзів, підтримку та натхнення — незалежно від обставин.',
+    'about.missionTitle':'🎯 Мета','about.missionText':'Сприяти формуванню мудрих, духовно зрілих і соціально відповідальних поколінь через знання про Бога, Біблію та розвиток талантів.',
+    'about.visionTitle':'🔭 Візія','about.visionText':'Створити простір розвитку і підтримки, де кожна дитина зростає духовно, розвиває таланти і свідомо робить мудрі кроки у житті.',
+    'projects.label':'Що ми робимо','projects.title':'Наші проєкти<br>та програми','projects.desc':'Різноманітні напрямки для духовного, творчого, спортивного та освітнього розвитку.',
+    'p.florball.label':'Спорт · Постійний проєкт','p.florball.title':'Флорбол — Кубок Карпат','p.florball.desc':'Регіональні змагання у Сваляві та с. Поляна. Тренування, командний дух, розвиток фізичних якостей. Кубок Карпат збирає команди з усього регіону.',
+    'p.cup2025.label':'Змагання · Збір коштів','p.cup2025.title':'Кубок Карпат 2025','p.cup2025.desc':'Організація регіонального турніру з флорболу восени 2025. Потрібно покрити витрати на оренду залу, інвентар та нагороди.',
+    'p.crafts.label':'Творчість · Постійний','p.crafts.title':'Творчі майстерні та рукоділля','p.crafts.desc':'Майстерні для дітей і молоді — від рукоділля до виготовлення гіпсових виробів і декору.',
+    'p.candles.label':'Соціальний · Збір коштів','p.candles.title':'Окопні свічки для військових','p.candles.desc':'Збираємо на матеріали для виготовлення 500 окопних свічок для захисників України. Молодь виготовляє вручну.',
+    'p.reb.label':'Реабілітація · Постійний','p.reb.title':'Робота з дітьми РЕБ центру','p.reb.desc':'Психологічна підтримка та дозвілля для дітей і молоді з центрів реабілітації. Щотижневі зустрічі та заняття.',
+    'p.camp.label':'Табір · Збір коштів','p.camp.title':'Літній табір 2025','p.camp.desc':'Збираємо на проведення 5-денного літнього табору для 40 дітей. Допоможемо дітям із вразливих сімей брати участь безкоштовно.',
+    'p.games.label':'Дозвілля · Постійний','p.games.title':'Настільний клуб та масове дозвілля','p.games.desc':'Настолки, масові заходи, фестивалі та виїзди — цікаво і корисно провести час разом.',
+    'p.bible.label':'Духовний розвиток · Постійний','p.bible.title':'Групи вивчення Біблії та тренінги','p.bible.desc':'Навчальні тренінги, освітні зустрічі та групи вивчення Біблії — формуємо духовно зрілих людей, які свідомо обирають мудрий шлях у житті.',
+    'progress.label':'Прогрес збору','progress.donors':'донатори','progress.collected':'зібрано','currency':'грн',
+    'btn.support':'💛 Підтримати','btn.donate':'💛 Задонатити','btn.details':'Детальніше',
+    'tag.florball':'Флорбол','tag.competition':'Змагання','tag.crafts':'Рукоділля','tag.creativity':'Творчість',
+    'tag.support':'Підтримка','tag.rehab':'Реабілітація','tag.boardgames':'Настолки','tag.events':'Масові заходи',
+    'tag.bible':'Біблія','tag.learning':'Навчання','tag.trainings':'Тренінги','tag.education':'Освіта',
+    'support.label':'Наша аудиторія','support.title':'Кого ми підтримуємо','support.desc':'Wise Step відкритий для всіх — особливо для тих, хто потребує підтримки найбільше.',
+    'support.c1.title':'Діти та молодь із сімей переселенців','support.c1.text':'Підтримуємо тих, хто був вимушений залишити свій дім через війну, допомагаємо знайти нових друзів та стабільність.',
+    'support.c2.title':'Діти та молодь-сироти','support.c2.text':'Створюємо атмосферу родинності, любові та підтримки для тих, хто зростає без батьків.',
+    'support.c3.title':'Діти та молодь Героїв','support.c3.text':'Особлива турбота про дітей захисників України — тих, чиї батьки стоять на варті країни.',
+    'support.c4.title':'Діти із складних обставин','support.c4.text':'Відкриті двері для тих, хто переживає складні часи — підтримка, увага і можливості без обмежень.',
+    'why.label':'Партнерство','why.title':'Чому ваш<br>внесок важливий','why.desc':'Кожна підтримка — реальна інвестиція у майбутнє дітей і молоді.',
+    'why.i1.title':'Спортивні та творчі програми','why.i1.text':'Розширення клубів флорболу, творчих майстерень та спортивних секцій.',
+    'why.i2.title':'Навчальні тренінги та табори','why.i2.text':'Освітні табори, тренінги і зустрічі, що формують характер і компетентності.',
+    'why.i3.title':'Психологічна підтримка','why.i3.text':'Допомога найуразливішим категоріям дітей і молоді у складних обставинах.',
+    'why.i4.title':'Соціальні та культурні проєкти','why.i4.text':'Фестивалі, масові заходи і соціальні ініціативи для всієї громади.',
+    'why.cta.title':'Станьте<br>партнером<br>Wise Step','why.cta.text':'Інвестуйте у майбутнє дітей і молоді. Разом будуємо сильне духовно здорове покоління.',
+    'why.cta.btn':'Написати нам <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    'why.partner.label':'Шляхи партнерства','why.partner.p1':'💰 Фінансова підтримка','why.partner.p2':'🤲 Волонтерство','why.partner.p3':'🏢 Корпоративне партнерство',
+    'contact.label':'Зв\'язок','contact.title':'Долучайтесь<br>до Wise Step','contact.desc':'Готові відповісти на всі ваші запитання та розповісти більше.',
+    'contact.loc.label':'Локація','contact.loc.value':'м. Свалява, Закарпаття, Україна','contact.write.label':'Напишіть нам','contact.write.value':'Через форму або соціальні мережі',
+    'contact.slogan.label':'Слоган','contact.slogan.text':'"Wise Step — Простір розвитку, знань і досвіду для реалізації твоїх мудрих рішень"',
+    'form.title':'Написати нам','form.name':'Ваше ім\'я','form.email':'Email','form.subject':'Тема звернення','form.message':'Повідомлення','form.submit':'Надіслати повідомлення ✈️',
+    'form.placeholder.name':'Іван Петренко','form.placeholder.email':'ivan@example.com','form.placeholder.subject':'Партнерство / Волонтерство / Питання','form.placeholder.message':'Розкажіть про себе та як ви хочете долучитись...',
+    'form.success':'✅ Повідомлення надіслано!',
+    'footer.tagline':'Християнський центр розвитку і спорту. Простір розвитку, знань і досвіду для реалізації мудрих рішень.',
+    'footer.nav':'Навігація','footer.contact':'Контакти','footer.directions':'Напрямки','footer.camps':'Табори','footer.bible':'Вивчення Біблії','footer.games':'Настільний клуб',
+    'footer.copy':'© 2026 LightSource — Christian Tech Team. All rights reserved.',
+    'partners.label':'Наші партнери','partners.title':'Разом робимо більше',
+    'gallery.label':'Наше життя','gallery.title':'Моменти, які надихають',
+    'gallery.desc':'Спорт, творчість, табори, дружба — ось що таке Wise Step у реальному житті.',
+    'gallery.f.all':'Усі','gallery.f.sport':'Спорт','gallery.f.camp':'Табір',
+    'gallery.f.crafts':'Творчість','gallery.f.events':'Заходи',
+    'gallery.more':'Показати більше',
+  },
+  en: {
+    'nav.about':'About','nav.projects':'Projects','nav.gallery':'Gallery','nav.support':'Support','nav.why':'Partnership','nav.cta':'Get Involved',
+    'hero.badge':'Svalyava · Carpathians · Ukraine','hero.title':'— A Space<br>for Growth',
+    'hero.tagline':'"A platform of development, knowledge and experience for making wise decisions in life"',
+    'hero.desc':'A Christian Center for Development and Sports. We create opportunities for creative, athletic, educational and spiritual growth — regardless of life circumstances.',
+    'hero.btn1':'Our Projects <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    'hero.btn2':'Become a Partner',
+    'stats.s1':'Children & Youth','stats.s2':'Active Programs','stats.s3':'Cities','stats.s4':'Opportunities for Growth',
+    'about.quote':'"Every child deserves a<br><strong>chance to grow</strong>"','about.city':'Svalyava','about.region':'Zakarpattia, Ukraine',
+    'about.label':'About Us','about.desc':'A space where every child and young person has the chance to grow, find friends, support and inspiration — no matter their circumstances.',
+    'about.missionTitle':'🎯 Mission','about.missionText':'To help form wise, spiritually mature and socially responsible generations through knowledge of God, the Bible, and development of their talents.',
+    'about.visionTitle':'🔭 Vision','about.visionText':'To create a space of growth and support where every child develops spiritually, discovers their talents, and consciously makes wise steps in life.',
+    'projects.label':'What We Do','projects.title':'Our Projects<br>& Programs','projects.desc':'Diverse directions for spiritual, creative, athletic and educational development.',
+    'p.florball.label':'Sport · Ongoing Project','p.florball.title':'Floorball — Karpaty Cup','p.florball.desc':'Regional competitions in Svalyava and Polyana village. Training, team spirit, and physical development. The Karpaty Cup gathers teams from across the region.',
+    'p.cup2025.label':'Competition · Fundraiser','p.cup2025.title':'Karpaty Cup 2025','p.cup2025.desc':'Organizing a regional floorball tournament in autumn 2025. We need to cover costs for venue rental, equipment and prizes.',
+    'p.crafts.label':'Creativity · Ongoing','p.crafts.title':'Creative Workshops & Crafts','p.crafts.desc':'Workshops for children and youth — from handicrafts to plaster casting and decorative arts.',
+    'p.candles.label':'Social · Fundraiser','p.candles.title':'Trench Candles for Soldiers','p.candles.desc':'Raising funds for materials to make 500 trench candles for Ukraine\'s defenders. Youth make them by hand.',
+    'p.reb.label':'Rehabilitation · Ongoing','p.reb.title':'Work with Children from Rehab Center','p.reb.desc':'Psychological support and leisure activities for children from rehabilitation centers. Weekly meetings and sessions.',
+    'p.camp.label':'Camp · Fundraiser','p.camp.title':'Summer Camp 2025','p.camp.desc':'Raising funds for a 5-day summer camp for 40 children. We will help children from vulnerable families attend for free.',
+    'p.games.label':'Leisure · Ongoing','p.games.title':'Board Game Club & Mass Events','p.games.desc':'Board games, mass events, festivals and trips — a fun and meaningful way to spend time together.',
+    'p.bible.label':'Spiritual Growth · Ongoing','p.bible.title':'Bible Study Groups & Trainings','p.bible.desc':'Educational trainings, Bible study groups and discussion meetings — forming spiritually mature people who consciously choose a wise path in life.',
+    'progress.label':'Fundraising Progress','progress.donors':'donors','progress.collected':'raised','currency':'UAH',
+    'btn.support':'💛 Support','btn.donate':'💛 Donate','btn.details':'Learn More',
+    'tag.florball':'Floorball','tag.competition':'Competition','tag.crafts':'Crafts','tag.creativity':'Creativity',
+    'tag.support':'Support','tag.rehab':'Rehabilitation','tag.boardgames':'Board Games','tag.events':'Events',
+    'tag.bible':'Bible','tag.learning':'Learning','tag.trainings':'Trainings','tag.education':'Education',
+    'support.label':'Who We Serve','support.title':'Who We Support','support.desc':'Wise Step is open to everyone — especially those who need support the most.',
+    'support.c1.title':'Children from Displaced Families','support.c1.text':'We support those who were forced to leave their homes due to war, helping them find new friends and stability.',
+    'support.c2.title':'Orphaned Children & Youth','support.c2.text':'We create an atmosphere of warmth, love and support for those growing up without parents.',
+    'support.c3.title':'Children of Heroes','support.c3.text':'Special care for the children of Ukraine\'s defenders — those whose parents stand guard for their country.',
+    'support.c4.title':'Children in Difficult Circumstances','support.c4.text':'Open doors for those going through hard times — support, attention, and opportunities without limits.',
+    'why.label':'Partnership','why.title':'Why Your<br>Contribution Matters','why.desc':'Every donation is a real investment in the future of children and youth.',
+    'why.i1.title':'Sports & Creative Programs','why.i1.text':'Expanding floorball clubs, creative workshops and sports sections.',
+    'why.i2.title':'Educational Trainings & Camps','why.i2.text':'Educational camps, trainings and meetings that build character and skills.',
+    'why.i3.title':'Psychological Support','why.i3.text':'Help for the most vulnerable categories of children and youth in difficult circumstances.',
+    'why.i4.title':'Social & Cultural Projects','why.i4.text':'Festivals, community events and social initiatives for the whole community.',
+    'why.cta.title':'Become a Partner<br>of Wise Step','why.cta.text':'Invest in the future of children and youth. Together we build a strong, spiritually healthy generation.',
+    'why.cta.btn':'Contact Us <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    'why.partner.label':'Ways to Partner','why.partner.p1':'💰 Financial Support','why.partner.p2':'🤲 Volunteering','why.partner.p3':'🏢 Corporate Partnership',
+    'contact.label':'Contact','contact.title':'Join<br>Wise Step','contact.desc':'We\'re ready to answer all your questions and tell you more.',
+    'contact.loc.label':'Location','contact.loc.value':'Svalyava, Zakarpattia, Ukraine','contact.write.label':'Write to Us','contact.write.value':'Via the form or social media',
+    'contact.slogan.label':'Tagline','contact.slogan.text':'"Wise Step — A space of development, knowledge and experience for making your wise decisions"',
+    'form.title':'Write to Us','form.name':'Your Name','form.email':'Email','form.subject':'Subject','form.message':'Message','form.submit':'Send Message ✈️',
+    'form.placeholder.name':'John Smith','form.placeholder.email':'john@example.com','form.placeholder.subject':'Partnership / Volunteering / Question','form.placeholder.message':'Tell us about yourself and how you\'d like to get involved...',
+    'form.success':'✅ Message sent!',
+    'footer.tagline':'Christian Center for Development and Sports. A space of development, knowledge and experience for making wise decisions.',
+    'footer.nav':'Navigation','footer.contact':'Contact','footer.directions':'Programs','footer.camps':'Camps','footer.bible':'Bible Study','footer.games':'Board Game Club',
+    'footer.copy':'© 2026 LightSource — Christian Tech Team. All rights reserved.',
+    'partners.label':'Our Partners','partners.title':'Together We Do More',
+    'gallery.label':'Our Life','gallery.title':'Moments That Inspire',
+    'gallery.desc':'Sport, creativity, camps, friendship — this is what Wise Step looks like in real life.',
+    'gallery.f.all':'All','gallery.f.sport':'Sport','gallery.f.camp':'Camp',
+    'gallery.f.crafts':'Creativity','gallery.f.events':'Events',
+    'gallery.more':'Show More',
+  }
+};
+
+let currentLang = 'uk';
+
+function setLang(lang) {
+  currentLang = lang;
+  const t = TRANSLATIONS[lang];
+
+  // Update button states
+  document.getElementById('btn-uk').classList.toggle('active', lang === 'uk');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+
+  // Update all data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+
+  // Update form placeholders
+  const pMap = { 'inp-name': 'form.placeholder.name', 'inp-email': 'form.placeholder.email', 'inp-subject': 'form.placeholder.subject', 'inp-message': 'form.placeholder.message' };
+  Object.entries(pMap).forEach(([id, key]) => {
+    const el = document.getElementById(id);
+    if (el && t[key]) el.placeholder = t[key];
+  });
+
+  // Update document lang attribute
+  document.documentElement.lang = lang;
+
+  // Update POPUP_DATA with translated strings and clear cached popups
+  updatePopupTranslations(lang);
+}
+
+function updatePopupTranslations(lang) {
+  const isEn = lang === 'en';
+  // Update popup data text fields
+  const pd = POPUP_DATA;
+  if (isEn) {
+    pd.florball.badge = 'Sport · Ongoing'; pd.florball.title = 'Floorball — Karpaty Cup';
+    pd.florball.desc = 'Floorball is a team sport that develops not only physical abilities, but also team spirit, discipline and responsibility. Wise Step runs floorball clubs in Svalyava and Polyana village, and organizes regional competitions — the Karpaty Cup.';
+    pd.florball.details = [['📍 Location','Svalyava & Polyana'],['📅 Frequency','Training 2-3x/week'],['👥 Participants','Children & youth 8–22'],['🏆 Result','200+ Cup participants']];
+    pd.florball.donateTitle = '💛 Support the Floorball Club'; pd.florball.donateBtn = '💛 Donate to Floorball'; pd.florball.note = 'Funds go to: equipment, venue rental, competition entry';
+    pd.florball.successTitle = 'Thank you for your support!'; pd.florball.successText = 'Your contribution helps children grow through sport';
+    pd.cup2025.badge = 'Competition · Fundraiser'; pd.cup2025.title = 'Karpaty Cup 2025 — Floorball Tournament';
+    pd.cup2025.desc = 'The Karpaty Cup is a regional floorball tournament organized by Wise Step each year. In 2025 we plan to gather 8+ teams from Zakarpattia and neighboring regions. Your help is needed to cover organizational costs!';
+    pd.cup2025.details = [['📅 Date','October 2025'],['🏟️ Venue','Svalyava'],['👥 Teams','8+ regional teams'],['🎯 Goal','30,000 UAH']];
+    pd.cup2025.donateTitle = '💛 Support Karpaty Cup 2025'; pd.cup2025.donateBtn = '🏆 Support the Tournament'; pd.cup2025.note = 'Funds: venue (12,000), prizes (8,000), equipment (10,000)';
+    pd.cup2025.successTitle = 'You supported Karpaty Cup!'; pd.cup2025.successText = 'Thanks to you, great competitions will happen';
+    pd.crafts.badge = 'Creativity · Ongoing'; pd.crafts.title = 'Creative Workshops & Crafts';
+    pd.crafts.desc = 'Creative workshops are a space where children and youth can express themselves through art. We hold sessions in handicrafts, painting, plaster casting, decoupage and more.';
+    pd.crafts.details = [['📅 Frequency','Weekly'],['👥 Age','6–18 years'],['🎨 Activities','Crafts, painting, decor'],['💰 Cost','Free']];
+    pd.crafts.donateTitle = '💛 Support Creative Workshops'; pd.crafts.donateBtn = '🎨 Support Workshops'; pd.crafts.note = 'Funds: materials, paints, tools for sessions';
+    pd.crafts.successTitle = 'Thank you!'; pd.crafts.successText = 'Your contribution develops creative potential in children';
+    pd.candles.badge = 'Social · Fundraiser · 90%'; pd.candles.title = 'Trench Candles for Ukraine\'s Defenders';
+    pd.candles.desc = 'Our youth handcraft trench candles for Ukraine\'s defenders. We\'re raising funds for materials to make 500 candles. Almost there — help us finish this project!';
+    pd.candles.details = [['🎯 Goal','500 trench candles'],['💰 Target','8,000 UAH'],['👥 Volunteers','15+ young people'],['🎖️ For','Ukraine\'s defenders']];
+    pd.candles.donateTitle = '💛 Help Complete the Fundraiser!'; pd.candles.donateBtn = '🕯️ Support Candles'; pd.candles.note = 'Only 800 UAH left to raise! Your contribution = warmth for our heroes';
+    pd.candles.successTitle = 'Thank you!'; pd.candles.successText = 'Your contribution is light and warmth for the defenders';
+    pd.reb.badge = 'Rehabilitation · Ongoing'; pd.reb.title = 'Work with Children from Rehab Center';
+    pd.reb.desc = 'Wise Step works with rehabilitation centers in Zakarpattia. Our volunteers and leaders regularly visit children and youth, organizing games, creative activities, sports and spiritual support.';
+    pd.reb.details = [['📅 Frequency','Every 2 weeks'],['👥 Reach','30+ children'],['🌟 Formats','Games, sport, crafts'],['💙 Approach','Psychological support']];
+    pd.reb.donateTitle = '💛 Support Work with Rehab Children'; pd.reb.donateBtn = '🤝 Support This Project'; pd.reb.note = 'Funds: session materials, transport, gifts for children';
+    pd.reb.successTitle = 'Thank you!'; pd.reb.successText = 'You give hope to children who need it most';
+    pd.camp.badge = 'Camp · Fundraiser'; pd.camp.title = 'Summer Camp Wise Step 2025';
+    pd.camp.desc = 'The annual summer camp is one of Wise Step\'s most beloved programs. 5 days of activities in the Carpathian nature where children make friends, learn about God, play sports and develop talents.';
+    pd.camp.details = [['📅 Date','July 2025, 5 days'],['👥 Participants','40 children (8–16)'],['📍 Location','Carpathians, Polyana'],['💰 Target','55,000 UAH']];
+    pd.camp.donateTitle = '💛 Support the Summer Camp'; pd.camp.donateBtn = '⛺ Support Camp'; pd.camp.note = '1,000 UAH = one free day for a child from a vulnerable family';
+    pd.camp.successTitle = 'Thank you!'; pd.camp.successText = 'You help children have an unforgettable summer';
+    pd.games.badge = 'Leisure · Ongoing'; pd.games.title = 'Board Game Club & Mass Events';
+    pd.games.desc = 'The board game club is a place to relax, meet new people and have fun together. We organize regular game nights, mass events, festivals and trips.';
+    pd.games.details = [['📅 Frequency','Every Friday'],['🎲 Games','20+ board games'],['👥 Age','Everyone!'],['🎉 Events','Festivals, tournaments']];
+    pd.games.donateTitle = '💛 Support the Board Game Club'; pd.games.donateBtn = '🎲 Support Club'; pd.games.note = 'Funds: new games, organizing events and festivals';
+    pd.games.successTitle = 'Thank you!'; pd.games.successText = 'You help youth find friends and joy';
+    pd.bible.badge = 'Spiritual Growth · Ongoing'; pd.bible.title = 'Bible Study Groups & Educational Trainings';
+    pd.bible.desc = 'Spiritual growth is the heart of Wise Step\'s mission. We run Bible study groups for different age groups, educational trainings, and discussion meetings — helping young people know God and build their lives with purpose.';
+    pd.bible.details = [['📅 Frequency','Weekly'],['👥 Groups','By age & interests'],['📚 Materials','Bibles, guides'],['🎓 Trainings','Leadership, values']];
+    pd.bible.donateTitle = '💛 Support Spiritual Programs'; pd.bible.donateBtn = '📖 Support Program'; pd.bible.note = 'Funds: study materials, Bibles, organizing trainings';
+    pd.bible.successTitle = 'Thank you!'; pd.bible.successText = 'You invest in the spiritual growth of a young generation';
+    // Update progress labels in popup data
+    Object.values(pd).forEach(p => { if (p.progress) { /* amounts already in UAH, keep as is */ } });
+  } else {
+    // Restore Ukrainian
+    pd.florball.badge = 'Спорт · Постійний проєкт'; pd.florball.title = 'Флорбол — Кубок Карпат';
+    pd.florball.desc = 'Флорбол — це командний вид спорту, який розвиває не лише фізичні якості, але й командний дух, дисципліну та відповідальність. Wise Step веде флорбольні клуби у Сваляві та с. Поляна, а також організовує регіональні змагання — Кубок Карпат.';
+    pd.florball.details = [['📍 Локація','Свалява та с. Поляна'],['📅 Частота','Тренування 2-3 рази/тиждень'],['👥 Учасники','Діти та молодь 8–22 роки'],['🏆 Результат','200+ учасників у Кубку']];
+    pd.florball.donateTitle = '💛 Підтримати флорбольний клуб'; pd.florball.donateBtn = '💛 Задонатити на флорбол'; pd.florball.note = 'Кошти підуть на: інвентар, оренду залу, участь у змаганнях';
+    pd.florball.successTitle = 'Дякуємо за підтримку!'; pd.florball.successText = 'Ваш внесок допомагає дітям розвиватися через спорт';
+    pd.cup2025.badge = 'Змагання · Збір коштів'; pd.cup2025.title = 'Кубок Карпат 2025 — Турнір з флорболу';
+    pd.cup2025.desc = 'Кубок Карпат — регіональний турнір з флорболу, який Wise Step організовує щороку. У 2025 році ми плануємо зібрати 8+ команд із Закарпаття та сусідніх областей.';
+    pd.cup2025.details = [['📅 Дата','Жовтень 2025'],['🏟️ Місце','м. Свалява'],['👥 Команди','8+ команд із регіону'],['🎯 Мета збору','30 000 грн']];
+    pd.cup2025.donateTitle = '💛 Підтримати Кубок Карпат 2025'; pd.cup2025.donateBtn = '🏆 Підтримати турнір'; pd.cup2025.note = 'Кошти: оренда залу (12 000), нагороди (8 000), інвентар (10 000)';
+    pd.cup2025.successTitle = 'Ви підтримали Кубок Карпат!'; pd.cup2025.successText = 'Завдяки вам відбудуться чудові змагання';
+    pd.crafts.badge = 'Творчість · Постійний'; pd.crafts.title = 'Творчі майстерні та рукоділля';
+    pd.crafts.desc = 'Творчі майстерні — це простір, де діти і молодь можуть виражати себе через мистецтво. Ми проводимо заняття з рукоділля, розпису, виготовлення гіпсових виробів, декупажу та інших видів творчості.';
+    pd.crafts.details = [['📅 Частота','Щотижня'],['👥 Вік','6–18 років'],['🎨 Напрямки','Рукоділля, розпис, декор'],['💰 Участь','Безкоштовно']];
+    pd.crafts.donateTitle = '💛 Підтримати творчі майстерні'; pd.crafts.donateBtn = '🎨 Підтримати майстерні'; pd.crafts.note = 'Кошти підуть на: матеріали, фарби, інструменти для занять';
+    pd.crafts.successTitle = 'Дякуємо за підтримку!'; pd.crafts.successText = 'Ваш внесок розвиває творчий потенціал дітей';
+    pd.candles.badge = 'Соціальний · Збір коштів · 90%'; pd.candles.title = 'Окопні свічки для захисників України';
+    pd.candles.desc = 'Наша молодь разом виготовляє окопні свічки для захисників України. Збираємо кошти на матеріали для виготовлення 500 свічок. Майже зібрано — допоможіть нам завершити цей проєкт!';
+    pd.candles.details = [['🎯 Мета','500 окопних свічок'],['💰 Сума збору','8 000 грн'],['👥 Волонтери','15+ молодих людей'],['🎖️ Для кого','Захисники України']];
+    pd.candles.donateTitle = '💛 Допоможи завершити збір!'; pd.candles.donateBtn = '🕯️ Підтримати збір свічок'; pd.candles.note = 'Залишилось зібрати лише 800 грн! Ваш внесок — це тепло для наших героїв';
+    pd.candles.successTitle = 'Дякуємо за підтримку!'; pd.candles.successText = 'Ваш внесок — це світло і тепло для захисників';
+    pd.reb.badge = 'Реабілітація · Постійний'; pd.reb.title = 'Робота з дітьми РЕБ центру';
+    pd.reb.desc = 'Wise Step співпрацює з реабілітаційними центрами Закарпаття. Наші волонтери та лідери регулярно відвідують дітей і молодь, організовуючи для них ігри, творчі заняття, спортивні активності та духовну підтримку.';
+    pd.reb.details = [['📅 Частота','Раз на 2 тижні'],['👥 Охоплення','30+ дітей'],['🌟 Формати','Ігри, спорт, творчість'],['💙 Підхід','Психологічна підтримка']];
+    pd.reb.donateTitle = '💛 Підтримати роботу з дітьми РЕБ'; pd.reb.donateBtn = '🤝 Підтримати цей проєкт'; pd.reb.note = 'Кошти: матеріали для занять, транспорт, подарунки для дітей';
+    pd.reb.successTitle = 'Дякуємо за підтримку!'; pd.reb.successText = 'Ви дарите надію дітям, які цього потребують';
+    pd.camp.badge = 'Табір · Збір коштів'; pd.camp.title = 'Літній табір Wise Step 2025';
+    pd.camp.desc = 'Щорічний літній табір — одна з найулюбленіших програм Wise Step. 5 насичених днів серед природи Карпат, де діти знаходять нових друзів, дізнаються про Бога, займаються спортом і розвивають таланти.';
+    pd.camp.details = [['📅 Дата','Липень 2025, 5 днів'],['👥 Учасники','40 дітей (8–16 р.)'],['📍 Місце','Карпати, с. Поляна'],['💰 Мета збору','55 000 грн']];
+    pd.camp.donateTitle = '💛 Підтримати літній табір'; pd.camp.donateBtn = '⛺ Підтримати табір'; pd.camp.note = '1 000 грн = один безкоштовний день для дитини з вразливої сім\'ї';
+    pd.camp.successTitle = 'Дякуємо за підтримку!'; pd.camp.successText = 'Ви допомагаєте дітям провести незабутнє літо';
+    pd.games.badge = 'Дозвілля · Постійний'; pd.games.title = 'Настільний клуб та масове дозвілля';
+    pd.games.desc = 'Настільний клуб — це місце, де можна відпочити, познайомитися з новими людьми і весело провести час. Ми організовуємо регулярні ігрові вечори, масові заходи, фестивалі та виїзди.';
+    pd.games.details = [['📅 Частота','Щотижня по п\'ятницях'],['🎲 Ігри','20+ різних настольних ігор'],['👥 Вік','Для всіх!'],['🎉 Заходи','Фестивалі, турніри']];
+    pd.games.donateTitle = '💛 Підтримати настільний клуб'; pd.games.donateBtn = '🎲 Підтримати клуб'; pd.games.note = 'Кошти: нові ігри, організація заходів та фестивалів';
+    pd.games.successTitle = 'Дякуємо за підтримку!'; pd.games.successText = 'Ви допомагаєте молоді знаходити друзів і радість';
+    pd.bible.badge = 'Духовний розвиток · Постійний'; pd.bible.title = 'Групи вивчення Біблії та навчальні тренінги';
+    pd.bible.desc = 'Духовний розвиток — серце місії Wise Step. Ми проводимо групи вивчення Біблії для різних вікових груп, навчальні тренінги, освітні зустрічі та дискусії.';
+    pd.bible.details = [['📅 Частота','Щотижня'],['👥 Групи','За віком та інтересами'],['📚 Матеріали','Біблії, посібники'],['🎓 Тренінги','Лідерство, цінності']];
+    pd.bible.donateTitle = '💛 Підтримати духовні програми'; pd.bible.donateBtn = '📖 Підтримати програму'; pd.bible.note = 'Кошти: навчальні матеріали, Біблії, організація тренінгів';
+    pd.bible.successTitle = 'Дякуємо за підтримку!'; pd.bible.successText = 'Ви вкладаєте у духовне зростання молодого покоління';
+  }
+  // Remove cached popup DOMs so they rebuild with new language
+  document.querySelectorAll('#popupMount .popup-overlay').forEach(el => el.remove());
+}
+
+// ── Mobile menu ──
+function toggleMenu() {
+  const links = document.getElementById('navLinks');
+  const btn = document.getElementById('hamburger');
+  const overlay = document.getElementById('mobileOverlay');
+  const isOpen = links.classList.toggle('open');
+  btn.classList.toggle('open', isOpen);
+  overlay.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+function closeMenu() {
+  document.getElementById('navLinks').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ── Navbar scroll ──
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 20), {passive: true});
+
+// ── Single unified IntersectionObserver ──
+const unifiedObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+
+    // Reveal animation
+    if (el.classList.contains('reveal')) {
+      el.classList.add('visible');
+    }
+
+    // Progress bars
+    if (el.classList.contains('progress-bar-fill')) {
+      setTimeout(() => { el.style.width = el.dataset.percent + '%'; }, 200);
+      unifiedObserver.unobserve(el);
+    }
+
+    // Counters
+    if (el.dataset.target) {
+      const target = parseInt(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      let startTime = null;
+      const step = (ts) => {
+        if (!startTime) startTime = ts;
+        const p = Math.min((ts - startTime) / 1400, 1);
+        el.textContent = Math.floor(p * target) + suffix;
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+      unifiedObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal, .progress-bar-fill, .stat-number[data-target]')
+  .forEach(el => unifiedObserver.observe(el));
+
+// ── Popup data ──
+const POPUP_DATA = {
+  florball: {
+    color: 'g-teal', emoji: '🏒', badge: 'Спорт · Постійний проєкт',
+    title: 'Флорбол — Кубок Карпат',
+    desc: 'Флорбол — це командний вид спорту, який розвиває не лише фізичні якості, але й командний дух, дисципліну та відповідальність. Wise Step веде флорбольні клуби у Сваляві та с. Поляна, а також організовує регіональні змагання — Кубок Карпат.',
+    details: [['📍 Локація','Свалява та с. Поляна'],['📅 Частота','Тренування 2-3 рази/тиждень'],['👥 Учасники','Діти та молодь 8–22 роки'],['🏆 Результат','200+ учасників у Кубку']],
+    gallery: [['linear-gradient(135deg,#1ABCB0,#0D9E93)','🏒',true],['linear-gradient(135deg,#1B2D45,#263D5A)','⚽',false],['#E8F0F4','🏅',false],['#F8FAFA','🤝',false]],
+    donateTitle: '💛 Підтримати флорбольний клуб',
+    amounts: ['200 грн','500 грн','1 000 грн','2 000 грн'], activeIdx: 1,
+    donateBtn: '💛 Задонатити на флорбол',
+    note: 'Кошти підуть на: інвентар, оренду залу, участь у змаганнях',
+    successEmoji: '🎉', successTitle: 'Дякуємо за підтримку!',
+    successText: 'Ваш внесок допомагає дітям розвиватися через спорт'
+  },
+  cup2025: {
+    color: 'g-blue', emoji: '🏆', badge: 'Змагання · Збір коштів',
+    title: 'Кубок Карпат 2025 — Турнір з флорболу',
+    desc: 'Кубок Карпат — регіональний турнір з флорболу, який Wise Step організовує щороку. У 2025 році ми плануємо зібрати 8+ команд із Закарпаття та сусідніх областей. Потрібна ваша допомога для покриття організаційних витрат!',
+    details: [['📅 Дата','Жовтень 2025'],['🏟️ Місце','м. Свалява'],['👥 Команди','8+ команд із регіону'],['🎯 Мета збору','30 000 грн']],
+    gallery: [['linear-gradient(135deg,#1ABCB0,#0D9E93)','🏒',true],['linear-gradient(135deg,#1B2D45,#263D5A)','⚽',false],['#E8F0F4','🏅',false],['#F8FAFA','🤝',false]],
+    progress: { raised: 18400, goal: 30000, pct: 61, donors: 34, days: 47, left: 11600 },
+    donateTitle: '💛 Підтримати Кубок Карпат 2025',
+    amounts: ['300 грн','700 грн','1 500 грн','3 000 грн'], activeIdx: 1,
+    donateBtn: '🏆 Підтримати турнір',
+    note: 'Кошти: оренда залу (12 000), нагороди (8 000), інвентар (10 000)',
+    successEmoji: '🏆', successTitle: 'Ви підтримали Кубок Карпат!',
+    successText: 'Завдяки вам відбудуться чудові змагання'
+  },
+  crafts: {
+    color: 'g-warm', emoji: '🎨', badge: 'Творчість · Постійний',
+    title: 'Творчі майстерні та рукоділля',
+    desc: 'Творчі майстерні — це простір, де діти і молодь можуть виражати себе через мистецтво. Ми проводимо заняття з рукоділля, розпису, виготовлення гіпсових виробів, декупажу та інших видів творчості.',
+    details: [['📅 Частота','Щотижня'],['👥 Вік','6–18 років'],['🎨 Напрямки','Рукоділля, розпис, декор'],['💰 Участь','Безкоштовно']],
+    gallery: [['linear-gradient(135deg,#1ABCB0,#0D9E93)','🏒',true],['linear-gradient(135deg,#1B2D45,#263D5A)','⚽',false],['#E8F0F4','🏅',false],['#F8FAFA','🤝',false]],
+    donateTitle: '💛 Підтримати творчі майстерні',
+    amounts: ['150 грн','400 грн','800 грн','2 000 грн'], activeIdx: 1,
+    donateBtn: '🎨 Підтримати майстерні',
+    note: 'Кошти підуть на: матеріали, фарби, інструменти для занять',
+    successEmoji: '🎨', successTitle: 'Дякуємо за підтримку!',
+    successText: 'Ваш внесок розвиває творчий потенціал дітей'
+  },
+  candles: {
+    color: 'g-navy', emoji: '🕯️', badge: 'Соціальний · Збір коштів · 90%',
+    title: 'Окопні свічки для захисників України',
+    desc: 'Наша молодь разом виготовляє окопні свічки для захисників України. Збираємо кошти на матеріали для виготовлення 500 свічок. Майже зібрано — допоможіть нам завершити цей проєкт!',
+    details: [['🎯 Мета','500 окопних свічок'],['💰 Сума збору','8 000 грн'],['👥 Волонтери','15+ молодих людей'],['🎖️ Для кого','Захисники України']],
+    gallery: [['linear-gradient(135deg,#1ABCB0,#0D9E93)','🏒',true],['linear-gradient(135deg,#1B2D45,#263D5A)','⚽',false],['#E8F0F4','🏅',false],['#F8FAFA','🤝',false]],
+    progress: { raised: 7200, goal: 8000, pct: 90, donors: 52, days: null, left: 800 },
+    donateTitle: '💛 Допоможи завершити збір!',
+    amounts: ['100 грн','300 грн','500 грн','800 грн'], activeIdx: 1,
+    donateBtn: '🕯️ Підтримати збір свічок',
+    note: 'Залишилось зібрати лише 800 грн! Ваш внесок — це тепло для наших героїв',
+    successEmoji: '🕯️', successTitle: 'Дякуємо за підтримку!',
+    successText: 'Ваш внесок — це світло і тепло для захисників'
+  },
+  reb: {
+    color: 'g-blue', emoji: '🤝', badge: 'Реабілітація · Постійний',
+    title: 'Робота з дітьми реб-центру',
+    desc: 'Wise Step співпрацює з реабілітаційними центрами Закарпаття. Наші волонтери та лідери регулярно відвідують дітей і молодь, організовуючи для них ігри, творчі заняття, спортивні активності та духовну підтримку.',
+    details: [['📅 Частота','Раз на 2 тижні'],['👥 Охоплення','30+ дітей'],['🌟 Формати','Ігри, спорт, творчість'],['💙 Підхід','Психологічна підтримка']],
+    gallery: [['linear-gradient(135deg,#1ABCB0,#0D9E93)','🏒',true],['linear-gradient(135deg,#1B2D45,#263D5A)','⚽',false],['#E8F0F4','🏅',false],['#F8FAFA','🤝',false]],
+    donateTitle: '💛 Підтримати роботу з дітьми реб-центру',
+    amounts: ['200 грн','500 грн','1 000 грн','3 000 грн'], activeIdx: 1,
+    donateBtn: '🤝 Підтримати цей проєкт',
+    note: 'Кошти: матеріали для занять, транспорт, подарунки для дітей',
+    successEmoji: '🤝', successTitle: 'Дякуємо за підтримку!',
+    successText: 'Ви дарите надію дітям, які цього потребують'
+  },
+  camp: {
+    color: 'g-orange', emoji: '⛺', badge: 'Табір · Збір коштів',
+    title: 'Літній табір "Summer Wise Camp 2026"',
+    desc: 'Щорічний літній табір — одна з найулюбленіших програм Wise Step. 5 насичених днів серед природи Карпат, де діти знаходять нових друзів, дізнаються про Бога, займаються спортом і розвивають таланти.',
+    details: [['📅 Дата','Серпень 2026, 5 днів'],['👥 Учасники','30 дітей (13–16 р.)'],['📍 Місце','Карпати, с. Жденієво'],['💰 Мета збору','120 000 грн']],
+    gallery: [['linear-gradient(135deg,#1ABCB0,#0D9E93)','🏒',true],['linear-gradient(135deg,#1B2D45,#263D5A)','⚽',false],['#E8F0F4','🏅',false],['#F8FAFA','🤝',false]],
+    progress: { raised: 23500, goal: 120000, pct: 20, donors: 3, days: 135, left: 96500 },
+    donateTitle: '💛 Підтримати літній табір',
+    amounts: ['500 грн','1 000 грн','2 500 грн','5 000 грн'], activeIdx: 1,
+    donateBtn: '⛺ Підтримати табір',
+    note: '1 000 грн = один безкоштовний день для дитини з вразливої сім\'ї',
+    successEmoji: '⛺', successTitle: 'Дякуємо за підтримку!',
+    successText: 'Ви допомагаєте дітям провести незабутнє літо'
+  },
+  camps: {
+    color: 'g-yellow', emoji: '🚴', badge: 'Денні табори · Збір коштів',
+    title: 'Денні літні табори Wise Step 2026',
+    desc: 'Щорічні літні табори — одні з найулюбленіших програм Wise Step. 4 насичених таборів серед природи Карпат, де діти знаходять нових друзями, дізнаються про Бога, займаються спортом і розвивають таланти.',
+    details: [['📅 Дати','Липень 2026, 4 дні'],['👥 Учасники','20 дітей (12–16 р.)'],['📍 Місце','Карпати, м. Свалява'],['💰 Мета збору','55 000 грн']],
+    gallery: [['linear-gradient(135deg,#1ABCB0,#0D9E93)','🏒',true],['linear-gradient(135deg,#1B2D45,#263D5A)','⚽',false],['#E8F0F4','🏅',false],['#F8FAFA','🤝',false]],
+    progress: { raised: 10500, goal: 55000, pct: 19, donors: 2, days: 90, left: 44500 },
+    donateTitle: '💛 Підтримати денні літні табори',
+    amounts: ['500 грн','1 000 грн','2 500 грн','5 000 грн'], activeIdx: 1,
+    donateBtn: '🚴 Підтримати табір',
+    note: 'Інвестиція у розвиток майбутнього покоління.',
+    successEmoji: '🚴', successTitle: 'Дякуємо за підтримку!',
+    successText: 'Ви допомагаєте дітям провести незабутнє літо'
+  },
+  games: {
+    color: 'g-purple', emoji: '🎲', badge: 'Дозвілля · Постійний',
+    title: 'Настільний клуб та масове дозвілля',
+    desc: 'Настільний клуб — це місце, де можна відпочити, познайомитися з новими людьми і весело провести час. Ми організовуємо регулярні ігрові вечори, масові заходи, фестивалі та виїзди.',
+    details: [['📅 Частота','Щотижня по п\'ятницях'],['🎲 Ігри','20+ різних настольних ігор'],['👥 Вік','Для всіх!'],['🎉 Заходи','Фестивалі, турніри']],
+    gallery: [['linear-gradient(135deg,#1ABCB0,#0D9E93)','🏒',true],['linear-gradient(135deg,#1B2D45,#263D5A)','⚽',false],['#E8F0F4','🏅',false],['#F8FAFA','🤝',false]],
+    donateTitle: '💛 Підтримати настільний клуб',
+    amounts: ['200 грн','500 грн','1 000 грн','2 500 грн'], activeIdx: 1,
+    donateBtn: '🎲 Підтримати клуб',
+    note: 'Кошти: нові ігри, організація заходів та фестивалів',
+    successEmoji: '🎲', successTitle: 'Дякуємо за підтримку!',
+    successText: 'Ви допомагаєте молоді знаходити друзів і радість'
+  },
+  bible: {
+    color: 'g-green', emoji: '📖', badge: 'Духовний розвиток · Постійний',
+    title: 'Групи вивчення Біблії та навчальні тренінги',
+    desc: 'Духовний розвиток — серце місії Wise Step. Ми проводимо групи вивчення Біблії для різних вікових груп, навчальні тренінги, освітні зустрічі та дискусії. Мета — допомогти молодим людям пізнати Бога та свідомо будувати своє життя.',
+    details: [['📅 Частота','Щотижня'],['👥 Групи','За віком та інтересами'],['📚 Матеріали','Біблії, посібники'],['🎓 Тренінги','Лідерство, цінності']],
+    gallery: [['linear-gradient(135deg,#1ABCB0,#0D9E93)','🏒',true],['linear-gradient(135deg,#1B2D45,#263D5A)','⚽',false],['#E8F0F4','🏅',false],['#F8FAFA','🤝',false]],
+    donateTitle: '💛 Підтримати духовні програми',
+    amounts: ['300 грн','700 грн','1 500 грн','3 000 грн'], activeIdx: 1,
+    donateBtn: '📖 Підтримати програму',
+    note: 'Кошти: навчальні матеріали, Біблії, організація тренінгів',
+    successEmoji: '📖', successTitle: 'Дякуємо за підтримку!',
+    successText: 'Ви вкладаєте у духовне зростання молодого покоління'
+  }
+};
+
+// ── Render popup HTML dynamically ──
+function buildPopupHTML(id, d) {
+  const progressHTML = d.progress ? `
+    <div class="popup-progress-section">
+      <h4>📊 Прогрес збору коштів</h4>
+      <div class="popup-progress-header">
+        <div><div class="popup-progress-big">${d.progress.raised.toLocaleString('uk-UA')} грн</div>
+        <div class="popup-progress-goal">з ${d.progress.goal.toLocaleString('uk-UA')} грн</div></div>
+        <div class="popup-progress-pct">${d.progress.pct}%</div>
+      </div>
+      <div class="popup-progress-bar-bg"><div class="popup-progress-bar-fill" data-percent="${d.progress.pct}" style="width:0"></div></div>
+      <div class="popup-progress-meta">
+        <div class="popup-progress-meta-item">👤 <b>${d.progress.donors}</b> донатори</div>
+        ${d.progress.days ? `<div class="popup-progress-meta-item">⏰ <b>${d.progress.days}</b> днів залишилось</div>` : ''}
+        <div class="popup-progress-meta-item">💰 Ще потрібно <b>${d.progress.left.toLocaleString('uk-UA')} грн</b></div>
+      </div>
+    </div>` : '';
+
+  const galleryHTML = d.gallery ? `
+    <div class="popup-gallery">
+      ${d.gallery.map(([bg,em,large]) =>
+        `<div class="popup-gallery-item${large?' large':''}" style="background:${bg}"><span style="font-size:${large?'50':'36'}px">${em}</span></div>`
+      ).join('')}
+    </div>` : '';
+
+  const amountsHTML = d.amounts.map((a, i) =>
+    `<button class="donate-amount-btn${i===d.activeIdx?' active':''}" onclick="selectAmount(this,'${id}')">${a}</button>`
+  ).join('');
+
+  return `
+  <div class="popup-overlay" id="popup-${id}">
+    <div class="popup">
+      <div class="popup-hero ${d.color}">
+        <div class="popup-hero-gradient">${d.emoji}</div>
+        <div class="popup-hero-overlay"></div>
+        <div class="popup-hero-badge">${d.badge}</div>
+        <button class="popup-close" onclick="closePopup('${id}')">✕</button>
+        <div class="popup-hero-title">${d.title}</div>
+      </div>
+      <div class="popup-body">
+        <p class="popup-desc">${d.desc}</p>
+        <div class="popup-details-grid">
+          ${d.details.map(([l,v]) => `<div class="popup-detail"><div class="popup-detail-label">${l}</div><div class="popup-detail-value">${v}</div></div>`).join('')}
+        </div>
+        ${galleryHTML}
+        ${progressHTML}
+        <div class="popup-donate-section">
+          <h4>${d.donateTitle}</h4>
+          <div id="donateForm-${id}">
+            <div class="donate-amounts">${amountsHTML}</div>
+            <div class="donate-custom"><input type="number" placeholder="Інша сума (грн)" id="customAmount-${id}"></div>
+            <button class="btn-donate-main" onclick="processDonate('${id}')">${d.donateBtn}</button>
+            <p class="donate-note">${d.note}</p>
+          </div>
+          <div class="donate-success" id="donateSuccess-${id}">
+            <div class="donate-success-icon">${d.successEmoji}</div>
+            <h4>${d.successTitle}</h4>
+            <p>${d.successText}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── Popup open/close ──
+let currentPopup = null;
+
+function openPopup(id) {
+  // Build popup if not yet in DOM
+  if (!document.getElementById('popup-' + id)) {
+    const d = POPUP_DATA[id];
+    if (!d) return;
+    document.getElementById('popupMount').insertAdjacentHTML('beforeend', buildPopupHTML(id, d));
+    // Attach overlay-click close
+    const overlay = document.getElementById('popup-' + id);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closePopup(id); });
+  }
+
+  const el = document.getElementById('popup-' + id);
+  el.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  currentPopup = id;
+
+  // Animate progress bar
+  requestAnimationFrame(() => {
+    el.querySelectorAll('.popup-progress-bar-fill').forEach(bar => {
+      setTimeout(() => { bar.style.width = bar.dataset.percent + '%'; }, 300);
+    });
+  });
+}
+
+function closePopup(id) {
+  const el = document.getElementById('popup-' + id);
+  if (el) { el.classList.remove('open'); document.body.style.overflow = ''; }
+  currentPopup = null;
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && currentPopup) closePopup(currentPopup);
+});
+
+// ── openDonate: open popup scrolled to donate section ──
+function openDonate(id) {
+  openPopup(id);
+  setTimeout(() => {
+    const popup = document.getElementById('popup-' + id);
+    if (!popup) return;
+    const ds = popup.querySelector('.popup-donate-section');
+    if (ds) ds.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 350);
+}
+
+// ── Donate amount selector ──
+function selectAmount(btn, id) {
+  btn.closest('.donate-amounts').querySelectorAll('.donate-amount-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const inp = document.getElementById('customAmount-' + id);
+  if (inp) inp.value = '';
+}
+
+// ── Process donate ──
+function processDonate(id) {
+  const form = document.getElementById('donateForm-' + id);
+  const success = document.getElementById('donateSuccess-' + id);
+  if (form && success) {
+    form.style.display = 'none';
+    success.classList.add('show');
+    setTimeout(() => { form.style.display = ''; success.classList.remove('show'); }, 4000);
+  }
+}
+
+// ── Contact form with EmailJS ──
+async function handleSubmit(e) {
+  e.preventDefault();
+
+  const btn    = document.getElementById('submitBtn');
+  const status = document.getElementById('formStatus');
+  const t      = TRANSLATIONS[currentLang];
+  const isEn   = currentLang === 'en';
+
+  // Collect values
+  const name    = document.getElementById('inp-name').value.trim();
+  const email   = document.getElementById('inp-email').value.trim();
+  const subject = document.getElementById('inp-subject').value.trim();
+  const message = document.getElementById('inp-message').value.trim();
+
+  // Loading state
+  btn.disabled = true;
+  btn.textContent = isEn ? '⏳ Sending...' : '⏳ Надсилаємо...';
+  status.className = 'form-status';
+  status.style.display = 'none';
+
+  try {
+    await emailjs.send('service_p9ym0re', 'template_x77kdo9', {
+      from_name:    name,
+      reply_to:     email,
+      subject:      subject || (isEn ? '(no subject)' : '(без теми)'),
+      message:      message || (isEn ? '(no message)' : '(без повідомлення)'),
+    });
+
+    // Auto-reply to sender
+    await emailjs.send('service_p9ym0re', 'template_o27opdr', {
+      from_name: name,
+      reply_to:  email,
+    });
+
+    // Success
+    btn.textContent = isEn ? '✅ Sent!' : '✅ Надіслано!';
+    btn.style.background = 'var(--teal-dark)';
+    status.className = 'form-status success';
+    status.textContent = isEn
+      ? `✅ Thank you, ${name}! Your message has been sent. Check your inbox — we've sent you a confirmation.`
+      : `✅ Дякуємо, ${name}! Повідомлення надіслано. Перевірте вашу пошту — ми надіслали підтвердження.`;
+
+    document.getElementById('contactForm').reset();
+
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.innerHTML = t['form.submit'] || 'Надіслати ✈️';
+      btn.style.background = '';
+    }, 4000);
+
+  } catch (err) {
+    console.error('EmailJS error:', err);
+    btn.disabled = false;
+    btn.innerHTML = t['form.submit'] || 'Надіслати ✈️';
+    btn.style.background = '';
+    status.className = 'form-status error';
+    status.textContent = isEn
+      ? '❌ Something went wrong. Please write to us directly: wisestep.center@gmail.com'
+      : '❌ Щось пішло не так. Напишіть нам напряму: wisestep.center@gmail.com';
+  }
+}
+
+</script>
+</body>
+</html>
