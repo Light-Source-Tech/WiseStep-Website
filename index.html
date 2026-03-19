@@ -209,6 +209,7 @@
   .donate-note { font-size: 12px; color: var(--gray); text-align: center; margin-top: 10px; }
   .popup-gallery { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 20px; }
   .popup-gallery-item { aspect-ratio: 1; background: var(--gray-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 32px; overflow: hidden; }
+  .popup-gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .popup-gallery-item.large { grid-column: span 2; aspect-ratio: 2/1; }
 
   /* SUPPORT */
@@ -463,10 +464,16 @@
   }
   .gi-bg span { font-size: 48px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.25)); pointer-events: none; }
   /* size variants */
-  .gallery-item.tall  .gi-bg { padding-bottom: 140%; }
+  /* .gallery-item.tall  .gi-bg { padding-bottom: 140%; }
   .gallery-item.wide  .gi-bg { padding-bottom: 52%; }
-  .gallery-item:not(.tall):not(.wide) .gi-bg { padding-bottom: 80%; }
+  .gallery-item:not(.tall):not(.wide) .gi-bg { padding-bottom: 80%; } */
   .gi-bg span { position: absolute; }
+
+  .gallery-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 
   /* overlay on hover */
   .gi-overlay {
@@ -672,9 +679,9 @@
       <div class="project-card-img g-teal"><div class="project-card-gradient">🏒</div></div>
       <div class="project-card-body">
         <div class="project-card-label" data-i18n="p.florball.label">Спорт · Постійний проєкт</div>
-        <div class="project-card-title" data-i18n="p.florball.title">Флорбол — Кубок Карпат</div>
-        <p class="project-card-desc" data-i18n="p.florball.desc">Регіональні змагання у Сваляві та с. Поляна. Тренування, командний дух, розвиток фізичних якостей. Кубок Карпат збирає команди з усього регіону.</p>
-        <div class="project-card-tags"><span class="tag" data-i18n="tag.florball">Флорбол</span><span class="tag">Свалява</span><span class="tag">с. Поляна</span><span class="tag" data-i18n="tag.competition">Змагання</span></div>
+        <div class="project-card-title" data-i18n="p.florball.title">Флорбольні команди</div>
+        <p class="project-card-desc" data-i18n="p.florball.desc">Тренування у Сваляві та с. Поляна. Тренування, командний дух, розвиток фізичних якостей.</p>
+        <div class="project-card-tags"><span class="tag" data-i18n="tag.florball">Флорбол</span><span class="tag" data-i18n="tag.svalyava">Свалява</span><span class="tag" data-i18n="tag.polyana">с. Поляна</span><span class="tag" data-i18n="tag.training">Тренування</span></div>
         <div class="project-actions">
           <button class="btn-donate" onclick="openDonate('florball')" data-i18n="btn.support">💛 Підтримати</button>
           <button class="btn-details" onclick="openPopup('florball')" data-i18n="btn.details">Детальніше</button>
@@ -958,100 +965,100 @@
 
   <div class="gallery-grid" id="galleryGrid">
 
-    <div class="gallery-item"   data-cat="sport"  data-title="Флорбол — тренування"   data-desc="Регулярні тренування флорбольного клубу у Сваляві">
-      <img src="/photos/Sports 1.webp" alt="Флорбол — тренування" class="gi-bg" style="width: 100%; height: 100%; object-fit: cover;">
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Спорт</div><div class="gi-title">Флорбол — тренування</div></div></div>
+    <div class="gallery-item"   data-cat="sport"  data-title="Доджбол"   data-desc="Регулярні тренування мультиспортивного клубу у Сваляві">
+      <img src="/photos/Sports 1.webp" alt="Доджбол" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Спорт</div><div class="gi-title">Доджбол - Активні Парки</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item"        data-cat="camp"   data-title="Літній табір у Карпатах" data-desc="5 днів пригод, дружби і духовного зростання серед гір">
-      <div class="gi-bg" style="background:linear-gradient(145deg,#F4D35E,#E8A83A)"><span>⛺</span></div>
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Табір</div><div class="gi-title">Літній табір</div></div></div>
+    <div class="gallery-item"        data-cat="camp"   data-title="Зимній табір у Карпатах" data-desc="4 дні пригод, дружби і духовного зростання серед засніжених гір">
+      <img src="/photos/Camp 1.webp" alt="Зимній табір" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Табір</div><div class="gi-title">Активний відпочинок</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
     <div class="gallery-item"        data-cat="crafts" data-title="Майстер-клас з рукоділля" data-desc="Творчі майстерні для дітей різного віку">
-      <div class="gi-bg" style="background:linear-gradient(145deg,#F59B6B,#E8735A)"><span>🎨</span></div>
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Творчість</div><div class="gi-title">Майстер-клас</div></div></div>
+      <img src="/photos/Crafts 2.webp" alt="Майстер-клас з рукоділля" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Творчість</div><div class="gi-title">Майстер-клас з рукоділля</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item wide"   data-cat="events" data-title="Кубок Карпат 2024"       data-desc="Регіональні змагання з флорболу — понад 200 учасників">
-      <div class="gi-bg" style="background:linear-gradient(145deg,#4A9EE8,#1B2D45)"><span>🏆</span></div>
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Захід</div><div class="gi-title">Кубок Карпат 2024</div></div></div>
+    <div class="gallery-item"   data-cat="events" data-title="Фестиваль Спорту"       data-desc="Регіональні змагання з флорболу — понад 200 учасників">
+      <img src="/photos/Events 1.webp" alt="Фестиваль Спорту" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Захід</div><div class="gi-title">Фестиваль Спорту</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item tall"   data-cat="events" data-title="Група вивчення Біблії"   data-desc="Щотижневі зустрічі для духовного зростання молоді">
-      <div class="gi-bg" style="background:linear-gradient(145deg,#5BC98B,#1B2D45)"><span>📖</span></div>
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Духовність</div><div class="gi-title">Вивчення Біблії</div></div></div>
+    <div class="gallery-item"   data-cat="events" data-title="Проведення змагань"   data-desc="Щотижневі зустрічі для духовного зростання молоді">
+      <img src="/photos/Events 2.webp" alt="Проведення змагань" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Захід</div><div class="gi-title">Проведення змагань</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
     <div class="gallery-item"        data-cat="sport"  data-title="Змагання з флорболу"     data-desc="Командна гра виховує характер і розвиває лідерські якості">
-      <div class="gi-bg" style="background:linear-gradient(145deg,#1ABCB0,#263D5A)"><span>⚽</span></div>
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Спорт</div><div class="gi-title">Змагання</div></div></div>
+      <img src="/photos/Sports 3.webp" alt="Змагання з флорболу" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Спорт</div><div class="gi-title">Змагання з флорболу</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item"        data-cat="crafts" data-title="Окопні свічки"            data-desc="Молодь виготовляє свічки для захисників України">
-      <div class="gi-bg" style="background:linear-gradient(145deg,#8B6BE8,#1B2D45)"><span>🕯️</span></div>
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Волонтерство</div><div class="gi-title">Окопні свічки</div></div></div>
+    <div class="gallery-item"        data-cat="crafts" data-title="Майстерня-рукоділля"            data-desc="Дітки виготовляють гіпсові вироби та декор — розвивають творчість і дрібну моторику">
+      <img src="/photos/Crafts 3.webp" alt="Майстерня-рукоділля" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Творчість</div><div class="gi-title">Майстерня-рукоділля</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
     <div class="gallery-item wide"   data-cat="camp"   data-title="Зимовий табір"            data-desc="Активний відпочинок та нові знайомства взимку в Карпатах">
-      <div class="gi-bg" style="background:linear-gradient(145deg,#4A9EE8,#1ABCB0)"><span>❄️</span></div>
+      <img src="/photos/Camp 3.webp" alt="Зимовий табір" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
       <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Табір</div><div class="gi-title">Зимовий табір</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item"        data-cat="events" data-title="Настільний клуб"          data-desc="Ігрові вечори — місце для нових друзів і веселого відпочинку">
-      <div class="gi-bg" style="background:linear-gradient(145deg,#F59B6B,#8B6BE8)"><span>🎲</span></div>
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Дозвілля</div><div class="gi-title">Настільний клуб</div></div></div>
+    <div class="gallery-item"        data-cat="events" data-title="Активні Парки"          data-desc="Проведення таборів Активних парків.">
+      <img src="/photos/Events 3.webp" alt="Активні Парки" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Дозвілля</div><div class="gi-title">Активні Парки</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item"        data-cat="sport"  data-title="Команда Wise Step"        data-desc="Регулярні тренування формують дисципліну і командний дух">
-      <div class="gi-bg" style="background:linear-gradient(145deg,#0D9E93,#263D5A)"><span>🤝</span></div>
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Спорт</div><div class="gi-title">Команда</div></div></div>
+    <div class="gallery-item"        data-cat="sport"  data-title="Спортивні змагання"        data-desc="Регулярні змагання формують дисципліну і командний дух">
+      <img src="/photos/Sports 2.webp" alt="Спортивні змагання" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Спорт</div><div class="gi-title">Спортивні змагання</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item tall"   data-cat="camp"   data-title="Ранок у таборі"           data-desc="Кожен день табору починається з енергійної зарядки">
-      <div class="gi-bg" style="background:linear-gradient(145deg,#F4D35E,#5BC98B)"><span>🌄</span></div>
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Табір</div><div class="gi-title">Ранок у таборі</div></div></div>
+    <div class="gallery-item tall"   data-cat="camp"   data-title="Гуртки в таборі"           data-desc="Кожен день табору починається з енергійної зарядки">
+      <img src="/photos/Camp 2.webp" alt="Гуртки в таборі" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Табір</div><div class="gi-title">Гуртки в таборі</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
     <div class="gallery-item"        data-cat="crafts" data-title="Розпис пряників"          data-desc="Творча майстерня з розпису — для дітей від 6 років">
-      <div class="gi-bg" style="background:linear-gradient(145deg,#F59B6B,#F4D35E)"><span>🍪</span></div>
+      <img src="/photos/Crafts 1.webp" alt="Розпис пряників" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
       <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Творчість</div><div class="gi-title">Розпис пряників</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
     <!-- initially hidden (show more) -->
-    <div class="gallery-item extra hidden" data-cat="events" data-title="Масовий захід"       data-desc="Фестиваль для всієї громади Сваляви">
-      <div class="gi-bg" style="background:linear-gradient(145deg,#4A9EE8,#5BC98B)"><span>🎉</span></div>
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Захід</div><div class="gi-title">Масовий захід</div></div></div>
+    <div class="gallery-item extra hidden" data-cat="events" data-title="Пікнік"       data-desc="Пікнік на природі — спільні ігри, смачна їжа та веселі історії біля вогнища">
+      <img src="/photos/Events 4.webp" alt="Пікнік" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Захід</div><div class="gi-title">Пікнік</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item extra hidden tall" data-cat="sport" data-title="Кубок Карпат — нагородження" data-desc="Нагородження переможців регіонального турніру">
-      <div class="gi-bg" style="background:linear-gradient(145deg,#F4D35E,#1ABCB0)"><span>🥇</span></div>
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Спорт</div><div class="gi-title">Нагородження</div></div></div>
+    <div class="gallery-item extra hidden tall" data-cat="sport" data-title="Спортивні змагання" data-desc="Нагorodження переможців регіонального турніру">
+      <img src="/photos/Sports 4.webp" alt="Спортивні змагання" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Спорт</div><div class="gi-title">Нагорodження</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item extra hidden" data-cat="crafts" data-title="Декупаж" data-desc="Майстер-клас з декупажу для підлітків">
-      <div class="gi-bg" style="background:linear-gradient(145deg,#8B6BE8,#F59B6B)"><span>🖼️</span></div>
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Творчість</div><div class="gi-title">Декупаж</div></div></div>
+    <div class="gallery-item extra hidden" data-cat="crafts" data-title="Вироби" data-desc="Майстер-клас з виробів.">
+      <img src="/photos/Crafts 4.webp" alt="Вироби" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Творчість</div><div class="gi-title">Вироби</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item extra hidden wide" data-cat="camp" data-title="Табір — вогнище" data-desc="Вечір біля вогнища — пісні, розмови, дружба">
-      <div class="gi-bg" style="background:linear-gradient(145deg,#E8735A,#1B2D45)"><span>🔥</span></div>
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Табір</div><div class="gi-title">Вечір біля вогнища</div></div></div>
+    <div class="gallery-item extra hidden wide" data-cat="camp" data-title="Табір - настольні ігри" data-desc="Вечір біля вогнища — пісні, розмови, дружба">
+      <img src="/photos/Camp 4.webp" alt="Табір - настольні ігри" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Табір</div><div class="gi-title">Табір - настольні ігри</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
@@ -1227,13 +1234,23 @@
   function renderLb() {
     const item = visible[cur];
     if (!item) return;
-    const bg = item.querySelector('.gi-bg');
-    const em = item.querySelector('.gi-bg span');
-    lbImg.style.background = bg ? bg.style.background : '#1B2D45';
-    lbImg.style.minHeight  = '320px';
-    lbImg.innerHTML = em
-      ? `<span style="font-size:110px;filter:drop-shadow(0 12px 32px rgba(0,0,0,0.35))">${em.textContent}</span>`
-      : '';
+    const bg  = item.querySelector('.gi-bg');
+    const img = item.querySelector('.gi-bg img');
+    const em  = item.querySelector('.gi-bg span');
+
+    // If the item has an actual image, render it in the lightbox.
+    // Otherwise fall back to the existing gradient + emoji placeholder.
+    lbImg.style.minHeight = '320px';
+    lbImg.style.background = img ? '' : (bg ? bg.style.background : '#1B2D45');
+
+    if (img) {
+      lbImg.innerHTML = `<img src="${img.src}" alt="${img.alt || ''}" style="max-width:100%;max-height:78vh;object-fit:contain;" />`;
+    } else {
+      lbImg.innerHTML = em
+        ? `<span style="font-size:110px;filter:drop-shadow(0 12px 32px rgba(0,0,0,0.35))">${em.textContent}</span>`
+        : '';
+    }
+
     lbTitle.textContent   = item.dataset.title || '';
     lbCnt.textContent     = `${cur + 1} / ${visible.length}`;
     lbPrev.style.opacity  = cur === 0 ? '0.25' : '1';
@@ -1318,7 +1335,7 @@ const TRANSLATIONS = {
     'about.missionTitle':'🎯 Мета','about.missionText':'Сприяти формуванню мудрих, духовно зрілих і соціально відповідальних поколінь через знання про Бога, Біблію та розвиток талантів.',
     'about.visionTitle':'🔭 Візія','about.visionText':'Створити простір розвитку і підтримки, де кожна дитина зростає духовно, розвиває таланти і свідомо робить мудрі кроки у житті.',
     'projects.label':'Що ми робимо','projects.title':'Наші проєкти<br>та програми','projects.desc':'Різноманітні напрямки для духовного, творчого, спортивного та освітнього розвитку.',
-    'p.florball.label':'Спорт · Постійний проєкт','p.florball.title':'Флорбол — Кубок Карпат','p.florball.desc':'Регіональні змагання у Сваляві та с. Поляна. Тренування, командний дух, розвиток фізичних якостей. Кубок Карпат збирає команди з усього регіону.',
+    'p.florball.label':'Спорт · Постійний проєкт','p.florball.title':'Флорбольні команди','p.florball.desc':'Тренування у Сваляві та с. Поляна. Тренування, командний дух, розвиток фізичних якостей.',
     'p.cup2025.label':'Змагання · Збір коштів','p.cup2025.title':'Кубок Карпат 2026','p.cup2025.desc':'Організація регіонального турніру з флорболу восени 2026. Потрібно покрити витрати на оренду залу, інвентар та нагороди.',
     'p.crafts.label':'Творчість · Постійний','p.crafts.title':'Творчі майстерні та рукоділля','p.crafts.desc':'Майстерні для дітей і молоді — від рукоділля до виготовлення гіпсових виробів і декору.',
     'p.candles.label':'Соціальний · Збір коштів','p.candles.title':'Окопні свічки для військових','p.candles.desc':'Збираємо на матеріали для виготовлення 500 окопних свічок для захисників України. Молодь виготовляє вручну.',
@@ -1329,7 +1346,7 @@ const TRANSLATIONS = {
     'p.bible.label':'Духовний розвиток · Постійний','p.bible.title':'Групи вивчення Біблії та тренінги','p.bible.desc':'Навчальні тренінги, освітні зустрічі та групи вивчення Біблії — формуємо духовно зрілих людей, які свідомо обирають мудрий шлях у житті.',
     'progress.label':'Прогрес збору','progress.donors':'донатори','progress.collected':'зíбрано','currency':'грн',
     'btn.support':'💛 Підтримати','btn.donate':'💛 Задонатити','btn.details':'Детальніше',
-    'tag.florball':'Флорбол','tag.competition':'Змагання','tag.crafts':'Рукоділля','tag.creativity':'Творчість',
+    'tag.florball':'Флорбол','tag.training':'Тренування','tag.crafts':'Рукоділля','tag.creativity':'Творчість', 'tag.svalyava':'Свалява', 'tag.polyana':'с. Поляна',
     'tag.support':'Підтримка','tag.rehab':'Реабілітація','tag.boardgames':'Настолки','tag.events':'Масові заходи',
     'tag.bible':'Біблія','tag.learning':'Навчання','tag.trainings':'Тренінги','tag.education':'Освіта',
     'support.label':'Наша аудиторія','support.title':'Кого ми підтримуємо','support.desc':'Wise Step відкритий для всіх — особливо для тих, хто потребує підтримки найбільше.',
@@ -1349,7 +1366,7 @@ const TRANSLATIONS = {
     'contact.loc.label':'Локація','contact.loc.value':'м. Свалява, Закарпаття, Україна','contact.write.label':'Напишіть нам','contact.write.value':'Через форму або соціальні мережі',
     'contact.slogan.label':'Слоган','contact.slogan.text':'"Wise Step — Простір розвитку, знань і досвіду для реалізації твоїх мудрих рішень"',
     'form.title':'Написати нам','form.name':'Ваше ім\'я','form.email':'Email','form.subject':'Тема звернення','form.message':'Повідомлення','form.submit':'Надіслати повідомлення ✈️',
-    'form.placeholder.name':'Іван Петренко','form.placeholder.email':'ivan@example.com','form.placeholder.subject':'Партнерство / Волонтерство / Питання','form.placeholder.message':'Розкажіть про себе та як ви хочете долучитись...',
+    'form.placeholder.name':'Іван Петренко','form.placeholder.email':'ivan@example.com','form.placeholder.subject':'Партнерство / Волонтерство / Питання','form.placeholder.message':'Розкажіть про себе та як ви хочете долучитись...','donate.placeholder':'Інша сума (грн)',
     'form.success':'✅ Повідомлення надіслано!',
     'footer.tagline':'Християнський центр розвитку і спорту. Простір розвитку, знань і досвіду для реалізації мудрих рішень.',
     'footer.nav':'Навігація','footer.contact':'Контакти','footer.directions':'Напрямки','footer.camps':'Табори','footer.bible':'Вивчення Біблії','footer.games':'Настільний клуб',
@@ -1374,7 +1391,7 @@ const TRANSLATIONS = {
     'about.missionTitle':'🎯 Mission','about.missionText':'To help form wise, spiritually mature and socially responsible generations through knowledge of God, the Bible, and development of their talents.',
     'about.visionTitle':'🔭 Vision','about.visionText':'To create a space of growth and support where every child develops spiritually, discovers their talents, and consciously makes wise steps in life.',
     'projects.label':'What We Do','projects.title':'Our Projects<br>& Programs','projects.desc':'Diverse directions for spiritual, creative, athletic and educational development.',
-    'p.florball.label':'Sport · Ongoing Project','p.florball.title':'Floorball — Karpaty Cup','p.florball.desc':'Regional competitions in Svalyava and Polyana village. Training, team spirit, and physical development. The Karpaty Cup gathers teams from across the region.',
+    'p.florball.label':'Sport · Ongoing Project','p.florball.title':'Floorball Teams','p.florball.desc':'Training in Svalyava and Polyana village. Training, team spirit, and physical development.',
     'p.cup2025.label':'Competition · Fundraiser','p.cup2025.title':'Karpaty Cup 2026','p.cup2025.desc':'Organizing a regional floorball tournament in autumn 2025. We need to cover costs for venue rental, equipment and prizes.',
     'p.crafts.label':'Creativity · Ongoing','p.crafts.title':'Creative Workshops & Crafts','p.crafts.desc':'Workshops for children and youth — from handicrafts to plaster casting and decorative arts.',
     'p.candles.label':'Social · Fundraiser','p.candles.title':'Trench Candles for Soldiers','p.candles.desc':'Raising funds for materials to make 500 trench candles for Ukraine\'s defenders. Youth make them by hand.',
@@ -1385,7 +1402,7 @@ const TRANSLATIONS = {
     'p.bible.label':'Spiritual Growth · Ongoing','p.bible.title':'Bible Study Groups & Trainings','p.bible.desc':'Educational trainings, Bible study groups and discussion meetings — forming spiritually mature people who consciously choose a wise path in life.',
     'progress.label':'Fundraising Progress','progress.donors':'donors','progress.collected':'raised','currency':'UAH',
     'btn.support':'💛 Support','btn.donate':'💛 Donate','btn.details':'Learn More',
-    'tag.florball':'Floorball','tag.competition':'Competition','tag.crafts':'Crafts','tag.creativity':'Creativity',
+    'tag.florball':'Floorball','tag.training':'Training','tag.crafts':'Crafts','tag.creativity':'Creativity', 'tag.svalyava':'Svalyava', 'tag.polyana':'Polyana village',
     'tag.support':'Support','tag.rehab':'Rehabilitation','tag.boardgames':'Board Games','tag.events':'Events',
     'tag.bible':'Bible','tag.learning':'Learning','tag.trainings':'Trainings','tag.education':'Education',
     'support.label':'Who We Serve','support.title':'Who We Support','support.desc':'Wise Step is open to everyone — especially those who need support the most.',
@@ -1405,7 +1422,7 @@ const TRANSLATIONS = {
     'contact.loc.label':'Location','contact.loc.value':'Svalyava, Zakarpattia, Ukraine','contact.write.label':'Write to Us','contact.write.value':'Via the form or social media',
     'contact.slogan.label':'Tagline','contact.slogan.text':'"Wise Step — A space of development, knowledge and experience for making your wise decisions"',
     'form.title':'Write to Us','form.name':'Your Name','form.email':'Email','form.subject':'Subject','form.message':'Message','form.submit':'Send Message ✈️',
-    'form.placeholder.name':'John Smith','form.placeholder.email':'john@example.com','form.placeholder.subject':'Partnership / Volunteering / Question','form.placeholder.message':'Tell us about yourself and how you\'d like to get involved...',
+    'form.placeholder.name':'John Smith','form.placeholder.email':'john@example.com','form.placeholder.subject':'Partnership / Volunteering / Question','form.placeholder.message':'Tell us about yourself and how you\'d like to get involved...','donate.placeholder':'Other amount (UAH)',
     'form.success':'✅ Message sent!',
     'footer.tagline':'Christian Center for Development and Sports. A space of development, knowledge and experience for making wise decisions.',
     'footer.nav':'Navigation','footer.contact':'Contact','footer.directions':'Programs','footer.camps':'Camps','footer.bible':'Bible Study','footer.games':'Board Game Club',
@@ -1442,6 +1459,13 @@ function setLang(lang) {
     if (el && t[key]) el.placeholder = t[key];
   });
 
+  // Update donate amount placeholder (in any already-rendered popups)
+  if (t['donate.placeholder']) {
+    document.querySelectorAll('[id^="customAmount-"]').forEach(el => {
+      el.placeholder = t['donate.placeholder'];
+    });
+  }
+
   // Update document lang attribute
   document.documentElement.lang = lang;
 
@@ -1454,10 +1478,10 @@ function updatePopupTranslations(lang) {
   // Update popup data text fields
   const pd = POPUP_DATA;
   if (isEn) {
-    pd.florball.badge = 'Sport · Ongoing'; pd.florball.title = 'Floorball — Karpaty Cup';
-    pd.florball.desc = 'Floorball is a team sport that develops not only physical abilities, but also team spirit, discipline and responsibility. Wise Step runs floorball clubs in Svalyava and Polyana village, and organizes regional competitions — the Karpaty Cup.';
-    pd.florball.details = [['📍 Location','Svalyava & Polyana'],['📅 Frequency','Training 2-3x/week'],['👥 Participants','Children & youth 8–22'],['🏆 Result','200+ Cup participants']];
-    pd.florball.donateTitle = '💛 Support the Floorball Club'; pd.florball.donateBtn = '💛 Donate to Floorball'; pd.florball.note = 'Funds go to: equipment, venue rental, competition entry';
+    pd.florball.badge = 'Sport · Ongoing'; pd.florball.title = 'Floorball Teams';
+    pd.florball.desc = 'Floorball is a team sport that develops not only physical abilities, but also team spirit, discipline and responsibility. Wise Step runs floorball clubs in Svalyava and Polyana village.';
+    pd.florball.details = [['📍 Location','Svalyava & Polyana'],['📅 Frequency','Training 2-3x/week'],['👥 Participants','Children & youth 8–22'],['🏆 Result','20+ Teams participants']];
+    pd.florball.donateTitle = '💛 Support the Floorball Teams'; pd.florball.donateBtn = '💛 Donate to Floorball'; pd.florball.note = 'Funds go to: equipment, venue rental, competition entry';
     pd.florball.successTitle = 'Thank you for your support!'; pd.florball.successText = 'Your contribution helps children grow through sport';
     pd.cup2025.badge = 'Competition · Fundraiser'; pd.cup2025.title = 'Karpaty Cup 2025 — Floorball Tournament';
     pd.cup2025.desc = 'The Karpaty Cup is a regional floorball tournament organized by Wise Step each year. In 2025 we plan to gather 8+ teams from Zakarpattia and neighboring regions. Your help is needed to cover organizational costs!';
@@ -1466,7 +1490,7 @@ function updatePopupTranslations(lang) {
     pd.cup2025.successTitle = 'You supported Karpaty Cup!'; pd.cup2025.successText = 'Thanks to you, great competitions will happen';
     pd.crafts.badge = 'Creativity · Ongoing'; pd.crafts.title = 'Creative Workshops & Crafts';
     pd.crafts.desc = 'Creative workshops are a space where children and youth can express themselves through art. We hold sessions in handicrafts, painting, plaster casting, decoupage and more.';
-    pd.crafts.details = [['📅 Frequency','Weekly'],['👥 Age','6–18 years'],['🎨 Activities','Crafts, painting, decor'],['💰 Cost','Free']];
+    pd.crafts.details = [['📅 Frequency','Every Monday at 18:00'],['👥 Age','6–18 years'],['🎨 Activities','Crafts, painting, decor'],['💰 Cost','Free']];
     pd.crafts.donateTitle = '💛 Support Creative Workshops'; pd.crafts.donateBtn = '🎨 Support Workshops'; pd.crafts.note = 'Funds: materials, paints, tools for sessions';
     pd.crafts.successTitle = 'Thank you!'; pd.crafts.successText = 'Your contribution develops creative potential in children';
     pd.candles.badge = 'Social · Fundraiser · 90%'; pd.candles.title = 'Trench Candles for Ukraine\'s Defenders';
@@ -1498,10 +1522,10 @@ function updatePopupTranslations(lang) {
     Object.values(pd).forEach(p => { if (p.progress) { /* amounts already in UAH, keep as is */ } });
   } else {
     // Restore Ukrainian
-    pd.florball.badge = 'Спорт · Постійний проєкт'; pd.florball.title = 'Флорбол — Кубок Карпат';
-    pd.florball.desc = 'Флорбол — це командний вид спорту, який розвиває не лише фізичні якості, але й командний дух, дисципліну та відповідальність. Wise Step веде флорбольні клуби у Сваляві та с. Поляна, а також організовує регіональні змагання — Кубок Карпат.';
-    pd.florball.details = [['📍 Локація','Свалява та с. Поляна'],['📅 Частота','Тренування 2-3 рази/тиждень'],['👥 Учасники','Діти та молодь 8–22 роки'],['🏆 Результат','200+ учасників у Кубку']];
-    pd.florball.donateTitle = '💛 Підтримати флорбольний клуб'; pd.florball.donateBtn = '💛 Задонатити на флорбол'; pd.florball.note = 'Кошти підуть на: інвентар, оренду залу, участь у змаганнях';
+    pd.florball.badge = 'Спорт · Постійний проєкт'; pd.florball.title = 'Флорбольні команди';
+    pd.florball.desc = 'Флорбол — це командний вид спорту, який розвиває не лише фізичні якості, але й командний дух, дисципліну та відповідальність. Wise Step веде флорбольні клуби у Сваляві та с. Поляна.';
+    pd.florball.details = [['📍 Локація','Свалява та с. Поляна'],['📅 Частота','Тренування 2-3 рази/тиждень'],['👥 Учасники','Діти та молодь 8–22 роки'],['🏆 Результат','20+ учасників у командах']];
+    pd.florball.donateTitle = '💛 Підтримати флорбольні команди'; pd.florball.donateBtn = '💛 Задонатити на флорбол'; pd.florball.note = 'Кошти підуть на: інвентар, оренду залу, участь у змаганнях';
     pd.florball.successTitle = 'Дякуємо за підтримку!'; pd.florball.successText = 'Ваш внесок допомагає дітям розвиватися через спорт';
     pd.cup2025.badge = 'Змагання · Збір коштів'; pd.cup2025.title = 'Кубок Карпат 2025 — Турнір з флорболу';
     pd.cup2025.desc = 'Кубок Карпат — регіональний турнір з флорболу, який Wise Step організовує щороку. У 2025 році ми плануємо зібрати 8+ команд із Закарпаття та сусідніх областей.';
@@ -1510,7 +1534,7 @@ function updatePopupTranslations(lang) {
     pd.cup2025.successTitle = 'Ви підтримали Кубок Карпат!'; pd.cup2025.successText = 'Завдяки вам відбудуться чудові змагання';
     pd.crafts.badge = 'Творчість · Постійний'; pd.crafts.title = 'Творчі майстерні та рукоділля';
     pd.crafts.desc = 'Творчі майстерні — це простір, де діти і молодь можуть виражати себе через мистецтво. Ми проводимо заняття з рукоділля, розпису, виготовлення гіпсових виробів, декупажу та інших видів творчості.';
-    pd.crafts.details = [['📅 Частота','Щотижня'],['👥 Вік','6–18 років'],['🎨 Напрямки','Рукоділля, розпис, декор'],['💰 Участь','Безкоштовно']];
+    pd.crafts.details = [['📅 Частота','Щопонеділка о 18:00'],['👥 Вік','6–18 років'],['🎨 Напрямки','Рукоділля, розпис, декор'],['💰 Участь','Безкоштовно']];
     pd.crafts.donateTitle = '💛 Підтримати творчі майстерні'; pd.crafts.donateBtn = '🎨 Підтримати майстерні'; pd.crafts.note = 'Кошти підуть на: матеріали, фарби, інструменти для занять';
     pd.crafts.successTitle = 'Дякуємо за підтримку!'; pd.crafts.successText = 'Ваш внесок розвиває творчий потенціал дітей';
     pd.candles.badge = 'Соціальний · Збір коштів · 90%'; pd.candles.title = 'Окопні свічки для захисників України';
@@ -1605,11 +1629,11 @@ document.querySelectorAll('.reveal, .progress-bar-fill, .stat-number[data-target
 const POPUP_DATA = {
   florball: {
     color: 'g-teal', emoji: '🏒', badge: 'Спорт · Постійний проєкт',
-    title: 'Флорбол — Кубок Карпат',
-    desc: 'Флорбол — це командний вид спорту, який розвиває не лише фізичні якості, але й командний дух, дисципліну та відповідальність. Wise Step веде флорбольні клуби у Сваляві та с. Поляна, а також організовує регіональні змагання — Кубок Карпат.',
-    details: [['📍 Локація','Свалява та с. Поляна'],['📅 Частота','Тренування 2-3 рази/тиждень'],['👥 Учасники','Діти та молодь 8–22 роки'],['🏆 Результат','200+ учасників у Кубку']],
-    gallery: [['linear-gradient(135deg,#1ABCB0,#0D9E93)','🏒',true],['linear-gradient(135deg,#1B2D45,#263D5A)','⚽',false],['#E8F0F4','🏅',false],['#F8FAFA','🤝',false]],
-    donateTitle: '💛 Підтримати флорбольний клуб',
+    title: 'Флорбольні команди',
+    desc: 'Флорбол — це командний вид спорту, який розвиває не лише фізичні якості, але й командний дух, дисципліну та відповідальність. Wise Step веде флорбольні клуби у Сваляві та с. Поляна.',
+    details: [['📍 Локація','Свалява та с. Поляна'],['📅 Частота','Тренування 2-3 рази/тиждень'],['👥 Учасники','Діти та молодь 8–22 роки'],['🏆 Результат','20+ учасників у командах']],
+    gallery: [['Sports 3.webp','🎨',true],['Floorball.webp','🎨',false],['Floorball 1.webp','🎨',false]],
+    donateTitle: '💛 Підтримати флорбольні команди',
     amounts: ['200 грн','500 грн','1 000 грн','2 000 грн'], activeIdx: 1,
     donateBtn: '💛 Задонатити на флорбол',
     note: 'Кошти підуть на: інвентар, оренду залу, участь у змаганнях',
@@ -1634,8 +1658,8 @@ const POPUP_DATA = {
     color: 'g-warm', emoji: '🎨', badge: 'Творчість · Постійний',
     title: 'Творчі майстерні та рукоділля',
     desc: 'Творчі майстерні — це простір, де діти і молодь можуть виражати себе через мистецтво. Ми проводимо заняття з рукоділля, розпису, виготовлення гіпсових виробів, декупажу та інших видів творчості.',
-    details: [['📅 Частота','Щотижня'],['👥 Вік','6–18 років'],['🎨 Напрямки','Рукоділля, розпис, декор'],['💰 Участь','Безкоштовно']],
-    gallery: [['linear-gradient(135deg,#1ABCB0,#0D9E93)','🏒',true],['linear-gradient(135deg,#1B2D45,#263D5A)','⚽',false],['#E8F0F4','🏅',false],['#F8FAFA','🤝',false]],
+    details: [['📅 Частота','Щопонеділка о 18:00'],['👥 Вік','6–18 років'],['🎨 Напрямки','Рукоділля, розпис, декор'],['💰 Участь','Безкоштовно']],
+    gallery: [['Crafts 1.webp','🎨',true],['Crafts 2.webp','🎨',false],['Crafts 3.webp','🎨',false]],
     donateTitle: '💛 Підтримати творчі майстерні',
     amounts: ['150 грн','400 грн','800 грн','2 000 грн'], activeIdx: 1,
     donateBtn: '🎨 Підтримати майстерні',
@@ -1728,6 +1752,9 @@ const POPUP_DATA = {
 
 // ── Render popup HTML dynamically ──
 function buildPopupHTML(id, d) {
+  const t = TRANSLATIONS[currentLang] || TRANSLATIONS.uk;
+  const donatePlaceholder = t['donate.placeholder'] || 'Інша сума (грн)';
+
   const progressHTML = d.progress ? `
     <div class="popup-progress-section">
       <h4>📊 Прогрес збору коштів</h4>
@@ -1746,9 +1773,16 @@ function buildPopupHTML(id, d) {
 
   const galleryHTML = d.gallery ? `
     <div class="popup-gallery">
-      ${d.gallery.map(([bg,em,large]) =>
-        `<div class="popup-gallery-item${large?' large':''}" style="background:${bg}"><span style="font-size:${large?'50':'36'}px">${em}</span></div>`
-      ).join('')}
+      ${d.gallery.map(([bg,em,large]) => {
+        const isImage = typeof bg === 'string' && /(\.webp|\.png|\.jpe?g|\.gif|\.svg)$/i.test(bg);
+        const src = isImage
+          ? (bg.startsWith('/') || bg.startsWith('http') ? bg : `/photos/${bg}`)
+          : null;
+
+        return isImage
+          ? `<div class="popup-gallery-item${large?' large':''}"><img src="${src}" alt="" /></div>`
+          : `<div class="popup-gallery-item${large?' large':''}" style="background:${bg}"><span style="font-size:${large?'50':'36'}px">${em}</span></div>`;
+      }).join('')}
     </div>` : '';
 
   const amountsHTML = d.amounts.map((a, i) =>
@@ -1776,7 +1810,7 @@ function buildPopupHTML(id, d) {
           <h4>${d.donateTitle}</h4>
           <div id="donateForm-${id}">
             <div class="donate-amounts">${amountsHTML}</div>
-            <div class="donate-custom"><input type="number" placeholder="Інша сума (грн)" id="customAmount-${id}"></div>
+            <div class="donate-custom"><input type="number" placeholder="${donatePlaceholder}" id="customAmount-${id}"></div>
             <button class="btn-donate-main" onclick="processDonate('${id}')">${d.donateBtn}</button>
             <p class="donate-note">${d.note}</p>
           </div>
