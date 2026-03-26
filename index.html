@@ -1233,18 +1233,20 @@
   function renderLb() {
     const item = visible[cur];
     if (!item) return;
-    const bg  = item.querySelector('.gi-bg');
-    const img = item.querySelector('.gi-bg img');
-    const em  = item.querySelector('.gi-bg span');
+    // Gallery markup uses `<img class="gi-bg">` (image itself), not a wrapper.
+    // This keeps compatibility in case some items use a wrapper later.
+    const bgImg = item.querySelector('img.gi-bg') || item.querySelector('.gi-bg img');
+    const bgEl = item.querySelector('.gi-bg'); // may be a wrapper or the img itself
+    const em = item.querySelector('.gi-bg span');
 
-    // If the item has an actual image, render it in the lightbox.
-    // Otherwise fall back to the existing gradient + emoji placeholder.
     lbImg.style.minHeight = '320px';
-    lbImg.style.background = img ? '' : (bg ? bg.style.background : '#1B2D45');
 
-    if (img) {
-      lbImg.innerHTML = `<img src="${img.src}" alt="${img.alt || ''}" style="max-width:100%;max-height:78vh;object-fit:contain;" />`;
+    if (bgImg) {
+      lbImg.style.background = '';
+      lbImg.innerHTML = `<img src="${bgImg.src}" alt="${bgImg.alt || ''}" style="max-width:100%;max-height:78vh;object-fit:contain;" />`;
     } else {
+      const bgStyle = (bgEl && bgEl.style && bgEl.style.background) ? bgEl.style.background : '#1B2D45';
+      lbImg.style.background = bgStyle;
       lbImg.innerHTML = em
         ? `<span style="font-size:110px;filter:drop-shadow(0 12px 32px rgba(0,0,0,0.35))">${em.textContent}</span>`
         : '';
