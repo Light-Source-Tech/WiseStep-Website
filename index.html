@@ -155,13 +155,12 @@
   .progress-amounts span { color: var(--teal); font-weight: 800; }
   .progress-bar-bg { background: var(--gray-light); border-radius: 100px; height: 8px; overflow: hidden; }
   .progress-bar-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--teal), var(--teal-light)); transition: width 1.2s ease; width: 0; }
-  .progress-bar-fill.animate { /* triggered by JS */ }
   .progress-donors { font-size: 11px; color: var(--gray); margin-top: 4px; }
   .progress-donors b { color: var(--navy); }
 
   /* PROJECT ACTIONS */
   .project-actions { display: flex; gap: 8px; margin-top: 16px; }
-  .btn-donate { flex: 1; background: var(--teal); color: var(--white); border: none; border-radius: 100px; padding: 10px 16px; font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 12px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .btn-donate { flex: 1; background: var(--teal); color: var(--white); border: none; border-radius: 100px; padding: 10px 16px; font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 12px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; }
   .btn-donate:hover { background: var(--teal-dark); transform: translateY(-1px); }
   .btn-details { background: transparent; color: var(--navy); border: 2px solid var(--gray-light); border-radius: 100px; padding: 10px 16px; font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 12px; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
   .btn-details:hover { border-color: var(--teal); color: var(--teal); }
@@ -204,7 +203,7 @@
   .donate-custom { display: flex; gap: 10px; margin-bottom: 16px; }
   .donate-custom input { flex: 1; background: var(--cream); border: 2px solid var(--gray-light); border-radius: 12px; padding: 10px 14px; font-family: 'Nunito', sans-serif; font-size: 15px; color: var(--navy); outline: none; transition: border-color 0.2s; }
   .donate-custom input:focus { border-color: var(--teal); background: var(--white); }
-  .btn-donate-main { width: 100%; background: var(--teal); color: var(--white); border: none; border-radius: 100px; padding: 15px; font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .btn-donate-main { width: 100%; background: var(--teal); color: var(--white); border: none; border-radius: 100px; padding: 15px; font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
   .btn-donate-main:hover { background: var(--teal-dark); transform: translateY(-2px); }
   .donate-note { font-size: 12px; color: var(--gray); text-align: center; margin-top: 10px; }
   .popup-gallery { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 20px; }
@@ -683,7 +682,7 @@
         <p class="project-card-desc" data-i18n="p.florball.desc">Тренування у Сваляві та с. Поляна. Тренування, командний дух, розвиток фізичних якостей.</p>
         <div class="project-card-tags"><span class="tag" data-i18n="tag.florball">Флорбол</span><span class="tag" data-i18n="tag.svalyava">Свалява</span><span class="tag" data-i18n="tag.polyana">с. Поляна</span><span class="tag" data-i18n="tag.training">Тренування</span></div>
         <div class="project-actions">
-          <button class="btn-donate" onclick="openDonate('florball')" data-i18n="btn.support">💛 Підтримати</button>
+          <a class="btn-donate" href="https://send.monobank.ua/jar/5fyiAU16qh?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnesjdLozapX5QIEWkAyqE0aM6N1WG3U5rAHs-1gZGxWWglrPTbOryE5w_Sns_aem_5FrYVWGt7y8x15cnr4yaGA" target="_blank" rel="noopener noreferrer" data-i18n="btn.support">💛 Підтримати</a>
           <button class="btn-details" onclick="openPopup('florball')" data-i18n="btn.details">Детальніше</button>
         </div>
       </div>
@@ -705,7 +704,7 @@
           <div class="progress-donors"><b>34</b> <span data-i18n="progress.donors">донатори</span> · <b>61%</b> <span data-i18n="progress.collected">зібрано</span></div>
         </div>
         <div class="project-actions">
-          <button class="btn-donate" onclick="openDonate('cup2025')" data-i18n="btn.donate">💛 Задонатити</button>
+          <a class="btn-donate" href="https://send.monobank.ua/jar/5fyiAU16qh?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnesjdLozapX5QIEWkAyqE0aM6N1WG3U5rAHs-1gZGxWWglrPTbOryE5w_Sns_aem_5FrYVWGt7y8x15cnr4yaGA" target="_blank" rel="noopener noreferrer" data-i18n="btn.support">💛 Підтримати</a>
           <button class="btn-details" onclick="openPopup('cup2025')" data-i18n="btn.details">Детальніше</button>
         </div>
       </div>
@@ -720,7 +719,7 @@
         <p class="project-card-desc" data-i18n="p.crafts.desc">Майстерні для дітей і молоді — від рукоділля до виготовлення гіпсових виробів і декору.</p>
         <div class="project-card-tags"><span class="tag" data-i18n="tag.crafts">Рукоділля</span><span class="tag" data-i18n="tag.creativity">Творчість</span></div>
         <div class="project-actions">
-          <button class="btn-donate" onclick="openDonate('crafts')" data-i18n="btn.support">💛 Підтримати</button>
+          <a class="btn-donate" href="https://send.monobank.ua/jar/5fyiAU16qh?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnesjdLozapX5QIEWkAyqE0aM6N1WG3U5rAHs-1gZGxWWglrPTbOryE5w_Sns_aem_5FrYVWGt7y8x15cnr4yaGA" target="_blank" rel="noopener noreferrer" data-i18n="btn.support">💛 Підтримати</a>
           <button class="btn-details" onclick="openPopup('crafts')" data-i18n="btn.details">Детальніше</button>
         </div>
       </div>
@@ -742,7 +741,7 @@
           <div class="progress-donors"><b>52</b> <span data-i18n="progress.donors">донатори</span> · <b>90%</b> <span data-i18n="progress.collected">зібрано</span></div>
         </div>
         <div class="project-actions">
-          <button class="btn-donate" onclick="openDonate('candles')" data-i18n="btn.donate">💛 Задонатити</button>
+          <a class="btn-donate" href="https://send.monobank.ua/jar/5fyiAU16qh?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnesjdLozapX5QIEWkAyqE0aM6N1WG3U5rAHs-1gZGxWWglrPTbOryE5w_Sns_aem_5FrYVWGt7y8x15cnr4yaGA" target="_blank" rel="noopener noreferrer" data-i18n="btn.support">💛 Підтримати</a>
           <button class="btn-details" onclick="openPopup('candles')" data-i18n="btn.details">Детальніше</button>
         </div>
       </div>
@@ -757,7 +756,7 @@
         <p class="project-card-desc" data-i18n="p.reb.desc">Психологічна підтримка та дозвілля для дітей і молоді з центрів реабілітації. Щотижневі зустрічі та заняття.</p>
         <div class="project-card-tags"><span class="tag" data-i18n="tag.support">Підтримка</span><span class="tag" data-i18n="tag.rehab">Реабілітація</span></div>
         <div class="project-actions">
-          <button class="btn-donate" onclick="openDonate('reb')" data-i18n="btn.support">💛 Підтримати</button>
+          <a class="btn-donate" href="https://send.monobank.ua/jar/5fyiAU16qh?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnesjdLozapX5QIEWkAyqE0aM6N1WG3U5rAHs-1gZGxWWglrPTbOryE5w_Sns_aem_5FrYVWGt7y8x15cnr4yaGA" target="_blank" rel="noopener noreferrer" data-i18n="btn.support">💛 Підтримати</a>
           <button class="btn-details" onclick="openPopup('reb')" data-i18n="btn.details">Детальніше</button>
         </div>
       </div>
@@ -779,7 +778,7 @@
           <div class="progress-donors"><b>2</b> <span data-i18n="progress.donors">донатори</span> · <b>19%</b> <span data-i18n="progress.collected">зібрано</span></div>
         </div>
         <div class="project-actions">
-          <button class="btn-donate" onclick="openDonate('camps')" data-i18n="btn.donate">💛 Задонатити</button>
+          <a class="btn-donate" href="https://send.monobank.ua/jar/5fyiAU16qh?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnesjdLozapX5QIEWkAyqE0aM6N1WG3U5rAHs-1gZGxWWglrPTbOryE5w_Sns_aem_5FrYVWGt7y8x15cnr4yaGA" target="_blank" rel="noopener noreferrer" data-i18n="btn.support">💛 Підтримати</a>
           <button class="btn-details" onclick="openPopup('camps')" data-i18n="btn.details">Детальніше</button>
         </div>
       </div>
@@ -795,13 +794,13 @@
         <div class="progress-wrap">
           <div class="progress-header">
             <span class="progress-label" data-i18n="progress.label">Прогрес збору</span>
-            <span class="progress-amounts"><span>23 500</span> / 120 000 <span data-i18n="currency">грн</span></span>
+            <!-- <span class="progress-amounts"><span>17 500</span> / 87 500 <span data-i18n="currency">грн</span></span> -->
           </div>
           <div class="progress-bar-bg"><div class="progress-bar-fill" data-percent="20"></div></div>
           <div class="progress-donors"><b>3</b> <span data-i18n="progress.donors">донатори</span> · <b>20%</b> <span data-i18n="progress.collected">зібрано</span></div>
         </div>
         <div class="project-actions">
-          <button class="btn-donate" onclick="openDonate('camp')" data-i18n="btn.donate">💛 Задонатити</button>
+          <a class="btn-donate" href="https://send.monobank.ua/jar/5fyiAU16qh?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnesjdLozapX5QIEWkAyqE0aM6N1WG3U5rAHs-1gZGxWWglrPTbOryE5w_Sns_aem_5FrYVWGt7y8x15cnr4yaGA" target="_blank" rel="noopener noreferrer" data-i18n="btn.support">💛 Підтримати</a>
           <button class="btn-details" onclick="openPopup('camp')" data-i18n="btn.details">Детальніше</button>
         </div>
       </div>
@@ -816,7 +815,7 @@
         <p class="project-card-desc" data-i18n="p.games.desc">Настолки, масові заходи, фестивалі та виїзди — цікаво і корисно провести час разом.</p>
         <div class="project-card-tags"><span class="tag" data-i18n="tag.boardgames">Настолки</span><span class="tag" data-i18n="tag.events">Масові заходи</span></div>
         <div class="project-actions">
-          <button class="btn-donate" onclick="openDonate('games')" data-i18n="btn.support">💛 Підтримати</button>
+          <a class="btn-donate" href="https://send.monobank.ua/jar/5fyiAU16qh?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnesjdLozapX5QIEWkAyqE0aM6N1WG3U5rAHs-1gZGxWWglrPTbOryE5w_Sns_aem_5FrYVWGt7y8x15cnr4yaGA" target="_blank" rel="noopener noreferrer" data-i18n="btn.support">💛 Підтримати</a>
           <button class="btn-details" onclick="openPopup('games')" data-i18n="btn.details">Детальніше</button>
         </div>
       </div>
@@ -831,7 +830,7 @@
         <p class="project-card-desc" data-i18n="p.bible.desc">Навчальні тренінги, освітні зустрічі та групи вивчення Біблії — формуємо духовно зрілих людей, які свідомо обирають мудрий шлях у житті.</p>
         <div class="project-card-tags"><span class="tag" data-i18n="tag.bible">Біблія</span><span class="tag" data-i18n="tag.learning">Навчання</span><span class="tag" data-i18n="tag.trainings">Тренінги</span><span class="tag" data-i18n="tag.education">Освіта</span></div>
         <div class="project-actions">
-          <button class="btn-donate" onclick="openDonate('bible')" data-i18n="btn.support">💛 Підтримати</button>
+          <a class="btn-donate" href="https://send.monobank.ua/jar/5fyiAU16qh?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnesjdLozapX5QIEWkAyqE0aM6N1WG3U5rAHs-1gZGxWWglrPTbOryE5w_Sns_aem_5FrYVWGt7y8x15cnr4yaGA" target="_blank" rel="noopener noreferrer" data-i18n="btn.support">💛 Підтримати</a>
           <button class="btn-details" onclick="openPopup('bible')" data-i18n="btn.details">Детальніше</button>
         </div>
       </div>
@@ -1459,13 +1458,6 @@ function setLang(lang) {
     if (el && t[key]) el.placeholder = t[key];
   });
 
-  // Update donate amount placeholder (in any already-rendered popups)
-  if (t['donate.placeholder']) {
-    document.querySelectorAll('[id^="customAmount-"]').forEach(el => {
-      el.placeholder = t['donate.placeholder'];
-    });
-  }
-
   // Update document lang attribute
   document.documentElement.lang = lang;
 
@@ -1503,9 +1495,9 @@ function updatePopupTranslations(lang) {
     pd.reb.details = [['📅 Frequency','Every 2 weeks'],['👥 Reach','30+ children'],['🌟 Formats','Games, sport, crafts'],['💙 Approach','Psychological support']];
     pd.reb.donateTitle = '💛 Support Work with Rehab Children'; pd.reb.donateBtn = '🤝 Support This Project'; pd.reb.note = 'Funds: session materials, transport, gifts for children';
     pd.reb.successTitle = 'Thank you!'; pd.reb.successText = 'You give hope to children who need it most';
-    pd.camp.badge = 'Camp · Fundraiser'; pd.camp.title = 'Summer Camp Wise Step 2025';
+    pd.camp.badge = 'Camp · Fundraiser'; pd.camp.title = 'Summer Wise Camp 2026';
     pd.camp.desc = 'The annual summer camp is one of Wise Step\'s most beloved programs. 5 days of activities in the Carpathian nature where children make friends, learn about God, play sports and develop talents.';
-    pd.camp.details = [['📅 Date','July 2025, 5 days'],['👥 Participants','40 children (8–16)'],['📍 Location','Carpathians, Polyana'],['💰 Target','55,000 UAH']];
+    pd.camp.details = [['📅 Date','August 2026, 5 days'],['👥 Participants','30 children (13–16)'],['📍 Location','Carpathians, Zdenievo village'],['💰 Target','87,500 UAH']];
     pd.camp.donateTitle = '💛 Support the Summer Camp'; pd.camp.donateBtn = '⛺ Support Camp'; pd.camp.note = '1,000 UAH = one free day for a child from a vulnerable family';
     pd.camp.successTitle = 'Thank you!'; pd.camp.successText = 'You help children have an unforgettable summer';
     pd.games.badge = 'Leisure · Ongoing'; pd.games.title = 'Board Game Club & Mass Events';
@@ -1547,9 +1539,9 @@ function updatePopupTranslations(lang) {
     pd.reb.details = [['📅 Частота','Раз на 2 тижні'],['👥 Охоплення','30+ дітей'],['🌟 Формати','Ігри, спорт, творчість'],['💙 Підхід','Психологічна підтримка']];
     pd.reb.donateTitle = '💛 Підтримати роботу з дітьми РЕБ'; pd.reb.donateBtn = '🤝 Підтримати цей проєкт'; pd.reb.note = 'Кошти: матеріали для занять, транспорт, подарунки для дітей';
     pd.reb.successTitle = 'Дякуємо за підтримку!'; pd.reb.successText = 'Ви дарите надію дітям, які цього потребують';
-    pd.camp.badge = 'Табір · Збір коштів'; pd.camp.title = 'Літній табір Wise Step 2025';
+    pd.camp.badge = 'Табір · Збір коштів'; pd.camp.title = 'Літній табір "Summer Wise Camp 2026"';
     pd.camp.desc = 'Щорічний літній табір — одна з найулюбленіших програм Wise Step. 5 насичених днів серед природи Карпат, де діти знаходять нових друзів, дізнаються про Бога, займаються спортом і розвивають таланти.';
-    pd.camp.details = [['📅 Дата','Липень 2025, 5 днів'],['👥 Учасники','40 дітей (8–16 р.)'],['📍 Місце','Карпати, с. Поляна'],['💰 Мета збору','55 000 грн']];
+    pd.camp.details = [['📅 Дата','Серпень 2026, 5 днів'],['👥 Учасники','30 дітей (13–16 р.)'],['📍 Місце','Карпати, с. Жденієво'],['💰 Мета збору','87 500 грн']];
     pd.camp.donateTitle = '💛 Підтримати літній табір'; pd.camp.donateBtn = '⛺ Підтримати табір'; pd.camp.note = '1 000 грн = один безкоштовний день для дитини з вразливої сім\'ї';
     pd.camp.successTitle = 'Дякуємо за підтримку!'; pd.camp.successText = 'Ви допомагаєте дітям провести незабутнє літо';
     pd.games.badge = 'Дозвілля · Постійний'; pd.games.title = 'Настільний клуб та масове дозвілля';
@@ -1626,6 +1618,7 @@ document.querySelectorAll('.reveal, .progress-bar-fill, .stat-number[data-target
   .forEach(el => unifiedObserver.observe(el));
 
 // ── Popup data ──
+const MONOBANK_URL = 'https://send.monobank.ua/jar/5fyiAU16qh?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnesjdLozapX5QIEWkAyqE0aM6N1WG3U5rAHs-1gZGxWWglrPTbOryE5w_Sns_aem_5FrYVWGt7y8x15cnr4yaGA';
 const POPUP_DATA = {
   florball: {
     color: 'g-teal', emoji: '🏒', badge: 'Спорт · Постійний проєкт',
@@ -1698,9 +1691,9 @@ const POPUP_DATA = {
     color: 'g-orange', emoji: '⛺', badge: 'Табір · Збір коштів',
     title: 'Літній табір "Summer Wise Camp 2026"',
     desc: 'Щорічний літній табір — одна з найулюбленіших програм Wise Step. 5 насичених днів серед природи Карпат, де діти знаходять нових друзів, дізнаються про Бога, займаються спортом і розвивають таланти.',
-    details: [['📅 Дата','Серпень 2026, 5 днів'],['👥 Учасники','30 дітей (13–16 р.)'],['📍 Місце','Карпати, с. Жденієво'],['💰 Мета збору','120 000 грн']],
+    details: [['📅 Дата','Серпень 2026, 5 днів'],['👥 Учасники','30 дітей (13–16 р.)'],['📍 Місце','Карпати, с. Жденієво'],['💰 Мета збору','87 500 грн']],
     gallery: [['linear-gradient(135deg,#1ABCB0,#0D9E93)','🏒',true],['linear-gradient(135deg,#1B2D45,#263D5A)','⚽',false],['#E8F0F4','🏅',false],['#F8FAFA','🤝',false]],
-    progress: { raised: 23500, goal: 120000, pct: 20, donors: 3, days: 135, left: 96500 },
+    progress: { raised: 17500, goal: 87500, pct: 20, donors: 3, days: 135, left: 70000 },
     donateTitle: '💛 Підтримати літній табір',
     amounts: ['500 грн','1 000 грн','2 500 грн','5 000 грн'], activeIdx: 1,
     donateBtn: '⛺ Підтримати табір',
@@ -1753,7 +1746,6 @@ const POPUP_DATA = {
 // ── Render popup HTML dynamically ──
 function buildPopupHTML(id, d) {
   const t = TRANSLATIONS[currentLang] || TRANSLATIONS.uk;
-  const donatePlaceholder = t['donate.placeholder'] || 'Інша сума (грн)';
 
   const progressHTML = d.progress ? `
     <div class="popup-progress-section">
@@ -1785,10 +1777,6 @@ function buildPopupHTML(id, d) {
       }).join('')}
     </div>` : '';
 
-  const amountsHTML = d.amounts.map((a, i) =>
-    `<button class="donate-amount-btn${i===d.activeIdx?' active':''}" onclick="selectAmount(this,'${id}')">${a}</button>`
-  ).join('');
-
   return `
   <div class="popup-overlay" id="popup-${id}">
     <div class="popup">
@@ -1808,17 +1796,8 @@ function buildPopupHTML(id, d) {
         ${progressHTML}
         <div class="popup-donate-section">
           <h4>${d.donateTitle}</h4>
-          <div id="donateForm-${id}">
-            <div class="donate-amounts">${amountsHTML}</div>
-            <div class="donate-custom"><input type="number" placeholder="${donatePlaceholder}" id="customAmount-${id}"></div>
-            <button class="btn-donate-main" onclick="processDonate('${id}')">${d.donateBtn}</button>
-            <p class="donate-note">${d.note}</p>
-          </div>
-          <div class="donate-success" id="donateSuccess-${id}">
-            <div class="donate-success-icon">${d.successEmoji}</div>
-            <h4>${d.successTitle}</h4>
-            <p>${d.successText}</p>
-          </div>
+          <a class="btn-donate-main" href="${MONOBANK_URL}" target="_blank" rel="noopener noreferrer">${t['btn.support'] || '💛 Support'}</a>
+          <p class="donate-note">${d.note}</p>
         </div>
       </div>
     </div>
@@ -1871,25 +1850,6 @@ function openDonate(id) {
     const ds = popup.querySelector('.popup-donate-section');
     if (ds) ds.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }, 350);
-}
-
-// ── Donate amount selector ──
-function selectAmount(btn, id) {
-  btn.closest('.donate-amounts').querySelectorAll('.donate-amount-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const inp = document.getElementById('customAmount-' + id);
-  if (inp) inp.value = '';
-}
-
-// ── Process donate ──
-function processDonate(id) {
-  const form = document.getElementById('donateForm-' + id);
-  const success = document.getElementById('donateSuccess-' + id);
-  if (form && success) {
-    form.style.display = 'none';
-    success.classList.add('show');
-    setTimeout(() => { form.style.display = ''; success.classList.remove('show'); }, 4000);
-  }
 }
 
 // ── Contact form with EmailJS ──
