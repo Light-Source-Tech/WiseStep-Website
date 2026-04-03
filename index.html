@@ -133,6 +133,8 @@
   .project-card.featured { grid-column: span 2; }
   .project-card-img { height: 180px; position: relative; overflow: hidden; flex-shrink: 0; }
   .project-card.featured .project-card-img { height: 220px; }
+  .project-card-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .project-card-img.has-photo .project-card-gradient { display: none; }
   .project-card-gradient { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 56px; }
   .g-teal { background: linear-gradient(135deg,#1ABCB0,#0D9E93); }
   .g-navy { background: linear-gradient(135deg,#1B2D45,#263D5A); }
@@ -142,6 +144,9 @@
   .g-green { background: linear-gradient(135deg,#5BC98B,#3AAD70); }
   .g-orange { background: linear-gradient(135deg,#F4A261,#E8735A); }
   .g-yellow { background: linear-gradient(135deg,#F4D35E,#E8A83A); }
+  .g-pink { background: linear-gradient(135deg,#F28AB2,#E85C9C); }
+  .g-olive { background: linear-gradient(135deg,#A3B86C,#7A9E4F); }
+  .g-tan { background: linear-gradient(135deg,#DDBEA9,#BFA6A0); }
   .project-card-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
   .project-card-label { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
   .project-card-title { font-family: 'Unbounded', sans-serif; font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px; line-height: 1.25; }
@@ -351,16 +356,12 @@
   .partners-header .section-title { font-size: clamp(22px, 2.5vw, 32px); }
 
   .marquee-wrapper {
-    position: relative;
-    overflow: hidden;
-    /* fade edges */
+    position: relative; overflow: hidden;
     mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
   }
   .marquee-track {
-    display: flex;
-    gap: 0;
-    width: max-content;
+    display: flex; gap: 0; width: max-content;
     animation: marquee-scroll 32s linear infinite;
   }
   .marquee-track.paused { animation-play-state: paused; }
@@ -369,56 +370,37 @@
     to   { transform: translateX(-50%); }
   }
 
+  /* each logo slot */
   .partner-logo {
     display: flex; align-items: center; justify-content: center;
     width: 180px; height: 88px;
-    flex-shrink: 0;
-    padding: 16px 20px;
-    cursor: default;
-    position: relative;
+    flex-shrink: 0; padding: 16px 24px;
+    position: relative; cursor: default;
     transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
   }
-  .partner-logo svg { width: 100%; height: 100%; transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), filter 0.35s; }
-
-  /* default — greyscale */
-  .p-shape        { fill: none; stroke: #CBD5E0; stroke-width: 1.5; }
-  .p-shape-inner  { fill: #EDF2F7; stroke: none; }
-  .p-accent       { fill: #CBD5E0; }
-  .p-accent-rect  { fill: #CBD5E0; }
-  .p-cross        { stroke: #CBD5E0; }
-  .p-cross-main   { stroke: #CBD5E0; fill: none; }
-  .p-circle-outline { fill: none; stroke: #CBD5E0; stroke-width: 1.5; }
-  .p-arc          { fill: none; stroke: #CBD5E0; stroke-width: 2; }
-  .p-text         { fill: #A0AEC0; }
-  .p-subtext      { fill: #BFC9D6; }
-  .p-accent-text  { fill: #CBD5E0; }
-  .p-accent-text-sm { fill: #CBD5E0; }
-
-  /* hover — full color */
   .partner-logo:hover { transform: scale(1.18); z-index: 10; }
-  .partner-logo:hover svg { filter: drop-shadow(0 8px 20px rgba(26,188,176,0.2)); }
-  .partner-logo:hover .p-shape        { stroke: var(--teal); }
-  .partner-logo:hover .p-shape-inner  { fill: rgba(26,188,176,0.08); }
-  .partner-logo:hover .p-accent       { fill: var(--teal); }
-  .partner-logo:hover .p-accent-rect  { fill: var(--teal); }
-  .partner-logo:hover .p-cross        { stroke: var(--white); }
-  .partner-logo:hover .p-cross-main   { stroke: var(--navy); }
-  .partner-logo:hover .p-circle-outline { stroke: var(--teal); }
-  .partner-logo:hover .p-arc          { stroke: var(--teal); }
-  .partner-logo:hover .p-text         { fill: var(--navy); }
-  .partner-logo:hover .p-subtext      { fill: var(--gray); }
-  .partner-logo:hover .p-accent-text  { fill: var(--teal); }
-  .partner-logo:hover .p-accent-text-sm { fill: var(--teal); }
 
-  /* tooltip on hover */
+  /* the logo image — works for both PNG and SVG files */
+  .partner-logo img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    filter: grayscale(1) opacity(0.55);
+    transition: filter 0.35s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    display: block;
+  }
+  .partner-logo:hover img {
+    filter: grayscale(0) opacity(1);
+    filter: grayscale(0) opacity(1) drop-shadow(0 6px 16px rgba(26,188,176,0.2));
+  }
+
+  /* tooltip */
   .partner-logo::after {
     content: attr(data-name);
-    position: absolute; bottom: -28px; left: 50%; transform: translateX(-50%);
+    position: absolute; bottom: -26px; left: 50%; transform: translateX(-50%);
     background: var(--navy); color: var(--white);
     font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 700;
     padding: 4px 10px; border-radius: 6px; white-space: nowrap;
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.2s 0.1s;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s 0.1s;
   }
   .partner-logo:hover::after { opacity: 1; }
 
@@ -616,15 +598,15 @@
   <div class="hero-visual">
     <div class="hero-card-stack">
       <div class="hero-card c1">
-        <div class="card-header"><div class="card-header-icon">🏒</div><div class="card-header-text">ФЛОРБОЛ · КУБОК КАРПАТ</div></div>
-        <div class="card-body"><div class="card-stat">200+</div><div class="card-stat-label">учасників у змаганнях</div><p style="margin-top:6px">Регіональні змагання, тренування, командний дух</p></div>
+        <div class="card-header"><div class="card-header-icon">🏒</div><div class="card-header-text" data-i18n="hero.c1.title">ФЛОРБОЛ · КУБОК КАРПАТ</div></div>
+        <div class="card-body"><div class="card-stat">200+</div><div class="card-stat-label" data-i18n="hero.c1.label">учасників у змаганнях</div><p style="margin-top:6px" data-i18n="hero.c1.desc">Регіональні змагання, тренування, командний дух</p></div>
       </div>
       <div class="hero-card c2 card-navy">
-        <div class="card-header" style="background:rgba(255,255,255,0.08)"><div class="card-header-icon">⛺</div><div class="card-header-text" style="color:rgba(255,255,255,0.7)">ТАБОРИ · ДОЗВІЛЛЯ</div></div>
-        <div class="card-body"><div class="card-stat">12+</div><div class="card-stat-label">різних програм і клубів</div></div>
+        <div class="card-header" style="background:rgba(255,255,255,0.08)"><div class="card-header-icon">⛺</div><div class="card-header-text" style="color:rgba(255,255,255,0.7)" data-i18n="hero.c2.title">ТАБОРИ · ДОЗВІЛЛЯ</div></div>
+        <div class="card-body"><div class="card-stat">12+</div><div class="card-stat-label" data-i18n="hero.c2.label">різних програм і клубів</div></div>
       </div>
       <div class="hero-card c3">
-        <div class="card-body" style="padding:18px"><div style="font-size:26px;margin-bottom:3px">✝️</div><div style="font-family:'Unbounded',sans-serif;font-size:11px;font-weight:700;color:var(--teal)">ДУХОВНИЙ РОЗВИТОК</div><div style="font-size:11px;color:var(--gray);margin-top:3px">Вивчення Біблії</div></div>
+        <div class="card-body" style="padding:18px"><div style="font-size:26px;margin-bottom:3px">✝️</div><div style="font-family:'Unbounded',sans-serif;font-size:11px;font-weight:700;color:var(--teal)" data-i18n="hero.c3.title">ДУХОВНИЙ РОЗВИТОК</div><div style="font-size:11px;color:var(--gray);margin-top:3px" data-i18n="hero.c3.label">Вивчення Біблії</div></div>
       </div>
     </div>
   </div>
@@ -644,7 +626,7 @@
     <div class="about-img-wrap">
       <div class="about-img-pattern"></div>
       <div class="about-img-content">
-        <img src="data:image/svg+xml,%3Csvg%20width%3D%2244%22%20height%3D%2244%22%20viewBox%3D%22108%20130%20175%20115%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%3Cpath%20d%3D%22M159.777%20190L159.777%20212L134.13%20236L109.49%20236L159.777%20190Z%22%20fill%3D%22%23152837%22/%3E%0A%3Cpath%20d%3D%22M159.777%20190L184.92%20214V236L159.777%20212V190Z%22%20fill%3D%22%23152837%22/%3E%0A%3Cpath%20d%3D%22M182.908%20172.5L199%20158V236H184.92L182.908%20234V172.5Z%22%20fill%3D%22%23152837%22/%3E%0A%3Cpath%20d%3D%22M159.449%20176L160%20190L125.962%20220.849L125.962%20206L159.449%20176Z%22%20fill%3D%22%23DBDBDB%22%20opacity%3D%220.6%22/%3E%0A%3Cpath%20d%3D%22M159.449%20176L173.449%20189L173.5%20203.5L159.449%20190V176Z%22%20fill%3D%22%23DBDBDB%22/%3E%0A%3Cpath%20d%3D%22M173.45%20171L182.45%20173V212L175%20205L173.5%20203.5L173.45%20171Z%22%20fill%3D%22%23DBDBDB%22/%3E%0A%3Cpath%20d%3D%22M190.95%20154.5L217%20131L222.5%20136L203%20154.5L182.45%20173L173.45%20171L190.95%20154.5Z%22%20fill%3D%22%23DBDBDB%22/%3E%0A%3Crect%20x%3D%22199%22%20y%3D%22158%22%20width%3D%2210%22%20height%3D%2278%22%20fill%3D%22%23DBDBDB%22/%3E%0A%3Cpath%20d%3D%22M222.465%20136L233%20146L220.07%20158H199L222.465%20136Z%22%20fill%3D%22%23DBDBDB%22%20opacity%3D%220.6%22/%3E%0A%3Crect%20x%3D%22209%22%20y%3D%22219%22%20width%3D%2258%22%20height%3D%2217%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Crect%20x%3D%22209%22%20y%3D%22157%22%20width%3D%2258%22%20height%3D%2216%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Cpath%20d%3D%22M225%20173L225%20179.957L267%20201.619L267%20219L252%20219L252%20210.766L209%20188.901L209%20173L225%20173Z%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Crect%20x%3D%22251%22%20y%3D%22112%22%20width%3D%2216%22%20height%3D%2245%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Cpath%20d%3D%22M257.367%20105.688L267%20105.5L267%20113L263.288%20120.035L233%20146L233%20126L257.367%20105.688Z%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Crect%20x%3D%22257%22%20y%3D%2274%22%20width%3D%2210%22%20height%3D%2232.7963%22%20fill%3D%22%2301B5B4%22/%3E%0A%3Crect%20x%3D%22279%22%20y%3D%2286%22%20width%3D%229.93827%22%20height%3D%2234%22%20transform%3D%22rotate%2890%20279%2086%29%22%20fill%3D%22%2301B5B4%22/%3E%0A%3C/svg%3E" alt="Wise Step" style="width:120px;height:120px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.9">
+        <img src="/logos/Group.svg" alt="Фото з наших програм" class="about-img">
         <p class="about-quote" data-i18n="about.quote">«Кожна дитина заслуговує на<br><strong>шанс зростати</strong>»</p>
         <div class="about-tag">@wisestepcenter</div>
       </div>
@@ -654,7 +636,7 @@
   <div class="about-text">
     <div>
       <div class="section-label" data-i18n="about.label">Про організацію</div>
-      <h2 class="section-title">Wise Step — Christian Center for Development and Sports</h2>
+      <h2 class="section-title" data-i18n="about.title">Wise Step — Християнський центр розвитку і спорту</h2>
       <p class="section-desc" data-i18n="about.desc">Простір, де кожна дитина та молодь має шанс розвиватися, знаходити друзів, підтримку та натхнення — незалежно від обставин.</p>
     </div>
     <div class="mission-vision-grid reveal">
@@ -675,7 +657,10 @@
 
     <!-- Card 1: Флорбол (ongoing) -->
     <div class="project-card featured reveal">
-      <div class="project-card-img g-teal"><div class="project-card-gradient">🏒</div></div>
+      <div class="project-card-img g-teal has-photo">
+        <img class="project-card-photo" src="/photos/Floorbal (main).webp" alt="Флорбольні команди">
+        <div class="project-card-gradient">🏑🥅</div>
+      </div>
       <div class="project-card-body">
         <div class="project-card-label" data-i18n="p.florball.label">Спорт · Постійний проєкт</div>
         <div class="project-card-title" data-i18n="p.florball.title">Флорбольні команди</div>
@@ -690,29 +675,36 @@
 
     <!-- Card 2: Кубок Карпат 2026 (fundraiser) -->
     <div class="project-card reveal" style="transition-delay:.1s">
-      <div class="project-card-img g-blue"><div class="project-card-gradient">🏆</div></div>
+      <div class="project-card-img g-warm has-photo">
+        <img class="project-card-photo" src="/photos/Cup (main).webp" alt="Кубок Карпат 2026">
+        <div class="project-card-gradient">🏆</div>
+      </div>
       <div class="project-card-body">
         <div class="project-card-label" data-i18n="p.cup2026.label">Змагання · Збір коштів</div>
         <div class="project-card-title" data-i18n="p.cup2026.title">Кубок Карпат 2026</div>
         <p class="project-card-desc" data-i18n="p.cup2026.desc">Організація регіонального турніру з флорболу восени 2026. Потрібно покрити витрати на оренду залу, інвентар та нагороди.</p>
-        <div class="progress-wrap">
+       <!--  <div class="progress-wrap">
           <div class="progress-header">
             <span class="progress-label" data-i18n="progress.label">Прогрес збору</span>
             <span class="progress-amounts"><span>18 400</span> / 30 000 <span data-i18n="currency">грн</span></span>
           </div>
           <div class="progress-bar-bg"><div class="progress-bar-fill" data-percent="61"></div></div>
           <div class="progress-donors"><b>34</b> <span data-i18n="progress.donors">донатори</span> · <b>61%</b> <span data-i18n="progress.collected">зібрано</span></div>
-        </div>
+        </div> -->
+        <div class="project-card-tags"><span class="tag" data-i18n="tag.florball">Флорбол</span><span class="tag" data-i18n="tag.svalyava">Свалява</span><span class="tag" data-i18n="tag.polyana">с. Поляна</span></div>
         <div class="project-actions">
           <a class="btn-donate" href="https://send.monobank.ua/jar/2io8iF7dSo" target="_blank" rel="noopener noreferrer" data-i18n="btn.support">💛 Підтримати</a>
-          <button class="btn-details" onclick="openPopup('cup2025')" data-i18n="btn.details">Детальніше</button>
+          <button class="btn-details" onclick="openPopup('cup2026')" data-i18n="btn.details">Детальніше</button>
         </div>
       </div>
     </div>
 
     <!-- Card 3: Творчі майстерні -->
     <div class="project-card reveal" style="transition-delay:.15s">
-      <div class="project-card-img g-warm"><div class="project-card-gradient">🎨</div></div>
+      <div class="project-card-img g-pink has-photo">
+        <img class="project-card-photo" src="/photos/Crafts (main).webp" alt="Творчі майстерні">
+        <div class="project-card-gradient">🎨</div>
+      </div>
       <div class="project-card-body">
         <div class="project-card-label" data-i18n="p.crafts.label">Творчість · Постійний</div>
         <div class="project-card-title" data-i18n="p.crafts.title">Творчі майстерні та рукоділля</div>
@@ -727,19 +719,23 @@
 
     <!-- Card 4: Окопні свічки (fundraiser) -->
     <div class="project-card reveal" style="transition-delay:.2s">
-      <div class="project-card-img g-navy"><div class="project-card-gradient">🕯️</div></div>
+      <div class="project-card-img has-photo">
+        <img class="project-card-photo" src="/photos/Candles (main).webp" alt="Окопні свічки">
+        <div class="project-card-gradient"></div>
+      </div>
       <div class="project-card-body">
-        <div class="project-card-label" data-i18n="p.candles.label">Соціальний · Збір коштів</div>
+        <div class="project-card-label" data-i18n="p.candles.label">Соціальний · Постійний</div>
         <div class="project-card-title" data-i18n="p.candles.title">Окопні свічки для військових</div>
-        <p class="project-card-desc" data-i18n="p.candles.desc">Збираємо на матеріали для виготовлення 500 окопних свічок для захисників України. Молодь виготовляє вручну.</p>
-        <div class="progress-wrap">
+        <p class="project-card-desc" data-i18n="p.candles.desc">Збираємо на матеріали для виготовлення окопних свічок для захисників України. Молодь виготовляє вручну.</p>
+        <!-- <div class="progress-wrap">
           <div class="progress-header">
             <span class="progress-label" data-i18n="progress.label">Прогрес збору</span>
             <span class="progress-amounts"><span>7 200</span> / 8 000 <span data-i18n="currency">грн</span></span>
           </div>
           <div class="progress-bar-bg"><div class="progress-bar-fill" data-percent="90"></div></div>
           <div class="progress-donors"><b>52</b> <span data-i18n="progress.donors">донатори</span> · <b>90%</b> <span data-i18n="progress.collected">зібрано</span></div>
-        </div>
+        </div> -->
+        <div class="project-card-tags"><span class="tag" data-i18n="tag.support">Підтримка</span><span class="tag" data-i18n="tag.victory">Разом до Перемоги</span></div>
         <div class="project-actions">
           <a class="btn-donate" href="https://send.monobank.ua/jar/2io8iF7dSo" target="_blank" rel="noopener noreferrer" data-i18n="btn.support">💛 Підтримати</a>
           <button class="btn-details" onclick="openPopup('candles')" data-i18n="btn.details">Детальніше</button>
@@ -749,7 +745,10 @@
 
     <!-- Card 5: РЕБ центр -->
     <div class="project-card reveal" style="transition-delay:.25s">
-      <div class="project-card-img g-blue"><div class="project-card-gradient">🤝</div></div>
+      <div class="project-card-img g-blue has-photo">
+        <img class="project-card-photo" src="/photos/Reb center (main).webp" alt="РЕБ центр">
+        <div class="project-card-gradient">🤝</div>
+      </div>
       <div class="project-card-body">
         <div class="project-card-label" data-i18n="p.reb.label">Реабілітація · Постійний</div>
         <div class="project-card-title" data-i18n="p.reb.title">Робота з дітьми реб-центру</div>
@@ -764,7 +763,10 @@
 
       <!-- Card 6,5: Денні табори (fundraiser) -->
     <div class="project-card reveal" style="transition-delay:.33s">
-      <div class="project-card-img g-yellow"><div class="project-card-gradient">🚴</div></div>
+      <div class="project-card-img g-yellow">
+        <img class="project-card-photo" src="/photos/Camps (main).webp" alt="Денні табори">
+        <div class="project-card-gradient">🚴</div>
+      </div>
       <div class="project-card-body">
         <div class="project-card-label" data-i18n="p.camps.label">Денні табори · Збір коштів</div>
         <div class="project-card-title" data-i18n="p.camps.title">Денні літні табори Wise Step 2026</div>
@@ -786,7 +788,10 @@
 
     <!-- Card 6: Табір (fundraiser) -->
     <div class="project-card reveal" style="transition-delay:.3s">
-      <div class="project-card-img g-orange"><div class="project-card-gradient">⛺</div></div>
+      <div class="project-card-img has-photo">
+        <img class="project-card-photo" src="/photos/Summer Camp (main).webp" alt="Літній табір">
+        <div class="project-card-gradient"></div>
+      </div>
       <div class="project-card-body">
         <div class="project-card-label" data-i18n="p.camp.label">Табір · Збір коштів</div>
         <div class="project-card-title" data-i18n="p.camp.title">Літній табір "Summer Wise Camp 2026"</div>
@@ -806,14 +811,17 @@
       </div>
     </div>
 
-    <!-- Card 7: Настолки + дозвілля -->
+    <!-- Card 7: Настолки -->
     <div class="project-card reveal" style="transition-delay:.35s">
-      <div class="project-card-img g-purple"><div class="project-card-gradient">🎲</div></div>
+      <div class="project-card-img g-purple has-photo">
+        <img class="project-card-photo" src="/photos/Games (main).webp" alt="Настільний клуб">
+        <div class="project-card-gradient">🎲</div>
+      </div>
       <div class="project-card-body">
-        <div class="project-card-label" data-i18n="p.games.label">Дозвілля · Постійний</div>
-        <div class="project-card-title" data-i18n="p.games.title">Настільний клуб та масове дозвілля</div>
-        <p class="project-card-desc" data-i18n="p.games.desc">Настолки, масові заходи, фестивалі та виїзди — цікаво і корисно провести час разом.</p>
-        <div class="project-card-tags"><span class="tag" data-i18n="tag.boardgames">Настолки</span><span class="tag" data-i18n="tag.events">Масові заходи</span></div>
+        <div class="project-card-label" data-i18n="p.games.label">Настолки · Постійний</div>
+        <div class="project-card-title" data-i18n="p.games.title">Настільний клуб</div>
+        <p class="project-card-desc" data-i18n="p.games.desc">Настільні ігри та розваги для дітей і молоді — розвиваємо стратегічне мислення, комунікацію та весело проводимо час разом.</p>
+        <div class="project-card-tags"><span class="tag" data-i18n="tag.boardgames">Настолки</span><span class="tag" data-i18n="tag.fun">Розваги</span></div>
         <div class="project-actions">
           <a class="btn-donate" href="https://send.monobank.ua/jar/2io8iF7dSo" target="_blank" rel="noopener noreferrer" data-i18n="btn.support">💛 Підтримати</a>
           <button class="btn-details" onclick="openPopup('games')" data-i18n="btn.details">Детальніше</button>
@@ -821,17 +829,56 @@
       </div>
     </div>
 
-    <!-- Card 8: Біблія (featured) -->
-    <div class="project-card featured reveal" style="transition-delay:.4s">
-      <div class="project-card-img g-green" style="height:160px"><div class="project-card-gradient">📖</div></div>
+    <!-- Card 8: Дозвілля -->
+    <div class="project-card reveal" style="transition-delay:.4s">
+      <div class="project-card-img has-photo">
+        <img class="project-card-photo" src="/photos/Events (main).webp" alt="Масове дозвілля">
+        <div class="project-card-gradient"></div>
+      </div>
+      <div class="project-card-body">
+        <div class="project-card-label" data-i18n="p.events.label">Масові заходи · Постійний</div>
+        <div class="project-card-title" data-i18n="p.events.title">Фестивалі та соціальні проєкти</div>
+        <p class="project-card-desc" data-i18n="p.events.desc">Організація фестивалів, масових заходів і соціальних проєктів для всієї громади — об\'єднуємо людей навколо спільних цінностей.</p>
+        <div class="project-card-tags"><span class="tag" data-i18n="tag.festival">Фестивалі</span><span class="tag" data-i18n="tag.events">Масові заходи</span></div>
+        <div class="project-actions">
+          <a class="btn-donate" href="https://send.monobank.ua/jar/2io8iF7dSo" target="_blank" rel="noopener noreferrer" data-i18n="btn.support">💛 Підтримати</a>
+          <button class="btn-details" onclick="openPopup('events')" data-i18n="btn.details">Детальніше</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 9: Біблія -->
+    <div class="project-card reveal" style="transition-delay:.45s">
+      <div class="project-card-img g-green has-photo">
+        <img class="project-card-photo" src="/photos/Bible (main).webp" alt="Групи вивчення Біблії">
+        <div class="project-card-gradient">📖</div>
+      </div>
       <div class="project-card-body">
         <div class="project-card-label" data-i18n="p.bible.label">Духовний розвиток · Постійний</div>
-        <div class="project-card-title" data-i18n="p.bible.title">Групи вивчення Біблії та тренінги</div>
-        <p class="project-card-desc" data-i18n="p.bible.desc">Навчальні тренінги, освітні зустрічі та групи вивчення Біблії — формуємо духовно зрілих людей, які свідомо обирають мудрий шлях у житті.</p>
-        <div class="project-card-tags"><span class="tag" data-i18n="tag.bible">Біблія</span><span class="tag" data-i18n="tag.learning">Навчання</span><span class="tag" data-i18n="tag.trainings">Тренінги</span><span class="tag" data-i18n="tag.education">Освіта</span></div>
+        <div class="project-card-title" data-i18n="p.bible.title">Групи вивчення Біблії</div>
+        <p class="project-card-desc" data-i18n="p.bible.desc">Групи вивчення Біблії — формуємо духовно зрілих людей, які свідомо обирають мудрий шлях у житті.</p>
+        <div class="project-card-tags"><span class="tag" data-i18n="tag.bible">Біблія</span><span class="tag" data-i18n="tag.learning">Навчання</span><span class="tag" data-i18n="tag.spiritual">Духовний розвиток</span></div>
         <div class="project-actions">
           <a class="btn-donate" href="https://send.monobank.ua/jar/2io8iF7dSo" target="_blank" rel="noopener noreferrer" data-i18n="btn.support">💛 Підтримати</a>
           <button class="btn-details" onclick="openPopup('bible')" data-i18n="btn.details">Детальніше</button>
+        </div>
+      </div>
+    </div>
+
+     <!-- Card 10: Тренінги -->
+    <div class="project-card reveal" style="transition-delay:.5s">
+      <div class="project-card-img has-photo">
+        <img class="project-card-photo" src="/photos/Education (main).webp" alt="Освітні тренінги та майстер-класи">
+        <div class="project-card-gradient"></div>
+      </div>
+      <div class="project-card-body">
+        <div class="project-card-label" data-i18n="p.education.label">Освітній · Постійний</div>
+        <div class="project-card-title" data-i18n="p.education.title">Освітні тренінги та майстер-класи</div>
+        <p class="project-card-desc" data-i18n="p.education.desc">Навчальні тренінги, освітні зустрічі — формування зрілого характеру, професійний розвиток та інвестиції в особистість.</p>
+        <div class="project-card-tags"><span class="tag" data-i18n="tag.education">Освіта</span><span class="tag" data-i18n="tag.learning">Навчання</span><span class="tag" data-i18n="tag.trainings">Тренінги</span></div>
+        <div class="project-actions">
+          <a class="btn-donate" href="https://send.monobank.ua/jar/2io8iF7dSo" target="_blank" rel="noopener noreferrer" data-i18n="btn.support">💛 Підтримати</a>
+          <button class="btn-details" onclick="openPopup('education')" data-i18n="btn.details">Детальніше</button>
         </div>
       </div>
     </div>
@@ -848,101 +895,39 @@
   <div class="marquee-wrapper">
     <div class="marquee-track" id="marqueeTrack">
 
-      <!-- Partner logos — duplicated for seamless loop -->
-      <div class="partner-logo" data-name="Закарпатська ОДА">
-        <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="10" y="10" width="40" height="40" rx="4" class="p-shape"/>
-          <rect x="16" y="16" width="28" height="28" rx="2" class="p-shape-inner"/>
-          <path d="M22 30 L30 22 L38 30 L34 30 L34 38 L26 38 L26 30Z" class="p-accent"/>
-          <text x="58" y="28" font-family="Arial" font-weight="700" font-size="11" class="p-text">ЗАКАРП.</text>
-          <text x="58" y="43" font-family="Arial" font-weight="400" font-size="9" class="p-subtext">ОДА</text>
-        </svg>
+      <div class="partner-logo" data-name="Партнер 1">
+        <img src="logos/international logo_white.png" alt="Партнер 1">
       </div>
 
-      <div class="partner-logo" data-name="Свалявська міська рада">
-        <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="30" cy="30" r="20" class="p-shape"/>
-          <circle cx="30" cy="30" r="13" class="p-shape-inner"/>
-          <path d="M30 17 L33 24 L40 24 L35 29 L37 36 L30 32 L23 36 L25 29 L20 24 L27 24Z" class="p-accent"/>
-          <text x="56" y="27" font-family="Arial" font-weight="700" font-size="10" class="p-text">СВАЛЯВА</text>
-          <text x="56" y="40" font-family="Arial" font-weight="400" font-size="8.5" class="p-subtext">Міська рада</text>
-        </svg>
+      <div class="partner-logo" data-name="Партнер 2">
+        <img src="logos/LightSource logo (vertical version).svg" alt="Партнер 2">
       </div>
 
-      <div class="partner-logo" data-name="UNICEF Ukraine">
-        <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="8" y="15" width="32" height="32" rx="16" class="p-shape"/>
-          <text x="12" y="35" font-family="Arial" font-weight="900" font-size="13" class="p-accent-text">UN</text>
-          <text x="46" y="26" font-family="Arial" font-weight="800" font-size="13" class="p-text">UNICEF</text>
-          <text x="46" y="41" font-family="Arial" font-weight="400" font-size="8.5" class="p-subtext">Ukraine</text>
-        </svg>
+      <div class="partner-logo" data-name="Партнер 3">
+        <img src="logos/Ukrainankansalla_fi_logo_600_valkoinen_teksti-musta-tausta2.png" alt="Партнер 3">
       </div>
 
-      <div class="partner-logo" data-name="Caritas Ukraine">
-        <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M30 12 C18 12 10 20 10 30 C10 40 18 48 30 48 C42 48 50 40 50 30 C50 20 42 12 30 12Z" class="p-shape"/>
-          <path d="M30 20 L30 40 M20 30 L40 30" stroke-width="3.5" stroke-linecap="round" class="p-cross"/>
-          <text x="56" y="27" font-family="Arial" font-weight="800" font-size="12" class="p-text">Caritas</text>
-          <text x="56" y="42" font-family="Arial" font-weight="400" font-size="9" class="p-subtext">Ukraine</text>
-        </svg>
+      <div class="partner-logo" data-name="Партнер 4">
+        <img src="logos/Multisport_Logo.svg" alt="Партнер 4">
       </div>
 
-      <div class="partner-logo" data-name="ACT Alliance">
-        <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <polygon points="30,10 50,48 10,48" class="p-shape"/>
-          <polygon points="30,18 44,44 16,44" class="p-shape-inner"/>
-          <text x="56" y="28" font-family="Arial" font-weight="900" font-size="14" class="p-text">ACT</text>
-          <text x="56" y="43" font-family="Arial" font-weight="400" font-size="8.5" class="p-subtext">Alliance</text>
-        </svg>
+      <div class="partner-logo" data-name="Партнер 5">
+        <img src="logos/SVG-01.svg" alt="Партнер 5">
       </div>
 
-      <div class="partner-logo" data-name="Ukraina 2050">
-        <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="10" y="18" width="38" height="26" rx="5" class="p-shape"/>
-          <rect x="16" y="23" width="26" height="16" rx="2" class="p-accent-rect"/>
-          <text x="54" y="27" font-family="Arial" font-weight="800" font-size="11" class="p-text">UKRAINE</text>
-          <text x="54" y="42" font-family="Arial" font-weight="700" font-size="11" class="p-accent-text-sm">2050</text>
-        </svg>
+      <div class="partner-logo" data-name="Партнер 6">
+        <img src="logos/logo.svg" alt="Партнер 6">
       </div>
 
-      <div class="partner-logo" data-name="USAID">
-        <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M10 30 Q10 10 30 10 Q50 10 50 30 Q50 50 30 50 Q10 50 10 30Z" class="p-shape"/>
-          <path d="M20 30 Q20 18 30 18 Q40 18 40 30" class="p-arc"/>
-          <text x="56" y="29" font-family="Arial" font-weight="900" font-size="14" class="p-text">USAID</text>
-          <text x="56" y="43" font-family="Arial" font-weight="400" font-size="7.5" class="p-subtext">від народу США</text>
-        </svg>
+      <div class="partner-logo" data-name="Партнер 7">
+        <img src="logos/logo-scaled-1536x590.png" alt="Партнер 7">
       </div>
 
-      <div class="partner-logo" data-name="Diakonia">
-        <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="10" y="22" width="16" height="18" rx="2" class="p-shape"/>
-          <rect x="30" y="14" width="16" height="34" rx="2" class="p-shape"/>
-          <text x="52" y="28" font-family="Arial" font-weight="800" font-size="11" class="p-text">Diakonia</text>
-          <text x="52" y="43" font-family="Arial" font-weight="400" font-size="8.5" class="p-subtext">Sweden</text>
-        </svg>
+      <div class="partner-logo" data-name="Партнер 8">
+        <img src="logos/Group 25.svg" alt="Партнер 8">
       </div>
 
-      <div class="partner-logo" data-name="Місто Свалява">
-        <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M30 10 L20 22 L10 22 L10 48 L50 48 L50 22 L40 22Z" class="p-shape"/>
-          <rect x="22" y="32" width="16" height="16" rx="1" class="p-shape-inner"/>
-          <rect x="26" y="36" width="8" height="6" rx="1" class="p-accent"/>
-          <text x="56" y="28" font-family="Arial" font-weight="700" font-size="10" class="p-text">МІСТО</text>
-          <text x="56" y="42" font-family="Arial" font-weight="800" font-size="11" class="p-text">СВАЛЯВА</text>
-        </svg>
-      </div>
-
-      <div class="partner-logo" data-name="Evangelical Church">
-        <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M30 10 L30 48 M18 22 L42 22" stroke-width="4" stroke-linecap="round" class="p-cross-main"/>
-          <circle cx="30" cy="30" r="18" class="p-circle-outline"/>
-          <text x="54" y="26" font-family="Arial" font-weight="700" font-size="9" class="p-text">ЄВАНГЕЛЬСЬКА</text>
-          <text x="54" y="39" font-family="Arial" font-weight="700" font-size="9" class="p-text">ЦЕРКВА</text>
-        </svg>
-      </div>
-
-    </div><!-- end .marquee-track — JS will duplicate it -->
+    </div>
   </div>
 </section>
 
@@ -964,100 +949,100 @@
 
   <div class="gallery-grid" id="galleryGrid">
 
-    <div class="gallery-item"   data-cat="sport"  data-title="Доджбол"   data-desc="Регулярні тренування мультиспортивного клубу у Сваляві">
+    <div class="gallery-item"   data-cat="sport"  data-title=""   data-desc="Регулярні тренування мультиспортивного клубу у Сваляві">
       <img src="/photos/Sports 1.webp" alt="Доджбол" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Спорт</div><div class="gi-title">Доджбол - Активні Парки</div></div></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag" data-i18n="gallery.cat.sport">Спорт</div><div class="gi-title" data-i18n="gallery.item.sport.title">Спортивні змагання та тренування</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item"        data-cat="camp"   data-title="Зимній табір у Карпатах" data-desc="4 дні пригод, дружби і духовного зростання серед засніжених гір">
+    <div class="gallery-item"        data-cat="camp"   data-title="" data-desc="4 дні пригод, дружби і духовного зростання серед засніжених гір">
       <img src="/photos/Camp 1.webp" alt="Зимній табір" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Табір</div><div class="gi-title">Активний відпочинок</div></div></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag" data-i18n="gallery.cat.camp">Табір</div><div class="gi-title" data-i18n="gallery.item.camp.title">Табірні пригоди та дозвілля</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item"        data-cat="crafts" data-title="Майстер-клас з рукоділля" data-desc="Творчі майстерні для дітей різного віку">
-      <img src="/photos/Crafts 2.webp" alt="Майстер-клас з рукоділля" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Творчість</div><div class="gi-title">Майстер-клас з рукоділля</div></div></div>
+    <div class="gallery-item"        data-cat="crafts" data-title="" data-desc="Творчі майстерні для дітей різного віку">
+      <img src="/photos/Crafts 2.webp" alt="Майстер-клас з рукodілля" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag" data-i18n="gallery.cat.crafts">Творчість</div><div class="gi-title" data-i18n="gallery.item.crafts.title">Творчі майстерні та рукоділля</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item"   data-cat="events" data-title="Фестиваль Спорту"       data-desc="Регіональні змагання з флорболу — понад 200 учасників">
+    <div class="gallery-item"   data-cat="events" data-title=""       data-desc="Регіональні змагання з флорболу — понад 200 учасників">
       <img src="/photos/Events 1.webp" alt="Фестиваль Спорту" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Захід</div><div class="gi-title">Фестиваль Спорту</div></div></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag" data-i18n="gallery.cat.events">Захід</div><div class="gi-title" data-i18n="gallery.item.events.title">Масові заходи та соціальні проєкти</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item"   data-cat="events" data-title="Проведення змагань"   data-desc="Щотижневі зустрічі для духовного зростання молоді">
+    <div class="gallery-item"   data-cat="events" data-title=""   data-desc="Щотижневі зустрічі для духовного зростання молоді">
       <img src="/photos/Events 2.webp" alt="Проведення змагань" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Захід</div><div class="gi-title">Проведення змагань</div></div></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag" data-i18n="gallery.cat.events">Захід</div><div class="gi-title" data-i18n="gallery.item.events.title">Масові заходи та соціальні проєкти</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item"        data-cat="sport"  data-title="Змагання з флорболу"     data-desc="Командна гра виховує характер і розвиває лідерські якості">
+    <div class="gallery-item"        data-cat="sport"  data-title=""     data-desc="Командна гра виховує характер і розвиває лідерські якості">
       <img src="/photos/Sports 3.webp" alt="Змагання з флорболу" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Спорт</div><div class="gi-title">Змагання з флорболу</div></div></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag" data-i18n="gallery.cat.sport">Спорт</div><div class="gi-title" data-i18n="gallery.item.sport.title">Спортивні змагання та тренування</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item"        data-cat="crafts" data-title="Майстерня-рукоділля"            data-desc="Дітки виготовляють гіпсові вироби та декор — розвивають творчість і дрібну моторику">
+    <div class="gallery-item"        data-cat="crafts" data-title=""            data-desc="Дітки виготовляють гіпсові вироби та декор — розвивають творчість і дрібну моторику">
       <img src="/photos/Crafts 3.webp" alt="Майстерня-рукоділля" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Творчість</div><div class="gi-title">Майстерня-рукоділля</div></div></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag" data-i18n="gallery.cat.crafts">Творчість</div><div class="gi-title" data-i18n="gallery.item.crafts.title">Творчі майстерні та рукоділля</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item wide"   data-cat="camp"   data-title="Зимовий табір"            data-desc="Активний відпочинок та нові знайомства взимку в Карпатах">
+    <div class="gallery-item wide"   data-cat="camp"   data-title=""            data-desc="Активний відпочинок та нові знайомства взимку в Карпатах">
       <img src="/photos/Camp 3.webp" alt="Зимовий табір" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Табір</div><div class="gi-title">Зимовий табір</div></div></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag" data-i18n="gallery.cat.camp">Табір</div><div class="gi-title" data-i18n="gallery.item.camp.title">Табірні пригоди та дозвілля</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item"        data-cat="events" data-title="Активні Парки"          data-desc="Проведення таборів Активних парків.">
+    <div class="gallery-item"        data-cat="events" data-title=""          data-desc="Проведення таборів Активних парків.">
       <img src="/photos/Events 3.webp" alt="Активні Парки" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Дозвілля</div><div class="gi-title">Активні Парки</div></div></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag" data-i18n="gallery.cat.events">Дозвілля</div><div class="gi-title" data-i18n="gallery.item.events.title">Масові заходи та соціальні проєкти</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item"        data-cat="sport"  data-title="Спортивні змагання"        data-desc="Регулярні змагання формують дисципліну і командний дух">
+    <div class="gallery-item"        data-cat="sport"  data-title=""        data-desc="Регулярні змагання формують дисципліну і командний дух">
       <img src="/photos/Sports 2.webp" alt="Спортивні змагання" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Спорт</div><div class="gi-title">Спортивні змагання</div></div></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag" data-i18n="gallery.cat.sport">Спорт</div><div class="gi-title" data-i18n="gallery.item.sport.title">Спортивні змагання та тренування</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item tall"   data-cat="camp"   data-title="Гуртки в таборі"           data-desc="Кожен день табору починається з енергійної зарядки">
+    <div class="gallery-item tall"   data-cat="camp"   data-title=""           data-desc="Кожен день табору починається з енергійної зарядки">
       <img src="/photos/Camp 2.webp" alt="Гуртки в таборі" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Табір</div><div class="gi-title">Гуртки в таборі</div></div></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag" data-i18n="gallery.cat.camp">Табір</div><div class="gi-title" data-i18n="gallery.item.camp.title">Табірні пригоди та дозвілля</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item"        data-cat="crafts" data-title="Розпис пряників"          data-desc="Творча майстерня з розпису — для дітей від 6 років">
+    <div class="gallery-item"        data-cat="crafts" data-title=""          data-desc="Творча майстерня з розпису — для дітей від 6 років">
       <img src="/photos/Crafts 1.webp" alt="Розпис пряників" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Творчість</div><div class="gi-title">Розпис пряників</div></div></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag" data-i18n="gallery.cat.crafts">Творчість</div><div class="gi-title" data-i18n="gallery.item.crafts.title">Творчі майстерні та рукоділля</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
     <!-- initially hidden (show more) -->
-    <div class="gallery-item extra hidden" data-cat="events" data-title="Пікнік"       data-desc="Пікнік на природі — спільні ігри, смачна їжа та веселі історії біля вогнища">
+    <div class="gallery-item extra hidden" data-cat="events" data-title=""       data-desc="Пікнік на природі — спільні ігри, смачна їжа та веселі історії біля вогнища">
       <img src="/photos/Events 4.webp" alt="Пікнік" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Захід</div><div class="gi-title">Пікнік</div></div></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag" data-i18n="gallery.cat.events">Захід</div><div class="gi-title" data-i18n="gallery.item.events.title">Масові заходи та соціальні проєкти</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item extra hidden tall" data-cat="sport" data-title="Спортивні змагання" data-desc="Нагorodження переможців регіонального турніру">
+    <div class="gallery-item extra hidden tall" data-cat="sport" data-title="" data-desc="Нагorodження переможців регіонального турніру">
       <img src="/photos/Sports 4.webp" alt="Спортивні змагання" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Спорт</div><div class="gi-title">Нагорodження</div></div></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag" data-i18n="gallery.cat.sport">Спорт</div><div class="gi-title" data-i18n="gallery.item.sport.title">Спортивні змагання та тренування</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item extra hidden" data-cat="crafts" data-title="Вироби" data-desc="Майстер-клас з виробів.">
+    <div class="gallery-item extra hidden" data-cat="crafts" data-title="" data-desc="Майстер-клас з виробів.">
       <img src="/photos/Crafts 4.webp" alt="Вироби" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Творчість</div><div class="gi-title">Вироби</div></div></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag" data-i18n="gallery.cat.crafts">Творчість</div><div class="gi-title" data-i18n="gallery.item.crafts.title">Творчі майстерні та рукоділля</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
-    <div class="gallery-item extra hidden wide" data-cat="camp" data-title="Табір - настольні ігри" data-desc="Вечір біля вогнища — пісні, розмови, дружба">
+    <div class="gallery-item extra hidden wide" data-cat="camp" data-title="" data-desc="Вечір біля вогнища — пісні, розмови, дружба">
       <img src="/photos/Camp 4.webp" alt="Табір - настольні ігри" class="gi-bg" style="width: 100%; height:auto; object-fit: cover;">
-      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag">Табір</div><div class="gi-title">Табір - настольні ігри</div></div></div>
+      <div class="gi-overlay"><div class="gi-info"><div class="gi-tag" data-i18n="gallery.cat.camp">Табір</div><div class="gi-title" data-i18n="gallery.item.camp.title">Табірні пригоди та дозвілля</div></div></div>
       <div class="gi-zoom">⤢</div>
     </div>
 
@@ -1168,16 +1153,16 @@
         <div class="footer-logo-name">Wise<span>Step</span></div>
       </div>
       <p class="footer-tagline" data-i18n="footer.tagline">Християнський центр розвитку і спорту. Простір розвитку, знань і досвіду для реалізації мудрих рішень.</p>
-      <div class="footer-social">
-        <a href="https://instagram.com/wisestepcenter" class="social-link" target="_blank">📸</a>
-        <a href="#" class="social-link">📘</a>
-        <a href="#" class="social-link">✉️</a>
+<div class="footer-social">
+        <a href="https://instagram.com/wisestepcenter" class="social-link" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="#E4405F"/></svg></a>
+        <a href="https://www.facebook.com/WiseStepCenter" class="social-link" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/></svg></a>
+        <a href="mailto:wisestep.center@gmail.com" class="social-link"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="#01B5B4"/></svg></a>
       </div>
     </div>
     <div class="footer-col"><h4 data-i18n="footer.nav">Навігація</h4><ul><li><a href="#about" data-i18n="nav.about">Про нас</a></li><li><a href="#projects" data-i18n="nav.projects">Проєкти</a></li><li><a href="#support" data-i18n="nav.support">Підтримуємо</a></li><li><a href="#why" data-i18n="nav.why">Партнерство</a></li><li><a href="#contact" data-i18n="footer.contact">Контакти</a></li></ul></div>
     <div class="footer-col"><h4 data-i18n="footer.directions">Напрямки</h4><ul><li><a href="#projects" data-i18n="tag.florball">Флорбол</a></li><li><a href="#projects" data-i18n="p.crafts.title">Творчі майстерні</a></li><li><a href="#projects" data-i18n="footer.camps">Табори</a></li><li><a href="#projects" data-i18n="footer.bible">Вивчення Біблії</a></li><li><a href="#projects" data-i18n="footer.games">Настільний клуб</a></li></ul></div>
   </div>
-  <div class="footer-bottom"><p data-i18n="footer.copy">© 2026 LightSource — Christian Tech Team. All rights reserved.</p><p>@lightsource</p></div>
+  <div class="footer-bottom"><p data-i18n="footer.copy">© 2026 LightSource — Charitable IT Projects. All rights reserved.</p><p>@lightsource</p></div>
 </footer>
 
 <!-- Popups rendered dynamically -->
@@ -1330,26 +1315,35 @@ const TRANSLATIONS = {
     'hero.desc':'Християнський центр розвитку і спорту. Ми створюємо можливості для розвитку творчості, спорту, освіти та духовності — незалежно від обставин.',
     'hero.btn1':'Наші проєкти <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     'hero.btn2':'Стати партнером',
+    'hero.c1.title':'ФЛОРБОЛ · КУБОК КАРПАТ',
+    'hero.c2.title':'ТАБОРИ · ДОЗВІЛЛЯ',
+    'hero.c3.title':'ДУХОВНИЙ РОЗВИТОК',
+    'hero.c1.label': 'учасників у змаганнях', 'hero.c1.desc': 'Регіональні змагання, тренування, командний дух',
+    'hero.c2.label': 'Вивчення Біблії',
+    'hero.c3.label': 'різних програм і клубів',
     'stats.s1':'Дітей і молоді','stats.s2':'Активних програм','stats.s3':'Міста присутності','stats.s4':'Можливостей для зростання',
     'about.quote':'«Кожна дитина заслуговує на<br><strong>шанс зростати</strong>»','about.city':'Свалява','about.region':'Закарпаття, Україна',
+    'about.title': 'Wise Step — Християнський центр розвитку і спорту',
     'about.label':'Про організацію','about.desc':'Простір, де кожна дитина та молодь має шанс розвиватися, знаходити друзів, підтримку та натхнення — незалежно від обставин.',
     'about.missionTitle':'🎯 Мета','about.missionText':'Сприяти формуванню мудрих, духовно зрілих і соціально відповідальних поколінь через знання про Бога, Біблію та розвиток талантів.',
     'about.visionTitle':'🔭 Візія','about.visionText':'Створити простір розвитку і підтримки, де кожна дитина зростає духовно, розвиває таланти і свідомо робить мудрі кроки у житті.',
     'projects.label':'Що ми робимо','projects.title':'Наші проєкти<br>та програми','projects.desc':'Різноманітні напрямки для духовного, творчого, спортивного та освітнього розвитку.',
     'p.florball.label':'Спорт · Постійний проєкт','p.florball.title':'Флорбольні команди','p.florball.desc':'Тренування у Сваляві та с. Поляна. Тренування, командний дух, розвиток фізичних якостей.',
-    'p.cup2025.label':'Змагання · Збір коштів','p.cup2025.title':'Кубок Карпат 2026','p.cup2025.desc':'Організація регіонального турніру з флорболу восени 2026. Потрібно покрити витрати на оренду залу, інвентар та нагороди.',
+    'p.cup2026.label':'Змагання · Збір коштів','p.cup2026.title':'Кубок Карпат 2026','p.cup2026.desc':'Організація регіонального турніру з флорболу восени 2026. Потрібно покрити витрати на оренду залу, інвентар та нагороди.',
     'p.crafts.label':'Творчість · Постійний','p.crafts.title':'Творчі майстерні та рукоділля','p.crafts.desc':'Майстерні для дітей і молоді — від рукоділля до виготовлення гіпсових виробів і декору.',
-    'p.candles.label':'Соціальний · Збір коштів','p.candles.title':'Окопні свічки для військових','p.candles.desc':'Збираємо на матеріали для виготовлення 500 окопних свічок для захисників України. Молодь виготовляє вручну.',
+    'p.candles.label':'Соціальний · Постійний','p.candles.title':'Окопні свічки для військових','p.candles.desc':'Збираємо на матеріали для виготовлення окопних свічок для захисників України. Молодь виготовляє вручну.',
     'p.reb.label':'Реабілітація · Постійний','p.reb.title':'Робота з дітьми реб-центру','p.reb.desc':'Психологічна підтримка та дозвілля для дітей і молоді з центрів реабілітації. Щотижневі зустрічі та заняття.',
     'p.camp.label':'Табір · Збір коштів','p.camp.title':'Літній табір "Summer Wise Camp 2026"','p.camp.desc':'Збираємо на проведення 5-денного літнього табору для 30 дітей. Допоможемо дітям із вразливих сімей брати участь безкоштовно.',
     'p.camps.label':'Табори · Збір коштів','p.camps.title':'Денні літні табори Wise Step 2026','p.camps.desc':'Збираємо на проведення 4-ох денніх таборів, які тривають 4 дні для 20 дітей в кожному з них.',
-    'p.games.label':'Дозвілля · Постійний','p.games.title':'Настільний клуб та масове дозвілля','p.games.desc':'Настолки, масові заходи, фестивалі та виїзди — цікаво і корисно провести час разом.',
+    'p.games.label':'Настолки · Постійний','p.games.title':'Настільний клуб','p.games.desc':'Настільні ігри та розваги для дітей і молоді — розвиваємо стратегічне мислення, комунікацію та весело проводимо час разом.',
     'p.bible.label':'Духовний розвиток · Постійний','p.bible.title':'Групи вивчення Біблії та тренінги','p.bible.desc':'Навчальні тренінги, освітні зустрічі та групи вивчення Біблії — формуємо духовно зрілих людей, які свідомо обирають мудрий шлях у житті.',
+    'p.events.label':'Масові заходи · Постійний','p.events.title':'Фестивалі та соціальні проєкти','p.events.desc':'Організація фестивалів, масових заходів і соціальних проєктів для всієї громади — об\'єднуємо людей навколо спільних цінностей.',
+    'p.education.label':'Освітній · Постійний','p.education.title':'Освітні тренінги та майстер-класи','p.education.desc':'Навчальні тренінги, освітні зустрічі — формування зрілого характеру, професійний розвиток та інвестиції в особистість.',
     'progress.label':'Прогрес збору','progress.donors':'донатори','progress.collected':'зíбрано','currency':'грн',
     'btn.support':'💛 Підтримати','btn.donate':'💛 Задонатити','btn.details':'Детальніше',
     'tag.florball':'Флорбол','tag.training':'Тренування','tag.crafts':'Рукоділля','tag.creativity':'Творчість', 'tag.svalyava':'Свалява', 'tag.polyana':'с. Поляна',
-    'tag.support':'Підтримка','tag.rehab':'Реабілітація','tag.boardgames':'Настолки','tag.events':'Масові заходи',
-    'tag.bible':'Біблія','tag.learning':'Навчання','tag.trainings':'Тренінги','tag.education':'Освіта',
+    'tag.support':'Підтримка','tag.rehab':'Реабілітація','tag.boardgames':'Настолки','tag.events':'Масові заходи', 'tag.festival':'Фестивалі', 'tag.fun':'Розваги',
+    'tag.bible':'Біблія', 'tag.spiritual':'Духовний розвиток','tag.learning':'Навчання','tag.trainings':'Тренінги','tag.education':'Освіта', 'tag.victory':'Разом до Перемоги',
     'support.label':'Наша аудиторія','support.title':'Кого ми підтримуємо','support.desc':'Wise Step відкритий для всіх — особливо для тих, хто потребує підтримки найбільше.',
     'support.c1.title':'Діти та молодь із сімей переселенців','support.c1.text':'Підтримуємо тих, хто був вимушений залишити свій дім через війну, допомагаємо знайти нових друзів та стабільність.',
     'support.c2.title':'Діти та молодь-сироти','support.c2.text':'Створюємо атмосферу родинності, любові та підтримки для тих, хто зростає без батьків.',
@@ -1371,12 +1365,17 @@ const TRANSLATIONS = {
     'form.success':'✅ Повідомлення надіслано!',
     'footer.tagline':'Християнський центр розвитку і спорту. Простір розвитку, знань і досвіду для реалізації мудрих рішень.',
     'footer.nav':'Навігація','footer.contact':'Контакти','footer.directions':'Напрямки','footer.camps':'Табори','footer.bible':'Вивчення Біблії','footer.games':'Настільний клуб',
-    'footer.copy':'© 2026 LightSource — Christian Tech Team. All rights reserved.',
+    'footer.copy':'© 2026 LightSource — Charitable IT Projects. All rights reserved.',
     'partners.label':'Наші партнери','partners.title':'Разом робимо більше',
     'gallery.label':'Наше життя','gallery.title':'Моменти, які надихають',
     'gallery.desc':'Спорт, творчість, табори, дружба — ось що таке Wise Step у реальному житті.',
     'gallery.f.all':'Усі','gallery.f.sport':'Спорт','gallery.f.camp':'Табір',
     'gallery.f.crafts':'Творчість','gallery.f.events':'Заходи',
+    'gallery.cat.sport':'спорт','gallery.cat.camp':'табір','gallery.cat.crafts':'творчість','gallery.cat.events':'заходи',
+    'gallery.item.sport.title':'Спортивні змагання та тренування',
+    'gallery.item.camp.title':'Табірні пригоди та дозвілля',
+    'gallery.item.crafts.title':'Творчі майстерні та рукоділля',
+    'gallery.item.events.title':'Масові заходи та соціальні проєкти',
     'gallery.more':'Показати більше',
   },
   en: {
@@ -1386,26 +1385,35 @@ const TRANSLATIONS = {
     'hero.desc':'A Christian Center for Development and Sports. We create opportunities for creative, athletic, educational and spiritual growth — regardless of life circumstances.',
     'hero.btn1':'Our Projects <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     'hero.btn2':'Become a Partner',
+    'hero.c1.title':'FLOORBALL · KARPATY CUP',
+    'hero.c2.title':'CAMPS · LEISURE',
+    'hero.c3.title':'SPIRITUAL GROWTH',
+    'hero.c1.label': 'participants in the competition', 'hero.c1.desc': 'Regional competitions, training, and team spirit',
+    'hero.c2.label': 'Bible Study',
+    'hero.c3.label': 'various programs and clubs',
     'stats.s1':'Children & Youth','stats.s2':'Active Programs','stats.s3':'Cities','stats.s4':'Opportunities for Growth',
     'about.quote':'"Every child deserves a<br><strong>chance to grow</strong>"','about.city':'Svalyava','about.region':'Zakarpattia, Ukraine',
     'about.label':'About Us','about.desc':'A space where every child and young person has the chance to grow, find friends, support and inspiration — no matter their circumstances.',
+    'about.title':'Wise Step — Christian Center for Development and Sports',
     'about.missionTitle':'🎯 Mission','about.missionText':'To help form wise, spiritually mature and socially responsible generations through knowledge of God, the Bible, and development of their talents.',
     'about.visionTitle':'🔭 Vision','about.visionText':'To create a space of growth and support where every child develops spiritually, discovers their talents, and consciously makes wise steps in life.',
     'projects.label':'What We Do','projects.title':'Our Projects<br>& Programs','projects.desc':'Diverse directions for spiritual, creative, athletic and educational development.',
     'p.florball.label':'Sport · Ongoing Project','p.florball.title':'Floorball Teams','p.florball.desc':'Training in Svalyava and Polyana village. Training, team spirit, and physical development.',
-    'p.cup2025.label':'Competition · Fundraiser','p.cup2025.title':'Karpaty Cup 2026','p.cup2025.desc':'Organizing a regional floorball tournament in autumn 2025. We need to cover costs for venue rental, equipment and prizes.',
+    'p.cup2026.label':'Competition · Fundraiser','p.cup2026.title':'Karpaty Cup 2026','p.cup2026.desc':'Organizing a regional floorball tournament in autumn 2026. We need to cover costs for venue rental, equipment and prizes.',
     'p.crafts.label':'Creativity · Ongoing','p.crafts.title':'Creative Workshops & Crafts','p.crafts.desc':'Workshops for children and youth — from handicrafts to plaster casting and decorative arts.',
-    'p.candles.label':'Social · Fundraiser','p.candles.title':'Trench Candles for Soldiers','p.candles.desc':'Raising funds for materials to make 500 trench candles for Ukraine\'s defenders. Youth make them by hand.',
+    'p.candles.label':'Social · Ongoing','p.candles.title':'Trench Candles for Soldiers','p.candles.desc':'Raising funds for materials to make trench candles for Ukraine\'s defenders. Youth make them by hand.',
     'p.reb.label':'Rehabilitation · Ongoing','p.reb.title':'Work with Children from Rehab Center','p.reb.desc':'Psychological support and leisure activities for children from rehabilitation centers. Weekly meetings and sessions.',
     'p.camp.label':'Camp · Fundraiser','p.camp.title':'Summer Wise Camp 2026','p.camp.desc':'Raising funds for a 5-day summer camp for 30 children. We will help children from vulnerable families attend for free.',
     'p.camps.label':'Camps · Fundraiser','p.camps.title':'Wise Step 2026 Day Camps','p.camps.desc':'We are raising funds to organize four 4-day camps, each accommodating 20 children.',
-    'p.games.label':'Leisure · Ongoing','p.games.title':'Board Game Club & Mass Events','p.games.desc':'Board games, mass events, festivals and trips — a fun and meaningful way to spend time together.',
+    'p.games.label':'Board games · Ongoing','p.games.title':'Board Game Club','p.games.desc':'Board games and fun activities for children and youth — developing strategic thinking, communication, and having fun together.',
     'p.bible.label':'Spiritual Growth · Ongoing','p.bible.title':'Bible Study Groups & Trainings','p.bible.desc':'Educational trainings, Bible study groups and discussion meetings — forming spiritually mature people who consciously choose a wise path in life.',
+    'p.events.label':'Mass Events · Ongoing','p.events.title':'Festivals & Cultural Projects','p.events.desc':'Organization of festivals, mass events and cultural projects for the entire community — bringing people together around shared values.',
+    'p.education.label':'Educational · Ongoing','p.education.title':'Educational Trainings & Workshops','p.education.desc':'Educational trainings, workshops and meetings — forming mature individuals who consciously choose a wise path in life.',
     'progress.label':'Fundraising Progress','progress.donors':'donors','progress.collected':'raised','currency':'UAH',
     'btn.support':'💛 Support','btn.donate':'💛 Donate','btn.details':'Learn More',
     'tag.florball':'Floorball','tag.training':'Training','tag.crafts':'Crafts','tag.creativity':'Creativity', 'tag.svalyava':'Svalyava', 'tag.polyana':'Polyana village',
-    'tag.support':'Support','tag.rehab':'Rehabilitation','tag.boardgames':'Board Games','tag.events':'Events',
-    'tag.bible':'Bible','tag.learning':'Learning','tag.trainings':'Trainings','tag.education':'Education',
+    'tag.support':'Support','tag.rehab':'Rehabilitation','tag.boardgames':'Board Games','tag.events':'Events', 'tag.festival':'Festivals', 'tag.fun':'Fun',
+    'tag.bible':'Bible', 'tag.spiritual':'Spiritual Growth', 'tag.learning':'Learning','tag.trainings':'Trainings','tag.education':'Education', 'tag.victory':'Together to Victory',
     'support.label':'Who We Serve','support.title':'Who We Support','support.desc':'Wise Step is open to everyone — especially those who need support the most.',
     'support.c1.title':'Children from Displaced Families','support.c1.text':'We support those who were forced to leave their homes due to war, helping them find new friends and stability.',
     'support.c2.title':'Orphaned Children & Youth','support.c2.text':'We create an atmosphere of warmth, love and support for those growing up without parents.',
@@ -1427,12 +1435,17 @@ const TRANSLATIONS = {
     'form.success':'✅ Message sent!',
     'footer.tagline':'Christian Center for Development and Sports. A space of development, knowledge and experience for making wise decisions.',
     'footer.nav':'Navigation','footer.contact':'Contact','footer.directions':'Programs','footer.camps':'Camps','footer.bible':'Bible Study','footer.games':'Board Game Club',
-    'footer.copy':'© 2026 LightSource — Christian Tech Team. All rights reserved.',
+    'footer.copy':'© 2026 LightSource — Charitable IT Projects. All rights reserved.',
     'partners.label':'Our Partners','partners.title':'Together We Do More',
     'gallery.label':'Our Life','gallery.title':'Moments That Inspire',
     'gallery.desc':'Sport, creativity, camps, friendship — this is what Wise Step looks like in real life.',
     'gallery.f.all':'All','gallery.f.sport':'Sport','gallery.f.camp':'Camp',
     'gallery.f.crafts':'Creativity','gallery.f.events':'Events',
+    'gallery.cat.sport':'sport','gallery.cat.camp':'camp','gallery.cat.crafts':'creativity','gallery.cat.events':'events',
+    'gallery.item.sport.title':'Sports competitions and training',
+    'gallery.item.camp.title':'Camp adventures and leisure',
+    'gallery.item.crafts.title':'Creative workshops and crafts',
+    'gallery.item.events.title':'Mass events and social projects',
     'gallery.more':'Show More',
   }
 };
@@ -1477,20 +1490,20 @@ function updatePopupTranslations(lang) {
     pd.florball.details = [['📍 Location','Svalyava & Polyana'],['📅 Frequency','Training 2-3x/week'],['👥 Participants','Children & youth 8–22'],['🏆 Result','20+ Teams participants']];
     pd.florball.donateTitle = '💛 Support the Floorball Teams'; pd.florball.donateBtn = '💛 Donate to Floorball'; pd.florball.note = 'Funds go to: equipment, venue rental, competition entry';
     pd.florball.successTitle = 'Thank you for your support!'; pd.florball.successText = 'Your contribution helps children grow through sport';
-    pd.cup2025.badge = 'Competition · Fundraiser'; pd.cup2025.title = 'Karpaty Cup 2025 — Floorball Tournament';
-    pd.cup2025.desc = 'The Karpaty Cup is a regional floorball tournament organized by Wise Step each year. In 2025 we plan to gather 8+ teams from Zakarpattia and neighboring regions. Your help is needed to cover organizational costs!';
-    pd.cup2025.details = [['📅 Date','October 2025'],['🏟️ Venue','Svalyava'],['👥 Teams','8+ regional teams'],['🎯 Goal','30,000 UAH']];
-    pd.cup2025.donateTitle = '💛 Support Karpaty Cup 2025'; pd.cup2025.donateBtn = '🏆 Support the Tournament'; pd.cup2025.note = 'Funds: venue (12,000), prizes (8,000), equipment (10,000)';
-    pd.cup2025.successTitle = 'You supported Karpaty Cup!'; pd.cup2025.successText = 'Thanks to you, great competitions will happen';
+    pd.cup2026.badge = 'Competition · Fundraiser'; pd.cup2026.title = 'Karpaty Cup 2026 — Floorball Tournament';
+    pd.cup2026.desc = 'The Karpaty Cup is a regional floorball tournament organized by Wise Step each year. In 2026 we plan to gather 15+ teams from Zakarpattia and neighboring regions. Your help is needed to cover organizational costs!';
+    pd.cup2026.details = [['📅 Date','May 2026'],['🏟️ Venue','Svalyava'],['👥 Teams','15+ regional teams'],['🎯 Goal','~50,000 UAH']];
+    pd.cup2026.donateTitle = '💛 Support Karpaty Cup 2026'; pd.cup2026.donateBtn = '🏆 Support the Tournament'; pd.cup2026.note = 'Funds: venue, prizes, equipment';
+    pd.cup2026.successTitle = 'You supported Karpaty Cup!'; pd.cup2026.successText = 'Thanks to you, great competitions will happen';
     pd.crafts.badge = 'Creativity · Ongoing'; pd.crafts.title = 'Creative Workshops & Crafts';
     pd.crafts.desc = 'Creative workshops are a space where children and youth can express themselves through art. We hold sessions in handicrafts, painting, plaster casting, decoupage and more.';
     pd.crafts.details = [['📅 Frequency','Every Monday at 18:00'],['👥 Age','6–18 years'],['🎨 Activities','Crafts, painting, decor'],['💰 Cost','Free']];
     pd.crafts.donateTitle = '💛 Support Creative Workshops'; pd.crafts.donateBtn = '🎨 Support Workshops'; pd.crafts.note = 'Funds: materials, paints, tools for sessions';
     pd.crafts.successTitle = 'Thank you!'; pd.crafts.successText = 'Your contribution develops creative potential in children';
-    pd.candles.badge = 'Social · Fundraiser · 90%'; pd.candles.title = 'Trench Candles for Ukraine\'s Defenders';
-    pd.candles.desc = 'Our youth handcraft trench candles for Ukraine\'s defenders. We\'re raising funds for materials to make 500 candles. Almost there — help us finish this project!';
-    pd.candles.details = [['🎯 Goal','500 trench candles'],['💰 Target','8,000 UAH'],['👥 Volunteers','15+ young people'],['🎖️ For','Ukraine\'s defenders']];
-    pd.candles.donateTitle = '💛 Help Complete the Fundraiser!'; pd.candles.donateBtn = '🕯️ Support Candles'; pd.candles.note = 'Only 800 UAH left to raise! Your contribution = warmth for our heroes';
+    pd.candles.badge = 'Social · Ongoing'; pd.candles.title = 'Trench Candles for Ukraine\'s Defenders';
+    pd.candles.desc = 'Our team, together with young volunteers, produces trench candles for Ukrainian soldiers and regularly delivers them to the front line. This fundraiser supports materials and continuous production to ensure steady and timely aid.';
+    pd.candles.details = [['🎯 Goal','Continuous production and delivery of trench candles for Ukrainian soldiers'],['💰 Target','Open fundraising for materials and production'],['👥 Volunteers','15+ young people'],['🎖️ For','Ukraine\'s defenders']];
+    pd.candles.donateTitle = '💛 Help Complete the Fundraiser!'; pd.candles.donateBtn = '🕯️ Support Candles'; pd.candles.note = 'Your contribution = warmth for our heroes';
     pd.candles.successTitle = 'Thank you!'; pd.candles.successText = 'Your contribution is light and warmth for the defenders';
     pd.reb.badge = 'Rehabilitation · Ongoing'; pd.reb.title = 'Work with Children from Rehab Center';
     pd.reb.desc = 'Wise Step works with rehabilitation centers in Zakarpattia. Our volunteers and leaders regularly visit children and youth, organizing games, creative activities, sports and spiritual support.';
@@ -1502,16 +1515,30 @@ function updatePopupTranslations(lang) {
     pd.camp.details = [['📅 Date','August 2026, 5 days'],['👥 Participants','30 children (13–16)'],['📍 Location','Carpathians, Zdenievo village'],['💰 Target','87,500 UAH']];
     pd.camp.donateTitle = '💛 Support the Summer Camp'; pd.camp.donateBtn = '⛺ Support Camp'; pd.camp.note = '1,000 UAH = one free day for a child from a vulnerable family';
     pd.camp.successTitle = 'Thank you!'; pd.camp.successText = 'You help children have an unforgettable summer';
-    pd.games.badge = 'Leisure · Ongoing'; pd.games.title = 'Board Game Club & Mass Events';
-    pd.games.desc = 'The board game club is a place to relax, meet new people and have fun together. We organize regular game nights, mass events, festivals and trips.';
-    pd.games.details = [['📅 Frequency','Every Friday'],['🎲 Games','20+ board games'],['👥 Age','Everyone!'],['🎉 Events','Festivals, tournaments']];
-    pd.games.donateTitle = '💛 Support the Board Game Club'; pd.games.donateBtn = '🎲 Support Club'; pd.games.note = 'Funds: new games, organizing events and festivals';
+    pd.camps.badge = 'Day Camps · Fundraiser'; pd.camps.title = 'Wise Step 2026 Summer Day Camps';
+    pd.camps.desc = 'Summer day camps are among Wise Step\'s most beloved programs. Four dynamic camps in the Carpathians where children make new friends, learn about God, play sports, and develop their talents.';
+    pd.camps.details = [['📅 Dates','July 2026, 4 days'],['👥 Participants','20 children (12–16)'],['📍 Location','Carpathians, Svalyava'],['💰 Target','55,000 UAH']];
+    pd.camps.donateTitle = '💛 Support Summer Day Camps'; pd.camps.donateBtn = '🚴 Support Camp'; pd.camps.note = 'An investment in the development of the next generation.';
+    pd.camps.successTitle = 'Thank you!'; pd.camps.successText = 'You help children have an unforgettable summer';
+    pd.games.badge = 'Leisure · Ongoing'; pd.games.title = 'Board Game Club';
+    pd.games.desc = 'The board game club is a place where you can relax, meet new people, and have fun together. We host regular game nights. Board games help develop strategic thinking, communication skills, and teamwork—a great way to spend time together in a meaningful way.';
+    pd.games.details = [['📅 Frequency','Every Friday'],['🎲 Games','20+ board games'],['👥 Age','Everyone!'],['🎉 Events','Entertainment, Games']];
+    pd.games.donateTitle = '💛 Support the Board Game Club'; pd.games.donateBtn = '🎲 Support Club'; pd.games.note = 'Funds: new games, organizing events and funs';
     pd.games.successTitle = 'Thank you!'; pd.games.successText = 'You help youth find friends and joy';
+    pd.events.badge = 'Mass Events · Ongoing'; pd.events.title = 'Festivals & Cultural Projects';
+    pd.events.desc = 'Mass events are a great way to bring the community together, have fun and create memorable experiences. We organize seasonal festivals, sports days, creative fairs and more — a chance for children and youth to socialize, have fun and develop their talents in a joyful atmosphere.';
+    pd.events.details = [['📅 Frequency','Seasonal'],['🎉 Types','Festivals, tournaments']];
+    pd.events.donateTitle = '💛 Support Mass Events'; pd.events.donateBtn = '🎉 Support Events'; pd.events.note = 'Funds: event organization, materials, transportation';
+    pd.events.successTitle = 'Thank you!'; pd.events.successText = 'You help create memorable experiences for the community';
     pd.bible.badge = 'Spiritual Growth · Ongoing'; pd.bible.title = 'Bible Study Groups & Educational Trainings';
     pd.bible.desc = 'Spiritual growth is the heart of Wise Step\'s mission. We run Bible study groups for different age groups, educational trainings, and discussion meetings — helping young people know God and build their lives with purpose.';
     pd.bible.details = [['📅 Frequency','Weekly'],['👥 Groups','By age & interests'],['📚 Materials','Bibles, guides'],['🎓 Trainings','Leadership, values']];
     pd.bible.donateTitle = '💛 Support Spiritual Programs'; pd.bible.donateBtn = '📖 Support Program'; pd.bible.note = 'Funds: study materials, Bibles, organizing trainings';
     pd.bible.successTitle = 'Thank you!'; pd.bible.successText = 'You invest in the spiritual growth of a young generation';
+    pd.education.badge = 'Educational · Ongoing'; pd.education.title = 'Educational Trainings & Workshops';
+    pd.education.desc = 'Educational programs are an important part of Wise Step\'s work. We organize trainings and workshops on various topics — from personal development and leadership to practical skills and life wisdom. These programs help young people develop their potential, build confidence and prepare for a successful future.';   
+    pd.education.details = [['📅 Frequency','Monthly'],['👥 Topics','Personal development, leadership, life skills'],['🎓 Format','Workshops, trainings' ]];
+    pd.education.donateTitle = '💛 Support Educational Programs'; pd.education.donateBtn = '🎓 Support Education'; pd.education.note = 'Funds: organizing trainings, materials, guest speakers';
     // Update progress labels in popup data
     Object.values(pd).forEach(p => { if (p.progress) { /* amounts already in UAH, keep as is */ } });
   } else {
@@ -1521,19 +1548,19 @@ function updatePopupTranslations(lang) {
     pd.florball.details = [['📍 Локація','Свалява та с. Поляна'],['📅 Частота','Тренування 2-3 рази/тиждень'],['👥 Учасники','Діти та молодь 8–22 роки'],['🏆 Результат','20+ учасників у командах']];
     pd.florball.donateTitle = '💛 Підтримати флорбольні команди'; pd.florball.donateBtn = '💛 Задонатити на флорбол'; pd.florball.note = 'Кошти підуть на: інвентар, оренду залу, участь у змаганнях';
     pd.florball.successTitle = 'Дякуємо за підтримку!'; pd.florball.successText = 'Ваш внесок допомагає дітям розвиватися через спорт';
-    pd.cup2025.badge = 'Змагання · Збір коштів'; pd.cup2025.title = 'Кубок Карпат 2025 — Турнір з флорболу';
-    pd.cup2025.desc = 'Кубок Карпат — регіональний турнір з флорболу, який Wise Step організовує щороку. У 2025 році ми плануємо зібрати 8+ команд із Закарпаття та сусідніх областей.';
-    pd.cup2025.details = [['📅 Дата','Жовтень 2025'],['🏟️ Місце','м. Свалява'],['👥 Команди','8+ команд із регіону'],['🎯 Мета збору','30 000 грн']];
-    pd.cup2025.donateTitle = '💛 Підтримати Кубок Карпат 2025'; pd.cup2025.donateBtn = '🏆 Підтримати турнір'; pd.cup2025.note = 'Кошти: оренда залу (12 000), нагороди (8 000), інвентар (10 000)';
-    pd.cup2025.successTitle = 'Ви підтримали Кубок Карпат!'; pd.cup2025.successText = 'Завдяки вам відбудуться чудові змагання';
+    pd.cup2026.badge = 'Змагання · Збір коштів'; pd.cup2026.title = 'Кубок Карпат 2026 — Турнір з флорболу';
+    pd.cup2026.desc = 'Кубок Карпат — регіональний турнір з флорболу, який Wise Step організовує щороку. У 2026 році ми плануємо зібрати 15+ команд із Закарпаття та сусідніх областей.';
+    pd.cup2026.details = [['📅 Дата','Травень 2026'],['🏟️ Місце','м. Свалява'],['👥 Команди','15+ команд із регіону'],['🎯 Мета збору','~50 000 грн']];
+    pd.cup2026.donateTitle = '💛 Підтримати Кубок Карпат 2026'; pd.cup2026.donateBtn = '🏆 Підтримати турнір'; pd.cup2026.note = 'Кошти: оренда залу, нагороди, інвентар';
+    pd.cup2026.successTitle = 'Ви підтримали Кубок Карпат!'; pd.cup2026.successText = 'Завдяки вам відбудуться чудові змагання';
     pd.crafts.badge = 'Творчість · Постійний'; pd.crafts.title = 'Творчі майстерні та рукоділля';
     pd.crafts.desc = 'Творчі майстерні — це простір, де діти і молодь можуть виражати себе через мистецтво. Ми проводимо заняття з рукоділля, розпису, виготовлення гіпсових виробів, декупажу та інших видів творчості.';
     pd.crafts.details = [['📅 Частота','Щопонеділка о 18:00'],['👥 Вік','6–18 років'],['🎨 Напрямки','Рукоділля, розпис, декор'],['💰 Участь','Безкоштовно']];
     pd.crafts.donateTitle = '💛 Підтримати творчі майстерні'; pd.crafts.donateBtn = '🎨 Підтримати майстерні'; pd.crafts.note = 'Кошти підуть на: матеріали, фарби, інструменти для занять';
     pd.crafts.successTitle = 'Дякуємо за підтримку!'; pd.crafts.successText = 'Ваш внесок розвиває творчий потенціал дітей';
-    pd.candles.badge = 'Соціальний · Збір коштів · 90%'; pd.candles.title = 'Окопні свічки для захисників України';
-    pd.candles.desc = 'Наша молодь разом виготовляє окопні свічки для захисників України. Збираємо кошти на матеріали для виготовлення 500 свічок. Майже зібрано — допоможіть нам завершити цей проєкт!';
-    pd.candles.details = [['🎯 Мета','500 окопних свічок'],['💰 Сума збору','8 000 грн'],['👥 Волонтери','15+ молодих людей'],['🎖️ Для кого','Захисники України']];
+    pd.candles.badge = 'Соціальний · Постійний'; pd.candles.title = 'Окопні свічки для захисників України';
+    pd.candles.desc = 'Наша команда разом із молоддю виготовляє окопні свічки для українських військових і регулярно передає їх на передову. Збір спрямований на матеріали та підтримку безперервного виробництва, щоб допомога надходила стабільно.';
+    pd.candles.details = [['🎯 Мета','Безперервне виготовлення та передача окопних свічок для військових'],['💰 Сума збору','Відкритий збір на матеріали та виробництво'],['👥 Волонтери','15+ молодих людей'],['🎖️ Для кого','Захисники України']];
     pd.candles.donateTitle = '💛 Допоможи завершити збір!'; pd.candles.donateBtn = '🕯️ Підтримати збір свічок'; pd.candles.note = 'Залишилось зібрати лише 800 грн! Ваш внесок — це тепло для наших героїв';
     pd.candles.successTitle = 'Дякуємо за підтримку!'; pd.candles.successText = 'Ваш внесок — це світло і тепло для захисників';
     pd.reb.badge = 'Реабілітація · Постійний'; pd.reb.title = 'Робота з дітьми РЕБ центру';
@@ -1546,16 +1573,30 @@ function updatePopupTranslations(lang) {
     pd.camp.details = [['📅 Дата','Серпень 2026, 5 днів'],['👥 Учасники','30 дітей (13–16 р.)'],['📍 Місце','Карпати, с. Жденієво'],['💰 Мета збору','87 500 грн']];
     pd.camp.donateTitle = '💛 Підтримати літній табір'; pd.camp.donateBtn = '⛺ Підтримати табір'; pd.camp.note = '1 000 грн = один безкоштовний день для дитини з вразливої сім\'ї';
     pd.camp.successTitle = 'Дякуємо за підтримку!'; pd.camp.successText = 'Ви допомагаєте дітям провести незабутнє літо';
-    pd.games.badge = 'Дозвілля · Постійний'; pd.games.title = 'Настільний клуб та масове дозвілля';
-    pd.games.desc = 'Настільний клуб — це місце, де можна відпочити, познайомитися з новими людьми і весело провести час. Ми організовуємо регулярні ігрові вечори, масові заходи, фестивалі та виїзди.';
-    pd.games.details = [['📅 Частота','Щотижня по п\'ятницях'],['🎲 Ігри','20+ різних настольних ігор'],['👥 Вік','Для всіх!'],['🎉 Заходи','Фестивалі, турніри']];
-    pd.games.donateTitle = '💛 Підтримати настільний клуб'; pd.games.donateBtn = '🎲 Підтримати клуб'; pd.games.note = 'Кошти: нові ігри, організація заходів та фестивалів';
+    pd.camps.badge = 'Денні табори · Збір коштів'; pd.camps.title = 'Денні літні табори Wise Step 2026';
+    pd.camps.desc = 'Щорічні літні табори — одні з найулюбленіших програм Wise Step. 4 насичених таборів серед природи Карпат, де діти знаходять нових друзями, дізнаються про Бога, займаються спортом і розвивають таланти.';
+    pd.camps.details = [['📅 Дати','Липень 2026, 4 дні'],['👥 Учасники','20 дітей (12–16 р.)'],['📍 Місце','Карпати, м. Свалява'],['💰 Мета збору','55 000 грн']];
+    pd.camps.donateTitle = '💛 Підтримати денні літні табори'; pd.camps.donateBtn = '🚴 Підтримати табір'; pd.camps.note = 'Інвестиція у розвиток майбутнього покоління.';
+    pd.camps.successTitle = 'Дякуємо за підтримку!'; pd.camps.successText = 'Ви допомагаєте дітям провести незабутнє літо';
+    pd.games.badge = 'Настолки · Постійний'; pd.games.title = 'Настільний клуб';
+    pd.games.desc = 'Настільний клуб — це місце, де можна розслабитися, познайомитися з новими людьми і весело провести час разом. Ми організовуємо регулярні ігрові вечори. Настільні ігри розвивають стратегічне мислення, комунікативні навички та командну роботу — чудовий спосіб провести час разом у змістовний спосіб.';
+    pd.games.details = [['📅 Частота','Щотижня по суботам'],['🎲 Ігри','10+ різних настольних ігор'],['👥 Вік','Для всіх!'],['🎉 Заходи','Розваги, Ігри']];
+    pd.games.donateTitle = '💛 Підтримати настільний клуб'; pd.games.donateBtn = '🎲 Підтримати клуб'; pd.games.note = 'Кошти: нові ігри, організація заходів та розваг';
     pd.games.successTitle = 'Дякуємо за підтримку!'; pd.games.successText = 'Ви допомагаєте молоді знаходити друзів і радість';
+    pd.events.badge = 'Масові заходи · Постійний'; pd.events.title = 'Фестивалі та соціальні проєкти';
+    pd.events.desc = 'Масові заходи — це чудовий спосіб зібрати громаду разом, весело провести час і створити незабутні враження. Ми організовуємо сезонні фестивалі, спортивні дні, творчі ярмарки та інші заходи — це можливість для дітей і молоді соціалізуватися, весело провести час і розвивати свої таланти в атмосфері радості.';
+    pd.events.details = [['📅 Частота','Сезонні'],['🎉 Типи','Фестивалі, турніри']];
+    pd.events.donateTitle = '💛 Підтримати масові заходи'; pd.events.donateBtn = '🎉 Підтримати заходи';
     pd.bible.badge = 'Духовний розвиток · Постійний'; pd.bible.title = 'Групи вивчення Біблії та навчальні тренінги';
     pd.bible.desc = 'Духовний розвиток — серце місії Wise Step. Ми проводимо групи вивчення Біблії для різних вікових груп, навчальні тренінги, освітні зустрічі та дискусії.';
     pd.bible.details = [['📅 Частота','Щотижня'],['👥 Групи','За віком та інтересами'],['📚 Матеріали','Біблії, посібники'],['🎓 Тренінги','Лідерство, цінності']];
-    pd.bible.donateTitle = '💛 Підтримати духовні програми'; pd.bible.donateBtn = '📖 Підтримати програму'; pd.bible.note = 'Кошти: навчальні матеріали, Біблії, організація тренінгів';
-    pd.bible.successTitle = 'Дякуємо за підтримку!'; pd.bible.successText = 'Ви вкладаєте у духовне зростання молодого покоління';
+    pd.bible.donateTitle = '💛 Підтримати духовні програми'; pd.bible.donateBtn = '📖 Підтримати програму'; pd.bible.note = 'Кошти: навчальні матеріали, Біблیї, організація тренінгів';
+    pd.bible.successTitle = 'Дякуємо за пíдтримку!'; pd.bible.successText = 'Ви вкладаєте у духовне зростання молодого поколíння';
+    pd.education.badge = 'Освітній · Постійний'; pd.education.title = 'Освітні тренінги та майстер-класи';
+    pd.education.desc = 'Освітні програми — важлива частина роботи Wise Step. Ми організовуємо тренінги та майстер-класи на різні теми — від особистого розвитку та лідерства до практичних навичок і життєвої мудрості. Ці програми допомагають молодим людям розвивати свій потенціал, будувати впевненість і готуватися до успішного майбутнього.';
+    pd.education.details = [['📅 Частота','Місячно'],['👥 Теми','Особистий розвиток, лідерство, життєва мудрість'],['🎓 Формат','Майстер-класи, тренінги']];
+    pd.education.donateTitle = '💛 Підтримати освітні програми'; pd.education.donateBtn = '🎓 Підтримати освіту'; pd.education.note = 'Кошти: організація тренінгів, матеріали, гості-лектори';
+    pd.education.successTitle = 'Дякуємо за пíдтримку!'; pd.education.successText = 'Ви вкладаєте у розвиток молодого поколíння';
   }
   // Remove cached popup DOMs so they rebuild with new language
   document.querySelectorAll('#popupMount .popup-overlay').forEach(el => el.remove());
@@ -1635,22 +1676,21 @@ const POPUP_DATA = {
     successEmoji: '🎉', successTitle: 'Дякуємо за підтримку!',
     successText: 'Ваш внесок допомагає дітям розвиватися через спорт'
   },
-  cup2025: {
-    color: 'g-blue', emoji: '🏆', badge: 'Змагання · Збір коштів',
-    title: 'Кубок Карпат 2025 — Турнір з флорболу',
-    desc: 'Кубок Карпат — регіональний турнір з флорболу, який Wise Step організовує щороку. У 2025 році ми плануємо зібрати 8+ команд із Закарпаття та сусідніх областей. Потрібна ваша допомога для покриття організаційних витрат!',
-    details: [['📅 Дата','Жовтень 2025'],['🏟️ Місце','м. Свалява'],['👥 Команди','8+ команд із регіону'],['🎯 Мета збору','30 000 грн']],
-    gallery: [['linear-gradient(135deg,#1ABCB0,#0D9E93)','🏒',true],['linear-gradient(135deg,#1B2D45,#263D5A)','⚽',false],['#E8F0F4','🏅',false],['#F8FAFA','🤝',false]],
-    progress: { raised: 18400, goal: 30000, pct: 61, donors: 34, days: 47, left: 11600 },
-    donateTitle: '💛 Підтримати Кубок Карпат 2025',
+  cup2026: {
+    color: 'g-warm', emoji: '🏆', badge: 'Змагання · Збір коштів',
+    title: 'Кубок Карпат 2026 — Турнір з флорболу',
+    desc: 'Кубок Карпат — регіональний турнір з флорболу, який Wise Step організовує щороку. У 2026 році ми плануємо зібрати 15+ команд із Закарпаття та сусідніх областей. Потрібна ваша допомога для покриття організаційних витрат!',
+    details: [['📅 Дата','Травень 2026'],['🏟️ Місце','м. Свалява'],['👥 Команди','15+ команд із регіону'],['🎯 Мета збору','~50 000 грн']],
+    gallery: [['Cup.webp','🎨',true],['Cup 1.webp','🎨',false],['Cup 2.webp','🎨',false],['Cup 3.webp','🎨',false]],    
+    donateTitle: '💛 Підтримати Кубок Карпат 2026',
     amounts: ['300 грн','700 грн','1 500 грн','3 000 грн'], activeIdx: 1,
     donateBtn: '🏆 Підтримати турнір',
-    note: 'Кошти: оренда залу (12 000), нагороди (8 000), інвентар (10 000)',
+    note: 'Кошти: оренда залу, нагороди, інвентар',
     successEmoji: '🏆', successTitle: 'Ви підтримали Кубок Карпат!',
     successText: 'Завдяки вам відбудуться чудові змагання'
   },
   crafts: {
-    color: 'g-warm', emoji: '🎨', badge: 'Творчість · Постійний',
+    color: 'g-pink', emoji: '🎨', badge: 'Творчість · Постійний',
     title: 'Творчі майстерні та рукоділля',
     desc: 'Творчі майстерні — це простір, де діти і молодь можуть виражати себе через мистецтво. Ми проводимо заняття з рукоділля, розпису, виготовлення гіпсових виробів, декупажу та інших видів творчості.',
     details: [['📅 Частота','Щопонеділка о 18:00'],['👥 Вік','6–18 років'],['🎨 Напрямки','Рукоділля, розпис, декор'],['💰 Участь','Безкоштовно']],
@@ -1663,16 +1703,16 @@ const POPUP_DATA = {
     successText: 'Ваш внесок розвиває творчий потенціал дітей'
   },
   candles: {
-    color: 'g-navy', emoji: '🕯️', badge: 'Соціальний · Збір коштів · 90%',
+    color: 'g-olive', emoji: '🕯️', badge: 'Соціальний · Постійний',
     title: 'Окопні свічки для захисників України',
-    desc: 'Наша молодь разом виготовляє окопні свічки для захисників України. Збираємо кошти на матеріали для виготовлення 500 свічок. Майже зібрано — допоможіть нам завершити цей проєкт!',
-    details: [['🎯 Мета','500 окопних свічок'],['💰 Сума збору','8 000 грн'],['👥 Волонтери','15+ молодих людей'],['🎖️ Для кого','Захисники України']],
-    gallery: [['linear-gradient(135deg,#1ABCB0,#0D9E93)','🏒',true],['linear-gradient(135deg,#1B2D45,#263D5A)','⚽',false],['#E8F0F4','🏅',false],['#F8FAFA','🤝',false]],
-    progress: { raised: 7200, goal: 8000, pct: 90, donors: 52, days: null, left: 800 },
+    desc: 'Наша команда разом із молоддю виготовляє окопні свічки для українських військових і регулярно передає їх на передову. Збір спрямований на матеріали та підтримку безперервного виробництва, щоб допомога надходила стабільно.',
+    details: [['🎯 Мета','Безперервне виготовлення та передача окопних свічок для військових'],['💰 Сума збору','Відкритий збір на матеріали та виробництво'],['👥 Волонтери','15+ молодих людей'],['🎖️ Для кого','Захисники України']],
+    gallery: [['Candles 1.webp','🕯️',true],['Candles 2.webp','🕯️',false],['Candles 3.webp','🕯️',false], ['Candles (main).webp','🕯️',false] ],
+    // progress: { raised: 7200, goal: 8000, pct: 90, donors: 52, days: null, left: 800 },
     donateTitle: '💛 Допоможи завершити збір!',
     amounts: ['100 грн','300 грн','500 грн','800 грн'], activeIdx: 1,
     donateBtn: '🕯️ Підтримати збір свічок',
-    note: 'Залишилось зібрати лише 800 грн! Ваш внесок — це тепло для наших героїв',
+    note: 'Ваш внесок — це тепло для наших героїв',
     successEmoji: '🕯️', successTitle: 'Дякуємо за підтримку!',
     successText: 'Ваш внесок — це світло і тепло для захисників'
   },
@@ -1681,7 +1721,7 @@ const POPUP_DATA = {
     title: 'Робота з дітьми реб-центру',
     desc: 'Wise Step співпрацює з реабілітаційними центрами Закарпаття. Наші волонтери та лідери регулярно відвідують дітей і молодь, організовуючи для них ігри, творчі заняття, спортивні активності та духовну підтримку.',
     details: [['📅 Частота','Раз на 2 тижні'],['👥 Охоплення','30+ дітей'],['🌟 Формати','Ігри, спорт, творчість'],['💙 Підхід','Психологічна підтримка']],
-    gallery: [['linear-gradient(135deg,#1ABCB0,#0D9E93)','🏒',true],['linear-gradient(135deg,#1B2D45,#263D5A)','⚽',false],['#E8F0F4','🏅',false],['#F8FAFA','🤝',false]],
+    gallery: [['Reb center 1.webp','🏒',true],['Reb center 2.webp','⚽',false],['Reb center 3.webp','🏅',false],['Reb center (main).webp','🤝',false]],
     donateTitle: '💛 Підтримати роботу з дітьми реб-центру',
     amounts: ['200 грн','500 грн','1 000 грн','3 000 грн'], activeIdx: 1,
     donateBtn: '🤝 Підтримати цей проєкт',
@@ -1694,7 +1734,7 @@ const POPUP_DATA = {
     title: 'Літній табір "Summer Wise Camp 2026"',
     desc: 'Щорічний літній табір — одна з найулюбленіших програм Wise Step. 5 насичених днів серед природи Карпат, де діти знаходять нових друзів, дізнаються про Бога, займаються спортом і розвивають таланти.',
     details: [['📅 Дата','Серпень 2026, 5 днів'],['👥 Учасники','30 дітей (13–16 р.)'],['📍 Місце','Карпати, с. Жденієво'],['💰 Мета збору','87 500 грн']],
-    gallery: [['linear-gradient(135deg,#1ABCB0,#0D9E93)','🏒',true],['linear-gradient(135deg,#1B2D45,#263D5A)','⚽',false],['#E8F0F4','🏅',false],['#F8FAFA','🤝',false]],
+    gallery: [['Summer Camp 1.webp','🏒',true],['Summer Camp 2.webp','⚽',false],['Summer Camp 3.webp','🏅',false],['Summer Camp 4.webp','🤝',false], ['Summer Camp 5.webp','🤝',false], ['Summer Camp 6.webp','🤝',false]],
     progress: { raised: 17500, goal: 87500, pct: 20, donors: 3, days: 135, left: 70000 },
     donateTitle: '💛 Підтримати літній табір',
     amounts: ['500 грн','1 000 грн','2 500 грн','5 000 грн'], activeIdx: 1,
@@ -1708,7 +1748,7 @@ const POPUP_DATA = {
     title: 'Денні літні табори Wise Step 2026',
     desc: 'Щорічні літні табори — одні з найулюбленіших програм Wise Step. 4 насичених таборів серед природи Карпат, де діти знаходять нових друзями, дізнаються про Бога, займаються спортом і розвивають таланти.',
     details: [['📅 Дати','Липень 2026, 4 дні'],['👥 Учасники','20 дітей (12–16 р.)'],['📍 Місце','Карпати, м. Свалява'],['💰 Мета збору','55 000 грн']],
-    gallery: [['linear-gradient(135deg,#1ABCB0,#0D9E93)','🏒',true],['linear-gradient(135deg,#1B2D45,#263D5A)','⚽',false],['#E8F0F4','🏅',false],['#F8FAFA','🤝',false]],
+    gallery: [['Camps 4.webp','🏒',true],['Camps 1.webp','⚽',false],['Camps 2.webp','🏅',false],['Camps 3.webp','🤝',false]],
     progress: { raised: 10500, goal: 55000, pct: 19, donors: 2, days: 90, left: 44500 },
     donateTitle: '💛 Підтримати денні літні табори',
     amounts: ['500 грн','1 000 грн','2 500 грн','5 000 грн'], activeIdx: 1,
@@ -1718,30 +1758,56 @@ const POPUP_DATA = {
     successText: 'Ви допомагаєте дітям провести незабутнє літо'
   },
   games: {
-    color: 'g-purple', emoji: '🎲', badge: 'Дозвілля · Постійний',
-    title: 'Настільний клуб та масове дозвілля',
-    desc: 'Настільний клуб — це місце, де можна відпочити, познайомитися з новими людьми і весело провести час. Ми організовуємо регулярні ігрові вечори, масові заходи, фестивалі та виїзди.',
-    details: [['📅 Частота','Щотижня по п\'ятницях'],['🎲 Ігри','20+ різних настольних ігор'],['👥 Вік','Для всіх!'],['🎉 Заходи','Фестивалі, турніри']],
-    gallery: [['linear-gradient(135deg,#1ABCB0,#0D9E93)','🏒',true],['linear-gradient(135deg,#1B2D45,#263D5A)','⚽',false],['#E8F0F4','🏅',false],['#F8FAFA','🤝',false]],
+    color: 'g-purple', emoji: '🎲', badge: 'Настолки · Постійний',
+    title: 'Настільний клуб',
+    desc: 'Настільний клуб — це місце, де можна відпочити, познайомитися з новими людьми і весело провести час. Ми організовуємо регулярні ігрові вечори.',
+    details: [['📅 Частота','Щотижня по суботах'],['🎲 Ігри','10 + різних настольних ігор'],['👥 Вік','Для всіх!'],['🎉 Заходи','Розваги, Ігри']],
+    gallery: [['Games (main).webp','🏒',true],['Games 1.webp','⚽',false],['Games 2.webp','🏅',false]],
     donateTitle: '💛 Підтримати настільний клуб',
     amounts: ['200 грн','500 грн','1 000 грн','2 500 грн'], activeIdx: 1,
     donateBtn: '🎲 Підтримати клуб',
-    note: 'Кошти: нові ігри, організація заходів та фестивалів',
+    note: 'Кошти: нові ігри, організація заходів та розваг',
     successEmoji: '🎲', successTitle: 'Дякуємо за підтримку!',
     successText: 'Ви допомагаєте молоді знаходити друзів і радість'
   },
+  events: {
+    color: 'g-navy', emoji: '🎉', badge: 'Масові заходи · Постійний',
+    title: 'Фестивалі та соціальні проєкти',
+    desc: 'Масові заходи — це чудовий спосіб зібрати громаду разом, весело провести час і створити незабутні враження. Ми організовуємо сезонні фестивалі, спортивні дні, творчі ярмарки та інші заходи — це можливість для дітей і молоді соціалізуватися, весело провести час і розвивати свої таланти в атмосфері радості.',
+    details: [['📅 Частота','Сезонні'],['🎉 Типи','Фестивалі, турніри']],
+    gallery: [['Events (main).webp','🏒',true],['Events 1.webp','⚽',false],['Events 2.webp','🏅',false],['Events 3.webp','🤝',false]],
+    donateTitle: '💛 Підтримати масові заходи',
+    amounts: ['200 грн','500 грн','1 000 грн','2 500 грн'], activeIdx: 1,
+    donateBtn: '🎉 Підтримати заходи',
+    note: 'Кошти: організація заходів, оренда локацій, нагороди для учасників',
+    successEmoji: '📣', successTitle: 'Дякуємо за підтримку!',
+    successText: 'Ви допомагаєте створювати незабутні враження для молоді'
+  },
   bible: {
     color: 'g-green', emoji: '📖', badge: 'Духовний розвиток · Постійний',
-    title: 'Групи вивчення Біблії та навчальні тренінги',
+    title: 'Групи вивчення Біблії',
     desc: 'Духовний розвиток — серце місії Wise Step. Ми проводимо групи вивчення Біблії для різних вікових груп, навчальні тренінги, освітні зустрічі та дискусії. Мета — допомогти молодим людям пізнати Бога та свідомо будувати своє життя.',
     details: [['📅 Частота','Щотижня'],['👥 Групи','За віком та інтересами'],['📚 Матеріали','Біблії, посібники'],['🎓 Тренінги','Лідерство, цінності']],
-    gallery: [['linear-gradient(135deg,#1ABCB0,#0D9E93)','🏒',true],['linear-gradient(135deg,#1B2D45,#263D5A)','⚽',false],['#E8F0F4','🏅',false],['#F8FAFA','🤝',false]],
+    gallery: [['Bible (main).webp','🏒',true],['Bible 1.webp','⚽',false],['Bible 2.webp','🏅',false],['Bible 3.webp','🤝',false]],
     donateTitle: '💛 Підтримати духовні програми',
     amounts: ['300 грн','700 грн','1 500 грн','3 000 грн'], activeIdx: 1,
     donateBtn: '📖 Підтримати програму',
     note: 'Кошти: навчальні матеріали, Біблії, організація тренінгів',
     successEmoji: '📖', successTitle: 'Дякуємо за підтримку!',
     successText: 'Ви вкладаєте у духовне зростання молодого покоління'
+  },
+  education: {
+    color: 'g-tan', emoji: '📚', badge: 'Освітній · Постійний',
+    title: 'Освітні тренінги та майстер-класи',
+    desc: 'Освітні програми — важлива частина роботи Wise Step. Ми організовуємо тренінги та майстер-класи на різні теми — від особистого розвитку та лідерства до практичних навичок і життєвої мудрості. Ці програми допомагають молодим людям розвивати свій потенціал, будувати впевненість і готуватися до успішного майбутнього.',
+    details: [['📅 Дати','На протязі року'],['👥 Учасники','Для всіх!'],['📚 Матеріали','Навчальні посібники'],['🎓 Тренінги','Лідерство, цінності']],
+    gallery: [['Education (main).webp','🏒',true],['Education 1.webp','⚽',false],['Education 2.webp','🏅',false]],
+    donateTitle: '💛 Підтримати освітні програми',
+    amounts: ['300 грн','700 грн','1 500 грн','3 000 грн'], activeIdx: 1,
+    donateBtn: '🎓 Підтримати освіту',
+    note: 'Кошти: організація тренінгів, матеріали, гості-лектори',
+    successEmoji: '📖', successTitle: 'Дякуємо за пíдтримку!',
+    successText: 'Ви вкладаєте у розвиток молодого поколíння'
   }
 };
 
