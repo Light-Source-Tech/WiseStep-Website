@@ -966,35 +966,35 @@
     <div class="marquee-track" id="marqueeTrack">
 
       <div class="partner-logo" data-name="Партнер 1">
-        <img src="logos/Group 27.png" loading="lazy" decoding="async" alt="Партнер 1">
+        <img src="logos/Group 27.png" loading="lazy" decoding="async" alt="Partner logo">
       </div>
 
       <div class="partner-logo" data-name="Партнер 2">
-        <img src="logos/LightSource logo (vertical version).svg" loading="lazy" decoding="async" alt="Партнер 2">
+        <img src="logos/LightSource logo (vertical version).svg" loading="lazy" decoding="async" alt="Partner logo">
       </div>
 
       <div class="partner-logo" data-name="Партнер 3">
-        <img src="logos/Ukrainankansalla_fi_logo_600_valkoinen_teksti-musta-tausta2.png" loading="lazy" decoding="async" alt="Партнер 3">
+        <img src="logos/Ukrainankansalla_fi_logo_600_valkoinen_teksti-musta-tausta2.png" loading="lazy" decoding="async" alt="Partner logo">
       </div>
 
       <div class="partner-logo" data-name="Партнер 4">
-        <img src="logos/Multisport_Logo.svg" loading="lazy" decoding="async" alt="Партнер 4">
+        <img src="logos/Multisport_Logo.svg" loading="lazy" decoding="async" alt="Partner logo">
       </div>
 
       <div class="partner-logo" data-name="Партнер 5">
-        <img src="logos/SVG-01.svg" loading="lazy" decoding="async" alt="Партнер 5">
+        <img src="logos/SVG-01.svg" loading="lazy" decoding="async" alt="Partner logo">
       </div>
 
       <div class="partner-logo" data-name="Партнер 6">
-        <img src="logos/logo.svg" loading="lazy" decoding="async" alt="Партнер 6">
+        <img src="logos/logo.svg" loading="lazy" decoding="async" alt="Partner logo">
       </div>
 
       <div class="partner-logo" data-name="Партнер 7">
-        <img src="logos/logo-scaled-1536x590.png" loading="lazy" decoding="async" alt="Партнер 7">
+        <img src="logos/logo-scaled-1536x590.png" loading="lazy" decoding="async" alt="Partner logo">
       </div>
 
       <div class="partner-logo" data-name="Партнер 8">
-        <img src="logos/Group 25.svg" loading="lazy" decoding="async" alt="Партнер 8">
+        <img src="logos/Group 25.svg" loading="lazy" decoding="async" alt="Partner logo">
       </div>
 
     </div>
@@ -1126,14 +1126,14 @@
 <!-- Lightbox -->
 <div class="lightbox-overlay" id="lightbox">
   <div class="lb-inner">
-    <button class="lb-close" id="lbClose">✕</button>
+    <button class="lb-close" id="lbClose" aria-label="Закрити галерею">✕</button>
     <div class="lb-img" id="lbImg"></div>
     <div class="lb-caption">
       <div class="lb-title" id="lbTitle"></div>
       <div class="lb-counter" id="lbCounter"></div>
     </div>
-    <button class="lb-nav lb-prev" id="lbPrev">‹</button>
-    <button class="lb-nav lb-next" id="lbNext">›</button>
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="Попереднє фото">‹</button>
+    <button class="lb-nav lb-next" id="lbNext" aria-label="Наступне фото">›</button>
   </div>
 </div>
 
@@ -1952,7 +1952,7 @@ function buildPopupHTML(id, d) {
         <div class="popup-hero-gradient">${d.emoji}</div>
         <div class="popup-hero-overlay"></div>
         <div class="popup-hero-badge">${d.badge}</div>
-        <button class="popup-close" onclick="closePopup('${id}')">✕</button>
+        <button class="popup-close" onclick="closePopup('${id}')" aria-label="Закрити">✕</button>
         <div class="popup-hero-title">${d.title}</div>
       </div>
       <div class="popup-body">
