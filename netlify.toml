@@ -1,0 +1,28 @@
+# Security headers + static-asset caching for the Wise Step site.
+# No Content-Security-Policy: the page relies on inline styles/scripts/onclick,
+# which would require 'unsafe-inline' and provide little real protection.
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), camera=(), microphone=(), payment=()"
+    # HSTS: force HTTPS for 1 year. No preload — keeps the policy reversible.
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+
+# Static images cached for 30 days. Plain max-age does NOT revalidate within
+# the fresh window: the browser serves the cached copy for 30 days without
+# contacting the server. Filenames are stable/unhashed, so do NOT add
+# 'immutable' — replacing an image otherwise leaves returning visitors with a
+# stale copy until the window expires.
+[[headers]]
+  for = "/photos/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/logos/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
