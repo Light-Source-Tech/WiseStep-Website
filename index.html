@@ -2114,6 +2114,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const fmtNum = n => (n == null ? '' : Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '));
   const escAttr = s => String(s == null ? '' : s).replace(/"/g, '&quot;');
 
+  // ── Defensive publish gate ─────────────────────────────────────────────
+  // A draft/incomplete row (e.g. one saved from the admin panel without a slug,
+  // with a placeholder description, or a placeholder donate URL) must never
+  // render a half-broken card. We simply skip such rows; the visitor sees only
+  // fully-ready projects (no error UI, no dead buttons, no fake donate links).
+  const PLACEHOLDER_DONATE = /\/jar\/example(?:[/?#]|$)/; // literal .../jar/example
+  // Null/empty donate URL falls back to the site's real shared Monobank jar.
+  const effectiveDonateUrl = p => ((p.external_donate_url || '').trim() || MONOBANK_URL);
+  const isValidDonate = p => { const u = effectiveDonateUrl(p); return !!u && !PLACEHOLDER_DONATE.test(u); };
+  function isPublishable(p) {
+    const slug = (typeof p.slug === 'string' ? p.slug : '').trim();
+    if (!slug) return false;                                   // no slug → details popup can't be targeted
+    const desc = (p.full_description || '').trim();
+    const title = (p.title || '').trim();
+    if (!desc || desc === title) return false;                 // missing / placeholder (title-echoing) description
+    if (!isValidDonate(p)) return false;                       // placeholder donate URL
+    return true;
+  }
+
   function renderCard(p, idx) {
     const pr = p.presentation || {};
     const hasEmoji = (pr.gradient_emoji || '').trim() !== '';
@@ -2147,7 +2166,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }).join('') + `</div>`;
     }
 
-    const donateUrl = p.external_donate_url || MONOBANK_URL;
+    const donateUrl = effectiveDonateUrl(p);
 
     return `<div class="project-card${featuredCls} reveal"${delayStyle}>
       ${imgHTML}
@@ -2195,11 +2214,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('projectsGrid');
     if (!grid || !rows || !rows.length) return;
 
+    // 0) Drop draft/incomplete rows so a half-broken card can't reach the visitor.
+    const publishable = rows.filter(isPublishable);
+    if (!publishable.length) {
+      console.warn('[projects] no publishable rows — keeping static project cards.');
+      return; // keep the static fallback rather than blanking the section
+    }
+
     // 1) Rebuild popup data from the DB (overwrites the hardcoded fallback in place).
-    rows.forEach(p => { if (p.slug) POPUP_DATA[p.slug] = mapPopupEntry(p); });
+    publishable.forEach(p => { POPUP_DATA[p.slug] = mapPopupEntry(p); });
 
     // 2) Rebuild the cards grid.
-    grid.innerHTML = rows.map((p, i) => renderCard(p, i)).join('');
+    grid.innerHTML = publishable.map((p, i) => renderCard(p, i)).join('');
 
     // 3) Show cards already in view instantly (no flash); animate the rest on scroll.
     grid.querySelectorAll('.reveal').forEach(el => {
