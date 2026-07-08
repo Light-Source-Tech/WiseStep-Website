@@ -76,6 +76,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;800&family=Nunito:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
 <script>window.addEventListener('DOMContentLoaded', function () { emailjs.init({ publicKey: 'WJ4v6kl2_aawMNgt4' }); });</script>
+<!-- Supabase JS client (v2 UMD, exposes window.supabase). Deferred: executes before DOMContentLoaded. -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
 <style>
   :root {
     --teal: #1ABCB0;
@@ -2078,6 +2080,160 @@ async function handleSubmit(e) {
       : '❌ Щось пішло не так. Напишіть нам напряму: wisestep.center@gmail.com';
   }
 }
+
+// ── Live projects from Supabase ────────────────────────────────────────────
+// The static project cards + POPUP_DATA above act as the guaranteed fallback:
+// if Supabase (or the CDN) is unreachable or slow, the section still renders
+// real content. On a successful fetch we replace the grid and rebuild
+// POPUP_DATA from the DB (same shapes the existing card/popup code expects),
+// so the design, language switching and Monobank donate flow stay identical.
+document.addEventListener('DOMContentLoaded', () => {
+  const SUPABASE_URL = 'https://nkxqvvmkjrpmaafrullm.supabase.co';
+  // Public anon key — safe to embed in client JS (RLS restricts to read-only).
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5reHF2dm1ranJwbWFhZnJ1bGxtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMzOTIzNzYsImV4cCI6MjA5ODk2ODM3Nn0.8SBcQXUR1HaPHpUexiug1rLarJi4yBtMFpMMHqNOxzE';
+
+  if (!window.supabase || typeof window.supabase.createClient !== 'function') {
+    console.warn('[projects] supabase-js unavailable — keeping static project cards.');
+    return;
+  }
+  const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  // Per-card reveal stagger (by sort order), matching the original static markup.
+  const DELAYS = ['', '.1s', '.15s', '.2s', '.25s', '.33s', '.3s', '.35s', '.4s', '.45s', '.5s'];
+  // Cards whose gradient emoji is shown OVER the photo (no `has-photo`). Not
+  // expressible from the current schema — see EN/schema-gap notes.
+  const NO_PHOTO_OVERLAY = new Set(['camps']);
+  // Popup hero emoji (single, distinct from the card's gradient emoji). Not
+  // stored in the DB `presentation` object — kept here to preserve popup parity.
+  const POPUP_HERO_EMOJI = { florball:'🏒', cup2026:'🏆', crafts:'🎨', candles:'🕯️', reb:'🤝', camp:'⛺', camps:'🚴', games:'🎲', events:'🎉', bible:'📖', education:'📚' };
+  // Reverse-map Ukrainian tag text → existing i18n key so EN switching keeps working.
+  const TAG_KEY = Object.entries(TRANSLATIONS.uk)
+    .filter(([k]) => k.startsWith('tag.'))
+    .reduce((m, [k, v]) => { m[v] = k; return m; }, {});
+
+  const fmtNum = n => (n == null ? '' : Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '));
+  const escAttr = s => String(s == null ? '' : s).replace(/"/g, '&quot;');
+
+  function renderCard(p, idx) {
+    const pr = p.presentation || {};
+    const hasEmoji = (pr.gradient_emoji || '').trim() !== '';
+    const colorCls = hasEmoji && pr.color_class ? ' ' + pr.color_class : '';
+    const hasPhotoCls = (p.cover_image && !NO_PHOTO_OVERLAY.has(p.slug)) ? ' has-photo' : '';
+    const featuredCls = p.featured ? ' featured' : '';
+    const delay = DELAYS[idx] || '';
+    const delayStyle = delay ? ` style="transition-delay:${delay}"` : '';
+
+    const imgHTML = `<div class="project-card-img${colorCls}${hasPhotoCls}">`
+      + (p.cover_image ? `<img class="project-card-photo" loading="lazy" decoding="async" src="${p.cover_image}" alt="${escAttr(p.main_image_alt || p.title)}">` : '')
+      + `<div class="project-card-gradient">${pr.gradient_emoji || ''}</div></div>`;
+
+    let progressHTML = '';
+    if (p.progress_visible) {
+      progressHTML = `<div class="progress-wrap">
+          <div class="progress-header">
+            <span class="progress-label" data-i18n="progress.label">Прогрес збору</span>
+            <span class="progress-amounts"><span>${fmtNum(p.current_amount)}</span> / ${fmtNum(p.goal_amount)} <span data-i18n="currency">грн</span></span>
+          </div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" data-percent="${p.progress_percent}"></div></div>
+          <div class="progress-donors"><b>${p.donors_count}</b> <span data-i18n="progress.donors">донатори</span> · <b>${p.progress_percent}%</b> <span data-i18n="progress.collected">зібрано</span></div>
+        </div>`;
+    }
+
+    let tagsHTML = '';
+    if (Array.isArray(p.tags) && p.tags.length) {
+      tagsHTML = `<div class="project-card-tags">` + p.tags.map(tg => {
+        const key = TAG_KEY[tg];
+        return `<span class="tag"${key ? ` data-i18n="${key}"` : ''}>${tg}</span>`;
+      }).join('') + `</div>`;
+    }
+
+    const donateUrl = p.external_donate_url || MONOBANK_URL;
+
+    return `<div class="project-card${featuredCls} reveal"${delayStyle}>
+      ${imgHTML}
+      <div class="project-card-body">
+        <div class="project-card-label" data-i18n="p.${p.slug}.label">${p.badge || ''}</div>
+        <div class="project-card-title" data-i18n="p.${p.slug}.title">${p.title || ''}</div>
+        <p class="project-card-desc" data-i18n="p.${p.slug}.desc">${p.short_description || ''}</p>
+        ${progressHTML}
+        ${tagsHTML}
+        <div class="project-actions">
+          <a class="btn-donate" href="${donateUrl}" target="_blank" rel="noopener noreferrer" data-i18n="btn.support">💛 Підтримати</a>
+          <button class="btn-details" onclick="openPopup('${p.slug}')" data-i18n="btn.details">Детальніше</button>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  // DB row → POPUP_DATA entry, matching the exact shape buildPopupHTML() reads.
+  function mapPopupEntry(p) {
+    const pr = p.presentation || {};
+    const entry = {
+      color: pr.color_class || '',
+      emoji: POPUP_HERO_EMOJI[p.slug] || pr.gradient_emoji || '',
+      badge: p.badge || '',
+      title: p.title || '',
+      desc: p.full_description || '',
+      details: Array.isArray(pr.popup_details) ? pr.popup_details : [],
+      gallery: Array.isArray(p.gallery) ? p.gallery.map((src, i) => [src, '🎨', i === 0]) : null,
+      donateTitle: pr.donate_title || '',
+      amounts: pr.preset_amounts || [],
+      activeIdx: pr.preset_active_idx == null ? 1 : pr.preset_active_idx,
+      donateBtn: pr.donate_btn || '',
+      note: pr.donate_note || '',
+      successEmoji: (pr.success && pr.success.emoji) || '🎉',
+      successTitle: (pr.success && pr.success.title) || '',
+      successText: (pr.success && pr.success.text) || ''
+    };
+    if (p.progress_visible) {
+      entry.progress = { raised: p.current_amount, goal: p.goal_amount, pct: p.progress_percent, donors: p.donors_count, days: p.deadline_days, left: p.amount_left };
+    }
+    return entry;
+  }
+
+  function applyProjects(rows) {
+    const grid = document.getElementById('projectsGrid');
+    if (!grid || !rows || !rows.length) return;
+
+    // 1) Rebuild popup data from the DB (overwrites the hardcoded fallback in place).
+    rows.forEach(p => { if (p.slug) POPUP_DATA[p.slug] = mapPopupEntry(p); });
+
+    // 2) Rebuild the cards grid.
+    grid.innerHTML = rows.map((p, i) => renderCard(p, i)).join('');
+
+    // 3) Show cards already in view instantly (no flash); animate the rest on scroll.
+    grid.querySelectorAll('.reveal').forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('visible');
+      else unifiedObserver.observe(el);
+    });
+    grid.querySelectorAll('.progress-bar-fill').forEach(el => unifiedObserver.observe(el));
+
+    // 4) Drop any popups already built from the old data so they rebuild from the DB.
+    document.querySelectorAll('#popupMount .popup-overlay').forEach(el => el.remove());
+
+    // 5) If the user already switched to English, re-apply EN to the fresh nodes + popups.
+    if (currentLang === 'en') {
+      const t = TRANSLATIONS.en;
+      grid.querySelectorAll('[data-i18n]').forEach(el => {
+        const k = el.dataset.i18n;
+        if (t[k] !== undefined) el.innerHTML = t[k];
+      });
+      updatePopupTranslations('en');
+    }
+  }
+
+  const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 6000));
+  Promise.race([client.from('projects').select('*').order('sort_order'), timeout])
+    .then(res => {
+      if (res && res.error) throw res.error;
+      const rows = res && res.data;
+      if (rows && rows.length) applyProjects(rows);
+      else console.warn('[projects] no rows returned — keeping static project cards.');
+    })
+    .catch(err => {
+      console.warn('[projects] Supabase fetch failed — keeping static project cards.', err);
+    });
+});
 
 </script>
 </body>
