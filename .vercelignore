@@ -1,0 +1,5 @@
+# Not part of the published site — keep out of the Vercel deployment.
+.claude
+.env*
+netlify.toml
+README.md
